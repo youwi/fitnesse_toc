@@ -1,0 +1,767 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs
+END
+json-lib-2.4-jdk15.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/json-lib-2.4-jdk15.jar
+END
+aspectjrt.jar
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/aspectjrt.jar
+END
+httpcore-4.3.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/httpcore-4.3.2.jar
+END
+spring-context-support-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-context-support-4.0.2.RELEASE.jar
+END
+jaxb-xjc-2.2.4-1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jaxb-xjc-2.2.4-1.jar
+END
+jackson-annotations-2.0.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jackson-annotations-2.0.6.jar
+END
+validation-api-1.0.0.GA.jar
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/validation-api-1.0.0.GA.jar
+END
+jaxb-api-2.2.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jaxb-api-2.2.3.jar
+END
+commons-collections-3.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-collections-3.2.1.jar
+END
+javassist-3.18.1-GA.jar
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/javassist-3.18.1-GA.jar
+END
+tiles-autotag-core-runtime-1.1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-autotag-core-runtime-1.1.0.jar
+END
+c3p0-0.9.5-pre9.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/c3p0-0.9.5-pre9.jar
+END
+jxl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jxl.jar
+END
+commons-lang-2.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-lang-2.5.jar
+END
+commons-net-2.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-net-2.0.jar
+END
+jboss-transaction-api_1.2_spec-1.0.0.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jboss-transaction-api_1.2_spec-1.0.0.Final.jar
+END
+slf4j-api-1.7.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/slf4j-api-1.7.5.jar
+END
+spring-aop-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-aop-4.0.2.RELEASE.jar
+END
+tiles-servlet-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-servlet-3.0.1.jar
+END
+c3p0-oracle-thin-extras-0.9.5-pre9.jar
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/c3p0-oracle-thin-extras-0.9.5-pre9.jar
+END
+httpmime-4.2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/httpmime-4.2.2.jar
+END
+jettison-1.3.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jettison-1.3.1.jar
+END
+spring-jms-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-jms-4.0.2.RELEASE.jar
+END
+spring-test-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-test-4.0.2.RELEASE.jar
+END
+jackson-core-asl-1.9.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jackson-core-asl-1.9.2.jar
+END
+hibernate-jpamodelgen-4.3.1.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-jpamodelgen-4.3.1.Final.jar
+END
+xmlschema-core-2.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/xmlschema-core-2.0.1.jar
+END
+jstl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jstl.jar
+END
+aspectjweaver.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/aspectjweaver.jar
+END
+logback-core-1.0.13.jar
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/logback-core-1.0.13.jar
+END
+spring-oxm-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-oxm-4.0.2.RELEASE.jar
+END
+spring-instrument-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-instrument-4.0.2.RELEASE.jar
+END
+commons-beanutils-1.8.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-beanutils-1.8.2.jar
+END
+woodstox-core-asl-4.1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/woodstox-core-asl-4.1.1.jar
+END
+commons-pool-1.5.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-pool-1.5.5.jar
+END
+fitnesse-standalone.jar
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/fitnesse-standalone.jar
+END
+poi-3.9-20121203.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/poi-3.9-20121203.jar
+END
+tiles-extras-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-extras-3.0.1.jar
+END
+jcl-over-slf4j-1.7.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jcl-over-slf4j-1.7.5.jar
+END
+hibernate-commons-annotations-4.0.4.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-commons-annotations-4.0.4.Final.jar
+END
+jackson-jaxrs-1.9.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jackson-jaxrs-1.9.2.jar
+END
+jaxb-impl-2.2.4-1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jaxb-impl-2.2.4-1.jar
+END
+spring-jdbc-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-jdbc-4.0.2.RELEASE.jar
+END
+dom4j-1.6.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/dom4j-1.6.1.jar
+END
+tiles-request-servlet-1.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-request-servlet-1.0.1.jar
+END
+slf4j-ext-1.7.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/slf4j-ext-1.7.5.jar
+END
+commons-fileupload-1.2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-fileupload-1.2.2.jar
+END
+YoukuUpload_java_sdk.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/YoukuUpload_java_sdk.jar
+END
+lombok.jar
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/lombok.jar
+END
+mail.jar
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/mail.jar
+END
+stripes-1.5.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/stripes-1.5.6.jar
+END
+bcprov-jdk16-145-1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/bcprov-jdk16-145-1.jar
+END
+standard.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/standard.jar
+END
+jta-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jta-1.1.jar
+END
+fluent-hc-4.3.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/fluent-hc-4.3.5.jar
+END
+cglib-2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/cglib-2.2.jar
+END
+aliyun-openservices-1.2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/aliyun-openservices-1.2.2.jar
+END
+pinyin4j-2.5.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/pinyin4j-2.5.0.jar
+END
+tiles-request-servlet-wildcard-1.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-request-servlet-wildcard-1.0.1.jar
+END
+tiles-core-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-core-3.0.1.jar
+END
+stax2-api-3.1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/stax2-api-3.1.1.jar
+END
+spring-context-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-context-4.0.2.RELEASE.jar
+END
+jackson-xc-1.9.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jackson-xc-1.9.2.jar
+END
+spring-webmvc-portlet-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-webmvc-portlet-4.0.2.RELEASE.jar
+END
+tiles-el-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-el-3.0.1.jar
+END
+commons-dbcp-1.2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-dbcp-1.2.2.jar
+END
+commons-codec-1.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-codec-1.6.jar
+END
+commons-digester-2.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-digester-2.0.jar
+END
+ezmorph-1.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/ezmorph-1.0.2.jar
+END
+commons-lang-2.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-lang-2.6.jar
+END
+joda-time-2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/joda-time-2.1.jar
+END
+c3p0-0.9.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/c3p0-0.9.1.jar
+END
+antlr-2.7.7.jar
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/antlr-2.7.7.jar
+END
+commons-logging-1.1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-logging-1.1.1.jar
+END
+hibernate-jpa-2.1-api-1.0.0.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-jpa-2.1-api-1.0.0.Final.jar
+END
+commons-logging-1.1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-logging-1.1.3.jar
+END
+spring-beans-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-beans-4.0.2.RELEASE.jar
+END
+spring-messaging-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-messaging-4.0.2.RELEASE.jar
+END
+spring-tx-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-tx-4.0.2.RELEASE.jar
+END
+tiles-jsp-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-jsp-3.0.1.jar
+END
+spring-webmvc-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-webmvc-4.0.2.RELEASE.jar
+END
+hibernate-validator-4.3.0.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-validator-4.3.0.Final.jar
+END
+spring-websocket-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-websocket-4.0.2.RELEASE.jar
+END
+tiles-template-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-template-3.0.1.jar
+END
+mysql-connector-java-5.1.18-bin.jar
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/mysql-connector-java-5.1.18-bin.jar
+END
+commons-logging.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-logging.jar
+END
+fluent-hc-4.2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/fluent-hc-4.2.2.jar
+END
+httpclient-cache-4.3.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/httpclient-cache-4.3.5.jar
+END
+slf4j-migrator-1.7.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/slf4j-migrator-1.7.5.jar
+END
+tiles-api-3.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-api-3.0.1.jar
+END
+spring-expression-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-expression-4.0.2.RELEASE.jar
+END
+common-maven-0.0.1-SNAPSHOT.jar
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/common-maven-0.0.1-SNAPSHOT.jar
+END
+httpclient-4.3.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/httpclient-4.3.3.jar
+END
+httpclient-4.3.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/httpclient-4.3.5.jar
+END
+FastInfoset-1.2.9.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/FastInfoset-1.2.9.jar
+END
+jboss-logging-3.1.3.GA.jar
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jboss-logging-3.1.3.GA.jar
+END
+commons-io-1.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-io-1.4.jar
+END
+spring-framework-bom-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-framework-bom-4.0.2.RELEASE.jar
+END
+jackson-mapper-asl-1.9.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jackson-mapper-asl-1.9.2.jar
+END
+jboss-logging-annotations-1.2.0.Beta1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jboss-logging-annotations-1.2.0.Beta1.jar
+END
+aopalliance-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/aopalliance-1.0.jar
+END
+logback-access-1.0.13.jar
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/logback-access-1.0.13.jar
+END
+asm-3.3.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/asm-3.3.1.jar
+END
+tiles-request-jsp-1.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-request-jsp-1.0.1.jar
+END
+httpmime-4.3.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/httpmime-4.3.5.jar
+END
+mysql-connector-java-5.1.33-bin.jar
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/mysql-connector-java-5.1.33-bin.jar
+END
+jandex-1.1.0.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/jandex-1.1.0.Final.jar
+END
+log4j-1.2.16.jar
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/log4j-1.2.16.jar
+END
+httpclient-cache-4.2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/httpclient-cache-4.2.2.jar
+END
+IWSearchSOA-0.0.1-SNAPSHOT.jar
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/IWSearchSOA-0.0.1-SNAPSHOT.jar
+END
+logback-classic-1.0.13.jar
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/logback-classic-1.0.13.jar
+END
+spring-web-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-web-4.0.2.RELEASE.jar
+END
+javapns-jdk16-163.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/javapns-jdk16-163.jar
+END
+tiles-request-api-1.0.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/tiles-request-api-1.0.1.jar
+END
+hibernate-validator-annotation-processor-4.3.0.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-validator-annotation-processor-4.3.0.Final.jar
+END
+commons-httpclient-3.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-httpclient-3.1.jar
+END
+spring-aspects-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-aspects-4.0.2.RELEASE.jar
+END
+spring-core-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-core-4.0.2.RELEASE.jar
+END
+hibernate-entitymanager-4.3.1.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-entitymanager-4.3.1.Final.jar
+END
+commons-lang3-3.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/commons-lang3-3.0.jar
+END
+mchange-commons-java-0.2.8.jar
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/mchange-commons-java-0.2.8.jar
+END
+JavaPNS_2.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/JavaPNS_2.2.jar
+END
+wsdl4j-1.6.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/wsdl4j-1.6.2.jar
+END
+hibernate-envers-4.3.1.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-envers-4.3.1.Final.jar
+END
+spring-instrument-tomcat-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-instrument-tomcat-4.0.2.RELEASE.jar
+END
+spring-orm-4.0.2.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/spring-orm-4.0.2.RELEASE.jar
+END
+hibernate-core-4.3.1.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/manyi/!svn/ver/36950/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/libs/hibernate-core-4.3.1.Final.jar
+END
