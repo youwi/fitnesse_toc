@@ -1,15 +1,8 @@
 package main.java.FybAppSever;
 
-import java.io.IOException;
-
-import org.json.JSONObject;
-
-import utils.Data;
-import utils.JSONParse;
+import main.java.utils.Data;
+import main.java.utils.JSONParse;
 //import utils.UploaderYouku;
-import TestHttpClient.HttpClient;
-import TestHttpClient.HttpRequestCallback;
-import constants.ConfigConstants;
 
 public class UploadYoukuVideoFileTest {
     private Data data;

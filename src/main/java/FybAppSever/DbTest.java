@@ -2,8 +2,8 @@ package main.java.FybAppSever;
 
 import java.util.List;
 
-import db.slim.DbSlimSelectQuery;
-import db.slim.DbSlimSetup;
+import main.java.db.slim.DbSlimSelectQuery;
+import main.java.db.slim.DbSlimSetup;
 
 public class DbTest {
 

@@ -30,7 +30,7 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import db.services.DbConnectionFactory;
+import main.java.db.services.DbConnectionFactory;
 
 public class DbSlimWaitQuery {
 

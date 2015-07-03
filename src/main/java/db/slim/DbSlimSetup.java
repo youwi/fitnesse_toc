@@ -23,8 +23,8 @@
  ******************************************************************************/
 package main.java.db.slim;
 
-import constants.ConfigConstants;
-import db.services.DbConnectionFactory;
+import main.java.constants.ConfigConstants;
+import main.java.db.services.DbConnectionFactory;
 
 public class DbSlimSetup {
 

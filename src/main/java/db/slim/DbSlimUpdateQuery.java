@@ -32,7 +32,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import db.services.DbConnectionFactory;
+import main.java.db.services.DbConnectionFactory;
 
 public class DbSlimUpdateQuery {
 
