@@ -1,13 +1,13 @@
-package ContractAppServer;
+package main.java.ContractAppServer;
 
 import java.io.IOException;
 
-import org.json.JSONObject;
+import main.java.TestHttpClient.HttpClient;
+import main.java.TestHttpClient.HttpRequestCallback;
+import main.java.utils.Data;
+import main.java.utils.JSONParse;
 
-import TestHttpClient.HttpClient;
-import TestHttpClient.HttpRequestCallback;
-import utils.Data;
-import utils.JSONParse;
+import org.json.JSONObject;
 
 public class ContractApp_10000Test {
 	Data data;

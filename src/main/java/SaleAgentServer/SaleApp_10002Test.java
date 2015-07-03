@@ -1,4 +1,4 @@
-package SaleAgentServer;
+package main.java.SaleAgentServer;
 
 import java.io.IOException;
 

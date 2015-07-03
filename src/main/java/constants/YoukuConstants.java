@@ -1,4 +1,4 @@
-package constants;
+package main.java.constants;
 
 public final class YoukuConstants {
     public static final String fileName = "D:\\OS\\test.mp4";

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ******************************************************************************/
-package db.slim;
+package main.java.db.slim;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

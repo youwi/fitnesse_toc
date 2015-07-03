@@ -1,4 +1,4 @@
-package db.slim;
+package main.java.db.slim;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

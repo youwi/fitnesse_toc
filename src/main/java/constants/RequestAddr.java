@@ -1,4 +1,4 @@
-package constants;
+package main.java.constants;
 
 public class RequestAddr {
     public final static String SALEAPPURL = "http://192.168.1.14:8130";

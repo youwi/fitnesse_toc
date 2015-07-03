@@ -1,4 +1,4 @@
-package constants;
+package main.java.constants;
 
 public class ConfigConstants {
     public final static String FYB_BASE_URL = "http://192.168.1.14:8103";// test

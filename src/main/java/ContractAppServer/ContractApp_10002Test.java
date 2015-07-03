@@ -1,4 +1,4 @@
-package ContractAppServer;
+package main.java.ContractAppServer;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package FybAppSever;
+package main.java.FybAppSever;
 
 import java.util.List;
 
