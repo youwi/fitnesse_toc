@@ -31,7 +31,9 @@ public class HttpClient {
             throws IOException {
         try {
             HttpPost httpPost = new HttpPost(URL);
-            httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");         
+            httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");   
+            httpPost.addHeader("os", "monitor"); 
+            httpPost.addHeader("User-ID", "0"); 
             
             httpPost.setEntity(new StringEntity(ci.addParam()));
             // Before begin
