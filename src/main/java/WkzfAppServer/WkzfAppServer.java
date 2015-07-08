@@ -14,15 +14,15 @@ public class WkzfAppServer {
 	Data data;
 	JSONParse jp;
 	String URL;
-	String type;
-	public WkzfAppServer(String URL,String type) {
+
+	public WkzfAppServer(String URL) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
-		this.type = type;
 	}
 
-	public void setParam(String name, String value, String type) throws Exception {
+	public void setParam(String name, String value, String type)
+			throws Exception {
 		data.setParameters(name, value, type);
 	}
 
@@ -35,22 +35,9 @@ public class WkzfAppServer {
 			System.out.println("null paramters!!");
 			return false;
 		} else {
-			String baseURL = null;
-			switch (type)
-			{
-			case "test":
-				baseURL = ConfigConstants.FYB_BASE_URL_TEST + URL;
-				break;
-			case "beta":
-				baseURL = ConfigConstants.FYB_BASE_URL_BETA + URL;
-				break;
-			case "prod":
-				baseURL = ConfigConstants.FYB_BASE_URL_PROD + URL;
-				break;
-			}
 			HttpClient testRequst = new HttpClient();
 			String responseBody = testRequst.httpPostRequest(
-					baseURL,
+					ConfigConstants.WKZF_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
 						public String addParam() {
@@ -65,4 +52,3 @@ public class WkzfAppServer {
 		}
 	}
 }
-
