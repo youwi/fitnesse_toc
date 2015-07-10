@@ -37,7 +37,7 @@ public class YfykAppServer {
 		} else {
 			HttpClient testRequst = new HttpClient();
 			String responseBody = testRequst.httpPostRequest(
-					ConfigConstants.WKZF_BASE_URL + URL,
+					ConfigConstants.YFYK_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
 						public String addParam() {
