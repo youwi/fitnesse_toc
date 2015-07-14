@@ -16,9 +16,9 @@ public class ConfigConstants {
       //  public final static String YFYK_BASE_URL = "appserver.yfyk365.com";// prod
 
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-    public final static String JDBC_CONNECT_URL = "jdbc:mysql://192.168.1.14:3306/hims_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
+    public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
     public final static String JDBC_USERNAME = "root";
-    public final static String JDBC_PASSWORD = "qa123";
+    public final static String JDBC_PASSWORD = "lifang.com";
     
 
     //public final static String[] FYB_UPDATE_PARAM = { "errorCode", "message" };
