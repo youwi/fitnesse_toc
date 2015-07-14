@@ -46,7 +46,10 @@ public class YfykAppServer {
 							return data.getAddParam(obj);
 						}
 					});
+			responseBody =new String(responseBody.getBytes("ISO-8859-1"),"UTF-8");
+			System.out.print(responseBody);
 			JSONObject objResponse = new JSONObject(responseBody);
+		
 			jp.parseJson(objResponse);
 			return jp.checkParam(param);
 		}
