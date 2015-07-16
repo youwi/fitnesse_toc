@@ -19,6 +19,7 @@ public class WkzfWeb {
 	public WkzfWeb(String URL) {
 		
 		this.data = new Data();
+		
 		this.jp = new JSONParse();
 		this.URL = URL;
 	}
