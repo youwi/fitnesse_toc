@@ -11,12 +11,12 @@ import main.java.utils.newJSONParse;
 
 import org.json.JSONObject;
 
-public class WkzfPC {
+public class WkzfWeb {
 	Data data;
 	JSONParse jp;
 	String URL;
 
-	public WkzfPC(String URL) {
+	public WkzfWeb(String URL) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
