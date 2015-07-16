@@ -1,4 +1,4 @@
-package main.java.WkzfPC;
+package main.java.WkzfWeb;
 
 import java.io.IOException;
 
