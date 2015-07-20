@@ -78,6 +78,7 @@ public class JSONParse {
 					if (value != null && !value.contains("{")) {
 						System.out.println("jsonMap_appendKey--------:"
 								+ appendKey);
+						System.out.println();
 						jsonMap.put(appendKey, value);
 					} else {
 						appendKeys.add("/");
@@ -140,6 +141,7 @@ public class JSONParse {
 					if (value != null && !value.contains("{")) {
 						System.out.println("jsonMap_jsonKey2--------:"
 								+ jsonKey2);
+						System.out.println();
 						jsonMap.put(jsonKey2, value);
 						appendKeys.remove(appendKeys.size() - 1);
 						appendKeys.remove(appendKeys.size() - 1);
