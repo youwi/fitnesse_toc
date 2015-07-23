@@ -8,12 +8,10 @@ import main.java.YfykAppServer.YfykAppServer;
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		YfykAppServer yfyk = new YfykAppServer("/houseres/agenthouselist");
+		WkzfAppServer yfyk = new WkzfAppServer("/house/queryHouseById.rest");
 		try {
-			yfyk.setParam("start", "0", "string");
-			yfyk.setParam("size", "20", "string");
-			yfyk.setParam("agentHouseStateStr", "1", "string");
-			yfyk.setParam("agentId", "1180", "string");
+			yfyk.setParam("telPhoneNum", "telPhoneNum", "string");
+			yfyk.setParam("houseId", "84370", "string");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

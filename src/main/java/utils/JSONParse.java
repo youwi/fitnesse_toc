@@ -55,17 +55,33 @@ public class JSONParse {
 	public void parseJson(JSONObject jsonObject) {
 		this.setObj(jsonObject);
 		parseJson(jsonObject, "");
-		getArrayJsonKey(appendKeys);
+		// getArrayJsonKey(appendKeys);
 	}
 
 	private void parseJson(JSONObject jsonObject, String appendKey) {
 		if (null == jsonObject)
 			return;
-		try {
-			Iterator<String> it = jsonObject.keys();
-			while (it.hasNext()) {
-				String key = it.next();
-				JSONArray array = jsonObject.optJSONArray(key);
+		Iterator<String> it = jsonObject.keys();
+		while (it.hasNext()) {
+			String key = it.next();
+			JSONArray arrayTmp = jsonObject.optJSONArray(key);
+			JSONObject objTmp = jsonObject.optJSONObject(key);
+			String value = jsonObject.optString(key);
+
+			if (null != arrayTmp) {
+				appendKeys.add("/");
+				appendKeys.add(key);
+				parseJsonArray(arrayTmp);
+				System.out.println("analyze-------array");
+			} else if (null != objTmp) {
+				System.out.println("analyze-------obj");
+				appendKeys.add("/");
+				appendKeys.add(key);
+				parseJson(objTmp, "");
+			} else if (value != null && !value.contains("{")) {
+				System.out.println("analyze-------value");
+				System.out.println("key:------------" + key
+						+ "-------value:---------" + value);
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.add("/");
 					appendKeys.add(key);
@@ -73,88 +89,60 @@ public class JSONParse {
 				} else {
 					appendKey = key;
 				}
-				if (null == array) {
-					String value = jsonObject.optString(key);
-					if (value != null && !value.contains("{")) {
-						System.out.println("jsonMap_appendKey--------:"
-								+ appendKey);
-						System.out.println();
-						jsonMap.put(appendKey, value);
-					} else {
-						appendKeys.add("/");
-						appendKeys.add(key);
-						parseJson(getJSONObject(value), appendKey);
-					}
-				} else {
-					if ("" != getArrayJsonKey(appendKeys)) {
-						appendKeys.add("/");
-						appendKeys.add(key);
-						appendKey = getArrayJsonKey(appendKeys);
-					} else {
-						appendKeys.add(key);
-						appendKey = key;
-					}
-					System.out.println("arrayKey:"
-							+ getArrayJsonKey(appendKeys));
-					parseJsonArray(array);
+				getArrayJsonKey(appendKeys);
+				jsonMap.put(appendKey, value);
+				if ("" != getArrayJsonKey(appendKeys)) {
+					appendKeys.remove(appendKeys.size() - 1);
+					appendKeys.remove(appendKeys.size() - 1);
 				}
+			} else {
+				System.out.println("arrayTmp value objTmp is all null");
 			}
-		} catch (Exception e) {
-			e.toString();
+
+		}
+		if ("" != getArrayJsonKey(appendKeys)) {
+			appendKeys.remove(appendKeys.size() - 1);
+			appendKeys.remove(appendKeys.size() - 1);
 		}
 	}
 
-	public JSONObject getJSONObject(String json) {
-		try {
-			JSONObject result = new JSONObject(json);
-			return result;
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private int parseJsonArray(JSONArray array) {
-		if (null == array)
-			return -1;
+	private void parseJsonArray(JSONArray array) {
+		String appendKey = "";
 		int len = array.length();
 		for (int i = 0; i < len; i++) {
-			JSONObject obj = (JSONObject) array.opt(i);
-			@SuppressWarnings("unchecked")
-			Iterator<String> it = obj.keys();
-			while (it.hasNext()) {
-				String key = it.next();
-				JSONArray a = obj.optJSONArray(key);
-				if (a != null) {
+			JSONArray arrayTmp = array.optJSONArray(i);
+			JSONObject objTmp = array.optJSONObject(i);
+			String value = array.optString(i);
+
+			if (null != arrayTmp) {
+				parseJsonArray(arrayTmp);
+				System.out.println("jsonMap_arrayTmp-------");
+			} else if (null != objTmp) {
+				System.out.println("jsonMap_objTmp-------");
+				parseJson(objTmp, "");
+			} else if (value != null && !value.contains("{")) {
+				System.out.println("analyze-------value");
+				System.out.println("key:------------" + i
+						+ "-------value:---------" + value);
+				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.add("/");
 					appendKeys.add(i + "");
-					appendKeys.add("/");
-					appendKeys.add(key);
-					parseJsonArray(a);
-				} else {
-					appendKeys.add("/");
-					appendKeys.add(i + "");
-					appendKeys.add("/");
-					appendKeys.add(key);
-					String jsonKey2 = getArrayJsonKey(appendKeys);
-					String value = obj.optString(key);
-					if (value != null && !value.contains("{")) {
-						System.out.println("jsonMap_jsonKey2--------:"
-								+ jsonKey2);
-						System.out.println();
-						jsonMap.put(jsonKey2, value);
-						appendKeys.remove(appendKeys.size() - 1);
-						appendKeys.remove(appendKeys.size() - 1);
-						appendKeys.remove(appendKeys.size() - 1);
-						appendKeys.remove(appendKeys.size() - 1);
-					} else {
-						parseJson(getJSONObject(value), jsonKey2);
-					}
+					appendKey = getArrayJsonKey(appendKeys);
 				}
+				// else {
+				// appendKey = i+"";
+				// }
+				getArrayJsonKey(appendKeys);
+				jsonMap.put(appendKey, value);
+				appendKeys.remove(appendKeys.size() - 1);
+				appendKeys.remove(appendKeys.size() - 1);
+			} else {
+				System.out.println("arrayTmp value objTmp is all null");
 			}
+
 		}
 		appendKeys.remove(appendKeys.size() - 1);
-		return 1;
+		appendKeys.remove(appendKeys.size() - 1);
 	}
 
 	public String getArrayJsonKey(ArrayList<String> appendKeys) {
@@ -165,10 +153,6 @@ public class JSONParse {
 		}
 		System.out.println("appendKeys--------:" + arrayJsonKey);
 		return arrayJsonKey;
-	}
-
-	public HashMap<String, String> getJSONMap() {
-		return jsonMap;
 	}
 
 }
