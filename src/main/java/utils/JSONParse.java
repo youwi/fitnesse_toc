@@ -91,7 +91,7 @@ public class JSONParse {
 				}
 				// getArrayJsonKey(appendKeys);
 				System.out.println("appendKeys:"
-						+ getArrayJsonKey(appendKeys)+"\n"+"value-----:"+value);
+						+ appendKey+"\n"+"value-----:"+value);
 				jsonMap.put(appendKey, value);
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.remove(appendKeys.size() - 1);
@@ -143,9 +143,9 @@ public class JSONParse {
 				// appendKey = i+"";
 				// }
 				// getArrayJsonKey(appendKeys);
-				jsonMap.put(appendKey, value);
 				System.out.println("appendKeys:"
-						+ getArrayJsonKey(appendKeys)+"\n"+"value-----:"+value);
+						+ appendKey+"\n"+"value-----:"+value);
+				jsonMap.put(appendKey, value);
 				appendKeys.remove(appendKeys.size() - 1);
 				appendKeys.remove(appendKeys.size() - 1);
 			} else {
