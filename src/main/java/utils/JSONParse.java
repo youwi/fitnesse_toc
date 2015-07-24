@@ -119,7 +119,11 @@ public class JSONParse {
 				System.out.println("jsonMap_arrayTmp-------");
 			} else if (null != objTmp) {
 				System.out.println("jsonMap_objTmp-------");
+				appendKeys.add("/");
+				appendKeys.add(i + "");
 				parseJson(objTmp, "");
+				appendKeys.remove(appendKeys.size() - 1);
+				appendKeys.remove(appendKeys.size() - 1);
 			} else if (value != null && !value.contains("{")) {
 				System.out.println("analyze-------value");
 				System.out.println("key:------------" + i
