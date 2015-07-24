@@ -141,8 +141,10 @@ public class JSONParse {
 			}
 
 		}
-		appendKeys.remove(appendKeys.size() - 1);
-		appendKeys.remove(appendKeys.size() - 1);
+		if ("" != getArrayJsonKey(appendKeys)) {
+			appendKeys.remove(appendKeys.size() - 1);
+			appendKeys.remove(appendKeys.size() - 1);
+		}
 	}
 
 	public String getArrayJsonKey(ArrayList<String> appendKeys) {
