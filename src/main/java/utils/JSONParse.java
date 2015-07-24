@@ -72,16 +72,16 @@ public class JSONParse {
 				appendKeys.add("/");
 				appendKeys.add(key);
 				parseJsonArray(arrayTmp);
-				System.out.println("analyze-------array");
+				// System.out.println("analyze-------array");
 			} else if (null != objTmp) {
-				System.out.println("analyze-------obj");
+				// System.out.println("analyze-------obj");
 				appendKeys.add("/");
 				appendKeys.add(key);
 				parseJson(objTmp, "");
 			} else if (value != null && !value.contains("{")) {
-				System.out.println("analyze-------value");
-				System.out.println("key:------------" + key
-						+ "-------value:---------" + value);
+				// System.out.println("analyze-------value");
+//				System.out.println("key:------------" + key
+//						+ "-------value:---------" + value);
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.add("/");
 					appendKeys.add(key);
@@ -89,7 +89,9 @@ public class JSONParse {
 				} else {
 					appendKey = key;
 				}
-				getArrayJsonKey(appendKeys);
+				// getArrayJsonKey(appendKeys);
+				System.out.println("appendKeys:"
+						+ getArrayJsonKey(appendKeys)+"\n"+"value-----:"+value);
 				jsonMap.put(appendKey, value);
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.remove(appendKeys.size() - 1);
@@ -103,7 +105,7 @@ public class JSONParse {
 		if ("" != getArrayJsonKey(appendKeys)) {
 			appendKeys.remove(appendKeys.size() - 1);
 			appendKeys.remove(appendKeys.size() - 1);
-			getArrayJsonKey(appendKeys);
+			// getArrayJsonKey(appendKeys);
 		}
 	}
 
@@ -117,21 +119,21 @@ public class JSONParse {
 
 			if (null != arrayTmp) {
 				parseJsonArray(arrayTmp);
-				System.out.println("jsonMap_arrayTmp-------");
+				// System.out.println("jsonMap_arrayTmp-------");
 			} else if (null != objTmp) {
-				System.out.println("jsonMap_objTmp-------");
+				// System.out.println("jsonMap_objTmp-------");
 				appendKeys.add("/");
 				appendKeys.add(i + "");
-				getArrayJsonKey(appendKeys);
+				// getArrayJsonKey(appendKeys);
 				parseJson(objTmp, "");
-//				if ("" != getArrayJsonKey(appendKeys)) {
-//					appendKeys.remove(appendKeys.size() - 1);
-//					appendKeys.remove(appendKeys.size() - 1);
-//				}
+				// if ("" != getArrayJsonKey(appendKeys)) {
+				// appendKeys.remove(appendKeys.size() - 1);
+				// appendKeys.remove(appendKeys.size() - 1);
+				// }
 			} else if (value != null && !value.contains("{")) {
-				System.out.println("analyze-------value");
-				System.out.println("key:------------" + i
-						+ "-------value:---------" + value);
+//				System.out.println("analyze-------value");
+//				System.out.println("key:------------" + i
+//						+ "-------value:---------" + value);
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.add("/");
 					appendKeys.add(i + "");
@@ -140,8 +142,10 @@ public class JSONParse {
 				// else {
 				// appendKey = i+"";
 				// }
-				getArrayJsonKey(appendKeys);
+				// getArrayJsonKey(appendKeys);
 				jsonMap.put(appendKey, value);
+				System.out.println("appendKeys:"
+						+ getArrayJsonKey(appendKeys)+"\n"+"value-----:"+value);
 				appendKeys.remove(appendKeys.size() - 1);
 				appendKeys.remove(appendKeys.size() - 1);
 			} else {
@@ -161,7 +165,7 @@ public class JSONParse {
 			// System.out.println(appendKeys.get(i));
 			arrayJsonKey = arrayJsonKey + appendKeys.get(i);
 		}
-		System.out.println("appendKeys--------:" + arrayJsonKey);
+		// System.out.println("appendKeys--------:" + arrayJsonKey);
 		return arrayJsonKey;
 	}
 
