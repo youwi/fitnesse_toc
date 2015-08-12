@@ -83,6 +83,9 @@ public class Data {
         case "string":
             this.setParameters(name, value.toString());
             break;
+        case "number":
+            this.setParameters(name, value.toString());
+            break;
         case "date":
             this.setParameters(name, TypeChange.stringToDate(value.toString()));
             break;
@@ -95,6 +98,7 @@ public class Data {
             break;
         case "int":
             this.setParameters(name, TypeChange.stringToInt(value.toString()));
+        
         case "bigdecimal":
             this.setParameters(name,
                     TypeChange.stringToBigDecimal(value.toString()));
