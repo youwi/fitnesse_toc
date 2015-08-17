@@ -84,7 +84,7 @@ public class Data {
             this.setParameters(name, value.toString());
             break;
         case "number":
-            this.setParameters(name, value.toString());
+            this.setParameters(name, TypeChange.stringToNumber(value.toString()));
             break;
         case "date":
             this.setParameters(name, TypeChange.stringToDate(value.toString()));
