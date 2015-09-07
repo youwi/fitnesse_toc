@@ -3,13 +3,16 @@ package main.java.utils;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 public class Data {
     private HashMap<String, Object> map = new HashMap<String, Object>();
-
+    private HashMap<String, String> headermap = new HashMap<String, String>();
+    
     public Data() {
         HashMap<String, String> parameters = new HashMap<String, String>();
     }
@@ -17,11 +20,15 @@ public class Data {
     public HashMap<String, Object> getParameters() {
         return this.map;
     }
+    
+    public HashMap<String, String> getHeaderParameters() {
+        return this.headermap;
+    }
 
     public String getAddParam(JSONObject obj) {
     	 	
         Set<Map.Entry<String, Object>> allSet = null;
-        allSet = this.getParameters().entrySet();
+        allSet = this.getParameters().entrySet(); 
         Iterator<Map.Entry<String, Object>> iter = allSet.iterator();
         while (iter.hasNext()) {
             Map.Entry<String, Object> me = iter.next();
@@ -33,6 +40,17 @@ public class Data {
         System.out.println(obj);
         return obj.toString();
     }
+    
+    //get header param
+    public Iterator<Map.Entry<String, String>> getAddHeaderParam() {
+	 	
+        Set<Entry<String, String>> allSet = null;
+        allSet = this.getHeaderParameters().entrySet();
+        Iterator<Map.Entry<String, String>> iter = allSet.iterator();
+        System.out.println(iter);
+        return iter;
+    }
+    
     
     public Map<String, Object> getAddParamMap() {
 	 	
@@ -49,9 +67,17 @@ public class Data {
         }
         return pars;
     }
-
+    
+    
+    
     public void setParameters(String name, Object value) {
         map.put(name, value);
+    }
+    
+    
+    //set header parameter
+    public void setHeaderParameters(String name, String value) {
+    	headermap.put(name, value);
     }
 
     public void println(String type1, String err) {

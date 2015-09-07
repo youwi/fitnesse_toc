@@ -1,6 +1,9 @@
 package main.java.FybAppSever;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import main.java.TestHttpClient.HttpClient;
 import main.java.TestHttpClient.HttpRequestCallback;
@@ -8,6 +11,7 @@ import main.java.constants.ConfigConstants;
 import main.java.utils.Data;
 import main.java.utils.JSONParse;
 
+import org.apache.http.client.methods.HttpPost;
 import org.json.JSONObject;
 
 public class CheckPublishSellTest {
@@ -24,6 +28,12 @@ public class CheckPublishSellTest {
 	public void setParam(String name, String value, String type)
 			throws Exception {
 		data.setParameters(name, value, type);
+	}
+	
+	//set header param 
+	public void setHeaderParam(String name, String value)
+			throws Exception {
+		data.setHeaderParameters(name, value);
 	}
 
 	public String getParam(String key) {
@@ -43,6 +53,7 @@ public class CheckPublishSellTest {
 						public String addParam() {
 							// TODO Auto-generated method stub
 							JSONObject obj = new JSONObject();
+							
 							return data.getAddParam(obj);
 						}
 					});
