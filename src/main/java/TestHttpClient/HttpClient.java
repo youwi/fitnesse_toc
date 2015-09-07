@@ -36,9 +36,9 @@ public class HttpClient {
 			Data data = new Data();
 			Iterator<Map.Entry<String, String>> iter = data.getAddHeaderParam();
 			HttpPost httpPost = new HttpPost(URL);
-			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
-			httpPost.addHeader("os", "monitor");
-			httpPost.addHeader("User-ID", "0");
+//			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
+//			httpPost.addHeader("os", "monitor");
+//			httpPost.addHeader("User-ID", "0");
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
