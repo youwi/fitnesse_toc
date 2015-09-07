@@ -37,20 +37,16 @@ public class HttpClient {
 			
 			Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
 			HttpPost httpPost = new HttpPost(URL);
-//			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
-//			httpPost.addHeader("os", "monitor");
-//			httpPost.addHeader("User-ID", "0");
+			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
+			httpPost.addHeader("os", "monitor");
+			httpPost.addHeader("User-ID", "0");
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
 				System.out.println(me.getKey()+me.getValue());
 			}
             
-			
-			
-			
-			
-			
+
 			httpPost.setEntity(new StringEntity(ci.addParam()));
 			// Before begin
 			// HttpEntity reqEntity = null;
