@@ -1,6 +1,9 @@
 package main.java.WkzfAppServer;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import main.java.TestHttpClient.HttpClient;
 import main.java.TestHttpClient.HttpRequestCallback;
@@ -44,6 +47,12 @@ public class WkzfAppServer {
 							// TODO Auto-generated method stub
 							JSONObject obj = new JSONObject();
 							return data.getAddParam(obj);
+						}
+
+						@Override
+						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+							// TODO Auto-generated method stub
+							return data.getAddHeaderParam();
 						}
 					});
 			JSONObject objResponse = new JSONObject(responseBody);

@@ -1,12 +1,16 @@
 package main.java.JrspAppServer;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import main.java.TestHttpClient.HttpClient;
 import main.java.TestHttpClient.HttpRequestCallback;
 import main.java.constants.ConfigConstants;
 import main.java.utils.Data;
 import main.java.utils.JSONParse;
+
 
 import org.json.JSONObject;
 
@@ -45,11 +49,19 @@ public class JrspAppServer {
 			String responseBody = testRequst.httpPostRequest(
 					ConfigConstants.JRSP_BASE_URL + URL,
 					new HttpRequestCallback() {
-						@Override
 						public String addParam() {
+							
 							// TODO Auto-generated method stub
 							JSONObject obj = new JSONObject();
 							return data.getAddParam(obj);
+						}
+
+						@Override
+						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+							// TODO Auto-generated method stub
+							return data.getAddHeaderParam();
+						
+							
 						}
 					});
 			JSONObject objResponse = new JSONObject(responseBody);

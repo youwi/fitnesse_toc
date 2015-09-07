@@ -1,6 +1,9 @@
 package main.java.YfykAppServer;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import main.java.TestHttpClient.HttpClient;
 import main.java.TestHttpClient.HttpRequestCallback;
@@ -45,6 +48,12 @@ public class YfykAppServer {
 							// TODO Auto-generated method stub
 							JSONObject obj = new JSONObject();
 							return data.getAddParam(obj);
+						}
+
+						@Override
+						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+							// TODO Auto-generated method stub
+							return data.getAddHeaderParam();
 						}
 					});
 			responseBody =new String(responseBody.getBytes("ISO-8859-1"),"UTF-8");

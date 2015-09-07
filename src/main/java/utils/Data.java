@@ -24,7 +24,7 @@ public class Data {
     public HashMap<String, String> getHeaderParameters() {
         return this.headermap;
     }
-
+   
     public String getAddParam(JSONObject obj) {
     	 	
         Set<Map.Entry<String, Object>> allSet = null;
@@ -41,16 +41,15 @@ public class Data {
         return obj.toString();
     }
     
-    //get header param
+    
+    //get header parameter
     public Iterator<Map.Entry<String, String>> getAddHeaderParam() {
 	 	
-        Set<Entry<String, String>> allSet = null;
-        allSet = this.getHeaderParameters().entrySet();
+        Set<Map.Entry<String, String>> allSet = null;
+        allSet = this.getHeaderParameters().entrySet(); 
         Iterator<Map.Entry<String, String>> iter = allSet.iterator();
-        System.out.println(iter);
         return iter;
     }
-    
     
     public Map<String, Object> getAddParamMap() {
 	 	
@@ -68,7 +67,16 @@ public class Data {
         return pars;
     }
     
-    
+    //get header parameter
+    public Iterator<Map.Entry<String, String>> getAddHeaderParamMap() {
+	 	
+    	Set<Map.Entry<String, String>> allSet = null;
+        allSet = this.getHeaderParameters().entrySet();
+        Iterator<Map.Entry<String, String>> iter = allSet.iterator();
+        return iter;
+        
+       
+    }
     
     public void setParameters(String name, Object value) {
         map.put(name, value);

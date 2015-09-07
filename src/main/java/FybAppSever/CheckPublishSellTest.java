@@ -56,6 +56,12 @@ public class CheckPublishSellTest {
 							
 							return data.getAddParam(obj);
 						}
+
+						@Override
+						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+							// TODO Auto-generated method stub
+							return data.getAddHeaderParam();
+						}
 					});
 			JSONObject objResponse = new JSONObject(responseBody);
 			jp.parseJson(objResponse);

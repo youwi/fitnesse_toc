@@ -20,6 +20,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.HttpEntity;
+import org.json.JSONObject;
 
 public class HttpClient {
 
@@ -33,8 +34,8 @@ public class HttpClient {
 
 	public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
 		try {
-			Data data = new Data();
-			Iterator<Map.Entry<String, String>> iter = data.getAddHeaderParam();
+			
+			Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
 			HttpPost httpPost = new HttpPost(URL);
 //			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
 //			httpPost.addHeader("os", "monitor");
@@ -42,8 +43,14 @@ public class HttpClient {
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
+				System.out.println(me.getKey()+me.getValue());
 			}
-
+            
+			
+			
+			
+			
+			
 			httpPost.setEntity(new StringEntity(ci.addParam()));
 			// Before begin
 			// HttpEntity reqEntity = null;
