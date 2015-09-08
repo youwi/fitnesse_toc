@@ -30,7 +30,13 @@ public class WkzfWeb {
 			throws Exception {
 		data.setParameters(name, value, type);
 	}
-
+	 
+	//set header parameter 
+	public void setHeaderParam(String name, String value)
+			throws Exception {
+		data.setHeaderParameters(name, value);
+	}
+		
 	public String getParam(String key) {
 		return jp.getResult(key);
 	}
