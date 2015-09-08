@@ -81,7 +81,8 @@ public class TypeChange {
 	}
 
 	public static byte[] stringToByte64(String pathString) throws IOException {
-		FileInputStream fis = new FileInputStream(pathString);
+		File file = new File(pathString);
+		FileInputStream fis = new FileInputStream(file);
 		byte[] rs = new byte[fis.available()];
 		fis.read(rs);
 		fis.close();
