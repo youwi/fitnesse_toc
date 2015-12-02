@@ -110,6 +110,7 @@ public class Data {
         }
         if (null == value) {
             value = "";
+            type = "string";
         }
         switch (type.toLowerCase()) {
 
