@@ -108,6 +108,9 @@ public class Data {
         if (null == type) {
             this.setParameters(name, value);
         }
+        if (null == value) {
+            value = "";
+        }
         switch (type.toLowerCase()) {
 
         case "fileupload":
