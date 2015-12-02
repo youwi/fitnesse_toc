@@ -9,7 +9,7 @@ public class ConfigConstants {
   //  public final static String WKZF_BASE_URL = "http://beta.wkzfang.com:8117";// beta
   //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
     
-    public final static String WKZF_NEWBUILDING_BASE_URL = "http://10.0.18.79:8127";// test
+    public final static String WKZF_NEWBUILDING_BASE_URL = "http://10.0.18.79:8142";// test
   //  public final static String WKZF_BASE_URL = "http://beta.wkzfang.com:8117";// beta
   //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
     
