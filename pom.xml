@@ -4,7 +4,7 @@
   <artifactId>IAT</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>IAT QA接口自动化</name>
+  <name>IAT</name>
   <description>qaIAT</description>
   
 	<properties>
