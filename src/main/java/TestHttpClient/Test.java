@@ -9,10 +9,10 @@ import main.java.YfykAppServer.YfykAppServer;
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		LegalAppServer legal = new LegalAppServer("/law/scanCoding.action");
+		LegalAppServer legal = new LegalAppServer("/law/getBusinessDetail.action");
 		try {
-			legal.setParam("businessId", "SHS201512080002", "string");
-			legal.setParam("uId", "87", "string");
+			legal.setParam("businessId", "SHS201512080003", "string");
+			//legal.setParam("uId", "87", "string");
 //			yfyk.setParam("houseId", "84370", "string");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
