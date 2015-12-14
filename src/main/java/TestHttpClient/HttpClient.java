@@ -75,7 +75,8 @@ public class HttpClient {
 			setResponseBody(httpclient.execute(httpPost, responseHandler));
 			System.out.println("-------------------------------------------");
 			// System.out.println(getResponseBody());
-			System.out.println("responseBody: " + responseBody);
+			String responseBody2 = new String (responseBody.getBytes("ISO-8859-1"),"utf-8");
+			System.out.println("responseBody: " + responseBody2);
 			System.out.println("-------------------------------------------");
 			return responseBody;
 		} finally {
