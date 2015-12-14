@@ -1,5 +1,6 @@
 package main.java.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -90,8 +91,17 @@ public class JSONParse {
 					appendKey = key;
 				}
 				// getArrayJsonKey(appendKeys);
-				System.out.println("appendKeys:"
-						+ appendKey+"\n"+"value-----:"+value);
+				
+				try {
+					String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
+					System.out.println("appendKeys:"
+							+ appendKey+"\n"+"value-----:"+value1);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			
 				jsonMap.put(appendKey, value);
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.remove(appendKeys.size() - 1);
