@@ -77,7 +77,7 @@ public class HttpClient {
 			// System.out.println(getResponseBody());	
 			System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
 			System.out.println("-------------------------------------------");
-			return responseBody;
+			return new String (responseBody.getBytes("ISO-8859-1"),"utf-8");
 		} finally {
 			httpclient.close();
 		}
