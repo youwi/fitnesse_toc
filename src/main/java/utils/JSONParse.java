@@ -95,7 +95,7 @@ public class JSONParse {
 				try {
 					String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
 					System.out.println("appendKeys:"
-							+ appendKey+"\n"+"value-----:"+value1);
+							+ appendKey+"\n"+"value-----:"+value);
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
