@@ -9,6 +9,7 @@ public class TestUtil {
 		// JSONObject objResponse = this.getObj();
 		int x = 0;
 		int y = 0;
+		int z = 0;
 		boolean flag = true;
 		ArrayList<String> params = new ArrayList<String>();
 		String regex = ",";
