@@ -10,6 +10,7 @@ public class TestUtil {
 		int i =0;
 		int j = 0;
 		int test = 0;
+		int test2 = 0;
 		boolean flag = true;
 		ArrayList<String> params = new ArrayList<String>();
 		String regex = ",";
