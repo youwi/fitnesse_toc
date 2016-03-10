@@ -8,6 +8,7 @@ public class TestUtil {
 	public boolean checkParam(JSONObject objResponse, String args) {
 		// JSONObject objResponse = this.getObj();
 		int i =0;
+		int j = 0;
 		boolean flag = true;
 		ArrayList<String> params = new ArrayList<String>();
 		String regex = ",";
