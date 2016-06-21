@@ -1,34 +1,0 @@
-10
-
-dir
-37140
-http://192.168.1.111/svn/manyi/rd/qa/AutoTest/InterfaceAutoTest/trunk/InterfaceAutoTest/src/db
-http://192.168.1.111/svn/manyi
-
-
-
-2015-01-05T07:06:45.596533Z
-27318
-gavin
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-02343aca-7721-6942-bcec-0f0054b19bd2
-
-services
-dir
-
-slim
-dir
-

@@ -3,14 +3,12 @@ package main.java.YfykAppServer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import main.java.TestHttpClient.HttpClient;
 import main.java.TestHttpClient.HttpRequestCallback;
 import main.java.constants.ConfigConstants;
 import main.java.utils.Data;
 import main.java.utils.JSONParse;
-import main.java.utils.newJSONParse;
 
 import org.json.JSONObject;
 
