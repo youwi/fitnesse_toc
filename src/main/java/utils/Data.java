@@ -113,6 +113,8 @@ public class Data {
             value = "";
             type = "string";
         }
+        System.out.println("setParameters value:"+value+"!");
+        System.out.println("setParameters type:"+type+"!");
         switch (type.toLowerCase()) {
 
         case "fileupload":
