@@ -24,7 +24,7 @@ public class HouseholderAppServer {
 		this.URL = URL;
 	}
 
-	public void setParam(String name, String value, String type)
+	public void setParam(String name, Object value, String type)
 			throws Exception {
 		data.setParameters(name, value, type);
 	}
