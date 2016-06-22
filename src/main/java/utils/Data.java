@@ -109,15 +109,12 @@ public class Data {
         if (null == type) {
             this.setParameters(name, value);
         }
-        System.out.println("setParameters value:"+value.toString()+"!");
-      
-        if (null == value || "" .equals( value.toString().trim())) {
-            //value = "";
+
+        if (null == value || "".equals( value.toString().trim())) {
+            value = "";
             type = "string";
-        }else{
-        	System.out.println("setParameters value:"+value+"!");
-            System.out.println("setParameters type:"+type+"!");
         }
+        
         switch (type.toLowerCase()) {
 
         case "fileupload":
