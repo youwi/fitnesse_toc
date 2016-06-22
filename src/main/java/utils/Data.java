@@ -110,11 +110,12 @@ public class Data {
         }
         System.out.println("setParameters value:"+value.toString()+"!");
         if (null == value || "" == value.toString()) {
-            value = "";
+            //value = "";
             type = "string";
+        }else{
+        	System.out.println("setParameters value:"+value+"!");
+            System.out.println("setParameters type:"+type+"!");
         }
-        System.out.println("setParameters value:"+value+"!");
-        System.out.println("setParameters type:"+type+"!");
         switch (type.toLowerCase()) {
 
         case "fileupload":
