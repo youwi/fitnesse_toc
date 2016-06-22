@@ -17,11 +17,18 @@ public class WkzfAppServer {
 	Data data;
 	JSONParse jp;
 	String URL;
+	String env = null;
 
 	public WkzfAppServer(String URL) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
+	}
+	public WkzfAppServer(String URL,String env) {
+		this.data = new Data();
+		this.jp = new JSONParse();
+		this.URL = URL;
+		this.env = env;
 	}
 
 	public void setParam(String name, String value, String type)
@@ -46,7 +53,9 @@ public class WkzfAppServer {
 			return false;
 		} else {
 			HttpClient testRequst = new HttpClient();
-			String responseBody = testRequst.httpPostRequest(
+			String responseBody = null;
+			if(null == env||"test".equals(env.toLowerCase())){
+			 responseBody = testRequst.httpPostRequest(
 					ConfigConstants.USER_APP_SERVER_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
@@ -62,23 +71,9 @@ public class WkzfAppServer {
 							return data.getAddHeaderParam();
 						}
 					});
-			JSONObject objResponse = new JSONObject(responseBody);
-			jp.parseJson(objResponse);
-			return jp.checkParam(param);
-		}
-	}
-	
-	public boolean testRun(String param,String env)throws IOException{
-		if (null == env || "".equals( env.trim())) {
-			return testRun(param);
-        }else if("sim" == env.toLowerCase())
-        {
-        	if (null == param.trim()) {
-    			System.out.println("null paramters!!");
-    			return false;
-    		} else {
-    			HttpClient testRequst = new HttpClient();
-    			String responseBody = testRequst.httpPostRequest(
+			}else if("sim".equals(env.toLowerCase()))
+			{
+				 responseBody = testRequst.httpPostRequest(
     					ConfigConstants.USER_APP_SERVER_SIM_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
@@ -94,18 +89,15 @@ public class WkzfAppServer {
     							return data.getAddHeaderParam();
     						}
     					});
-    			JSONObject objResponse = new JSONObject(responseBody);
-    			jp.parseJson(objResponse);
-    			return jp.checkParam(param);
-    		}
-        }else if("test" == env.toLowerCase())
-        {
-        	return testRun(param);
-        }else{
-        	System.out.println("env name error");
-        	return false;
-        }
-		
-		
+			}else{
+				System.out.println("env name error");
+	        	return false;
+			}
+			
+			JSONObject objResponse = new JSONObject(responseBody);
+			jp.parseJson(objResponse);
+			return jp.checkParam(param);
+		}
 	}
+
 }

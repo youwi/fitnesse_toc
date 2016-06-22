@@ -11,7 +11,7 @@ import main.java.YfykAppServer.YfykAppServer;
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		HouseholderAppServer legal = new HouseholderAppServer("/release/getHouseFdListInfo.rest");
+		WkzfAppServer legal = new WkzfAppServer("/release/getHouseFdListInfo.rest","sim");
 		try {
 			legal.setParam("type", "", "int");
 			legal.setParam("hostMobile", "13816974762", "string");		
