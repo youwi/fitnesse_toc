@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.http.Header;
+import org.apache.http.util.TextUtils;
 import org.json.JSONObject;
 
 public class Data {
@@ -109,7 +110,8 @@ public class Data {
             this.setParameters(name, value);
         }
         System.out.println("setParameters value:"+value.toString()+"!");
-        if (null == value || "" == value.toString()) {
+      
+        if (null == value || "" .equals( value.toString().trim())) {
             //value = "";
             type = "string";
         }else{
