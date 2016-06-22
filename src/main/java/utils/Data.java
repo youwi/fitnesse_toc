@@ -109,7 +109,7 @@ public class Data {
             this.setParameters(name, value);
         }
         
-        if (null == value || "" == value) {
+        if (null == value || "" == value.toString()) {
             value = "";
             type = "string";
         }
