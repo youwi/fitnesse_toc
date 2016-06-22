@@ -1,9 +1,9 @@
 package main.java.constants;
 
 public class ConfigConstants {
-    public final static String WKZF_BASE_URL = "http://10.0.18.79:8117";// test
-  //  public final static String WKZF_BASE_URL = "http://beta.wkzfang.com:8117";// beta
-  //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
+    public final static String USER_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8117";// test
+    public final static String USER_APP_SERVER_SIM_BASE_URL = "http://userappsvr.sim.wkzf:80";// sim
+    //public final static String USER_APP_SERVER_PROD_BASE_URL = "http://userapp.wkzfang.com";// prod
     
     public final static String WKZF_HOUSEHOLDER_BASE_URL = "http://10.0.18.79:8127";// test
   //  public final static String WKZF_BASE_URL = "http://beta.wkzfang.com:8117";// beta
