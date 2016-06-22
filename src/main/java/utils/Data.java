@@ -108,7 +108,8 @@ public class Data {
         if (null == type) {
             this.setParameters(name, value);
         }
-        if (null == value) {
+        
+        if (null == value || "" == value) {
             value = "";
             type = "string";
         }

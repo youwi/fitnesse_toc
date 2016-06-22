@@ -35,7 +35,6 @@ public class NewBuildingAppServer {
 		data.setHeaderParameters(name, value);
 	}
 		
-
 	public String getParam(String key) {
 		return jp.getResult(key);
 	}
