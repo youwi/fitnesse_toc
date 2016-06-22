@@ -108,7 +108,7 @@ public class Data {
         if (null == type) {
             this.setParameters(name, value);
         }
-        System.out.println("setParameters value:"+value+"!");
+        System.out.println("setParameters value:"+value.toString()+"!");
         if (null == value || "" == value.toString()) {
             value = "";
             type = "string";
