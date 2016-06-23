@@ -17,6 +17,7 @@ public class WkzfAppServer {
 	JSONParse jp;
 	String URL;
 	String env = null;
+	String responseBody = null;
 
 	public WkzfAppServer(String URL) {
 		this.data = new Data();
@@ -56,7 +57,7 @@ public class WkzfAppServer {
 			return false;
 		} else {
 			HttpClient testRequst = new HttpClient();
-			String responseBody = null;
+			
 			if(null == env||"test".equals(env.toLowerCase())){
 			 responseBody = testRequst.httpPostRequest(
 					ConfigConstants.USER_APP_SERVER_TEST_BASE_URL + URL,
@@ -114,4 +115,11 @@ public class WkzfAppServer {
 		}
 	}
 
+	public boolean checkContainsString(String param) {
+		return responseBody.contains(param);
+	}
+	
+	public boolean checkEqualString(String param) {
+		return responseBody.equals(param);
+	}
 }
