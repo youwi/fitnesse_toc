@@ -3,7 +3,6 @@ package main.java.JrspAppServer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import main.java.TestHttpClient.HttpClient;
 import main.java.TestHttpClient.HttpRequestCallback;
@@ -11,18 +10,30 @@ import main.java.constants.ConfigConstants;
 import main.java.utils.Data;
 import main.java.utils.JSONParse;
 
-
 import org.json.JSONObject;
 
 public class JrspAppServer {
 	Data data;
 	JSONParse jp;
 	String URL;
+	String env = null;
 
 	public JrspAppServer(String URL) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
+	}
+	
+	public JrspAppServer(String URL,String env) {
+		this.data = new Data();
+		this.jp = new JSONParse();
+		this.URL = URL;
+		this.env = env;
+	}
+	
+	public void setJsonParam(String json)
+			throws Exception {
+		data.setJsonParam(json);
 	}
 
 	public void setParam(String name, String value, String type)
@@ -52,8 +63,7 @@ public class JrspAppServer {
 						public String addParam() {
 							
 							// TODO Auto-generated method stub
-							JSONObject obj = new JSONObject();
-							return data.getAddParam(obj);
+							return data.getAddParam();
 						}
 
 						@Override
@@ -62,6 +72,12 @@ public class JrspAppServer {
 							return data.getAddHeaderParam();
 						
 							
+						}
+
+						@Override
+						public String addJsonParam() {
+							// TODO Auto-generated method stub
+							return data.getJsonParam();
 						}
 					});
 			JSONObject objResponse = new JSONObject(responseBody);

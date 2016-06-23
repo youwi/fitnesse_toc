@@ -3,16 +3,14 @@ package main.java.utils;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.http.Header;
-import org.apache.http.util.TextUtils;
 import org.json.JSONObject;
 
 public class Data {
     private HashMap<String, Object> map = new HashMap<String, Object>();
     private HashMap<String, String> headermap = new HashMap<String, String>();
+    private String jsonParam = null;
     
     public Data() {
         HashMap<String, String> parameters = new HashMap<String, String>();
@@ -26,20 +24,23 @@ public class Data {
         return this.headermap;
     }
    
-    public String getAddParam(JSONObject obj) {
+    public String getAddParam() {
     	 	
+    	JSONObject obj = new JSONObject();
         Set<Map.Entry<String, Object>> allSet = null;
-        allSet = this.getParameters().entrySet(); 
-        Iterator<Map.Entry<String, Object>> iter = allSet.iterator();
-        while (iter.hasNext()) {
-            Map.Entry<String, Object> me = iter.next();
-            obj.put(me.getKey().toString(), me.getValue());
-            // System.out.println( "\n ()()()("+me.getValue() + ")()" +
-            // me.getValue().getClass().getName() +
-            // "\n***8743*******************");
+        if(this.getParameters().size() > 0)
+        {
+        	allSet = this.getParameters().entrySet(); 
+            Iterator<Map.Entry<String, Object>> iter = allSet.iterator();
+            while (iter.hasNext()) {
+                Map.Entry<String, Object> me = iter.next();
+                obj.put(me.getKey().toString(), me.getValue());
+            }
+            return obj.toString();
+        }else{
+        	return null;
         }
-        System.out.println(obj);
-        return obj.toString();
+        
     }
     
     
@@ -160,10 +161,12 @@ public class Data {
 
         }
     }
-    // catch (Exception e) {
-    // e.printStackTrace();
-    // }
 
-    // this.println(type);
-    // }
+	public String getJsonParam() {
+		return jsonParam;
+	}
+
+	public void setJsonParam(String jsonParam) {
+		this.jsonParam = jsonParam;
+	}
 }

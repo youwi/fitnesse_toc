@@ -11,10 +11,12 @@ import main.java.YfykAppServer.YfykAppServer;
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		WkzfAppServer legal = new WkzfAppServer("/release/getHouseFdListInfo.rest","sim");
+		WkzfAppServer legal = new WkzfAppServer("/personConter/collect.rest","test");
 		try {
 			legal.setParam("type", "", "int");
-			legal.setParam("hostMobile", "13816974762", "string");		
+			legal.setParam("hostMobile", "13816974762", "string");	
+			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
+//			legal.setJsonParam(a);
 //			yfyk.setParam("houseId", "84370", "string");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

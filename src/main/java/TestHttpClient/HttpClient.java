@@ -5,22 +5,18 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-import main.java.utils.Data;
-
-import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 //import net.sf.json.JSONObject;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.apache.http.HttpEntity;
-import org.json.JSONObject;
 
 public class HttpClient {
 
@@ -39,21 +35,24 @@ public class HttpClient {
 			HttpPost httpPost = new HttpPost(URL);
 			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
 			httpPost.addHeader("os", "monitor");
-			httpPost.addHeader("User-ID", "0");
+//			httpPost.addHeader("User-ID", "0");
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
 				System.out.println(me.getKey()+me.getValue());
 			}
             
-
+			if(null != ci.addParam())
+			{
+			System.out.println(ci.addParam());
 			httpPost.setEntity(new StringEntity(ci.addParam()));
-			// Before begin
-			// HttpEntity reqEntity = null;
-			// MultipartEntityBuilder reqEntityBuilder =
-			// MultipartEntityBuilder.create();
-			// reqEntityBuilder.addBinaryBody(name, file)
-			// httpPost.setEntity(reqEntity);
+			}
+			
+			if(null != ci.addJsonParam())
+			{
+				System.out.println(ci.addJsonParam());
+				httpPost.setEntity(new StringEntity(ci.addJsonParam()));
+			}
 
 			// Before end
 			System.out.println("executing request " + httpPost.getURI());

@@ -3,7 +3,6 @@ package main.java.WkzfAppServer;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import main.java.TestHttpClient.HttpClient;
 import main.java.TestHttpClient.HttpRequestCallback;
@@ -31,6 +30,11 @@ public class WkzfAppServer {
 		this.env = env;
 	}
 
+	public void setJsonParam(String json)
+			throws Exception {
+		data.setJsonParam(json);
+	}
+	
 	public void setParam(String name, String value, String type)
 			throws Exception {
 		data.setParameters(name, value, type);
@@ -41,8 +45,7 @@ public class WkzfAppServer {
 			throws Exception {
 		data.setHeaderParameters(name, value);
 	}
-		
-
+	
 	public String getParam(String key) {
 		return jp.getResult(key);
 	}
@@ -61,14 +64,19 @@ public class WkzfAppServer {
 						@Override
 						public String addParam() {
 							// TODO Auto-generated method stub
-							JSONObject obj = new JSONObject();
-							return data.getAddParam(obj);
+							return data.getAddParam();
 						}
 
 						@Override
 						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
 							// TODO Auto-generated method stub
 							return data.getAddHeaderParam();
+						}
+
+						@Override
+						public String addJsonParam() {
+							// TODO Auto-generated method stub
+							return data.getJsonParam();
 						}
 					});
 			}else if("sim".equals(env.toLowerCase()))
@@ -79,8 +87,8 @@ public class WkzfAppServer {
     						@Override
     						public String addParam() {
     							// TODO Auto-generated method stub
-    							JSONObject obj = new JSONObject();
-    							return data.getAddParam(obj);
+    							
+    							return data.getAddParam();
     						}
 
     						@Override
@@ -88,6 +96,12 @@ public class WkzfAppServer {
     							// TODO Auto-generated method stub
     							return data.getAddHeaderParam();
     						}
+
+							@Override
+							public String addJsonParam() {
+								// TODO Auto-generated method stub
+								return data.getJsonParam();
+							}
     					});
 			}else{
 				System.out.println("env name error");
