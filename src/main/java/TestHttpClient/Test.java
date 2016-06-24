@@ -11,6 +11,8 @@ import main.java.YfykAppServer.YfykAppServer;
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+		System.out.println("java program :" + System.currentTimeMillis());  
+//		long a1 = System.currentTimeMillis();
 		WkzfAppServer legal = new WkzfAppServer("/personConter/collect.rest","test");
 		try {
 			legal.setParam("type", "", "int");
@@ -22,7 +24,12 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+//		long b = System.currentTimeMillis() - a1;
+//		System.out.println("java program b:" + b);  
+		System.out.println("java program b:" + legal.checkResponseTime("200")); 
 		legal.testRun("message");
+		
 	}
 	
 	

@@ -23,6 +23,7 @@ public class HttpClient {
 	private CloseableHttpClient httpclient = null;
 
 	private String responseBody = null;
+	private long responseTime = 999999999;
 
 	public HttpClient() {
 		this.httpclient = HttpClients.createDefault();
@@ -53,7 +54,8 @@ public class HttpClient {
 				System.out.println(ci.addJsonParam());
 				httpPost.setEntity(new StringEntity(ci.addJsonParam()));
 			}
-
+			
+			long temp = System.currentTimeMillis();
 			// Before end
 			System.out.println("executing request " + httpPost.getURI());
 			ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
@@ -74,6 +76,7 @@ public class HttpClient {
 			setResponseBody(httpclient.execute(httpPost, responseHandler));
 			System.out.println("-------------------------------------------");
 
+			responseTime = temp - System.currentTimeMillis();
 			// System.out.println(getResponseBody());	
 			//System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
 			System.out.println("responseBody: " + responseBody);
@@ -166,4 +169,7 @@ public class HttpClient {
 		this.responseBody = responseBody;
 	}
 
+	public long getResponseTime() {
+		return responseTime;
+	}
 }

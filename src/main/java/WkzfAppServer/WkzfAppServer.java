@@ -18,6 +18,7 @@ public class WkzfAppServer {
 	String URL;
 	String env = null;
 	String responseBody = null;
+	HttpClient testRequst = new HttpClient();
 
 	public WkzfAppServer(String URL) {
 		this.data = new Data();
@@ -56,7 +57,7 @@ public class WkzfAppServer {
 			System.out.println("null paramters!!");
 			return false;
 		} else {
-			HttpClient testRequst = new HttpClient();
+			
 			
 			if(null == env||"test".equals(env.toLowerCase())){
 			 responseBody = testRequst.httpPostRequest(
@@ -121,5 +122,9 @@ public class WkzfAppServer {
 	
 	public boolean checkEqualString(String param) {
 		return responseBody.equals(param);
+	}
+	
+	public boolean checkResponseTime(String param) {
+		return testRequst.getResponseTime()<Long.parseLong(param)?true:false;
 	}
 }
