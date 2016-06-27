@@ -40,24 +40,24 @@ public class HttpClient {
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
-				System.out.println(me.getKey()+me.getValue());
+				System.out.println("Header key： "+me.getKey()+"Header value： "+me.getValue());
 			}
             
 			if(null != ci.addParam())
 			{
-			System.out.println(ci.addParam());
+			System.out.println("请求参数：  "+ci.addParam());
 			httpPost.setEntity(new StringEntity(ci.addParam()));
 			}
 			
 			if(null != ci.addJsonParam())
 			{
-				System.out.println(ci.addJsonParam());
+				System.out.println("请求参数：  "+ci.addJsonParam());
 				httpPost.setEntity(new StringEntity(ci.addJsonParam()));
 			}
 			
 			long temp = System.currentTimeMillis();
 			// Before end
-			System.out.println("executing request " + httpPost.getURI());
+			System.out.println("请求地址：  " + httpPost.getURI());
 			ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
 				public String handleResponse(final HttpResponse response)
 						throws ClientProtocolException, IOException {
@@ -80,7 +80,7 @@ public class HttpClient {
 			// System.out.println(getResponseBody());	
 			//System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
 			System.out.println("responseBody: " + responseBody);
-			System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
+//			System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
 			System.out.println("-------------------------------------------");
 			return responseBody;
 		} finally {

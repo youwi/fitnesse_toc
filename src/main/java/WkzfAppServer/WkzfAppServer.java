@@ -125,7 +125,7 @@ public class WkzfAppServer {
 	}
 	
 	public boolean checkResponseTime(String param) {
-		System.out.println("ResponseTime is "+testRequst.getResponseTime()+"ms");
+		System.out.println("响应时间：  "+testRequst.getResponseTime()+"ms");
 		return testRequst.getResponseTime()<Long.parseLong(param)?true:false;
 	}
 }
