@@ -91,16 +91,10 @@ public class JSONParse {
 				}
 				// getArrayJsonKey(appendKeys);
 				
-				try {
-					String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
-					System.out.println("appendKeys:"
-							+ appendKey+"\n"+"value-----:"+value);
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				//					String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
+				System.out.println("响应体Json Key--： "
+						+ appendKey+"\n"+"响应体Json Value: "+value);
 				
-			
 				jsonMap.put(appendKey, value);
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.remove(appendKeys.size() - 1);

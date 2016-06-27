@@ -40,7 +40,7 @@ public class HttpClient {
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
-				System.out.println("Header key： "+me.getKey()+"Header value： "+me.getValue());
+				System.out.println("请求头 Key： "+me.getKey()+"------请求头 Value： "+me.getValue());
 			}
             
 			if(null != ci.addParam())
