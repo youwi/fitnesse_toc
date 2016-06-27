@@ -79,7 +79,7 @@ public class HttpClient {
 			responseTime = System.currentTimeMillis() - temp;
 			// System.out.println(getResponseBody());	
 			//System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
-			System.out.println("responseBody: " + responseBody);
+			System.out.println("完整响应体： " + responseBody);
 //			System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
 			System.out.println("-------------------------------------------");
 			return responseBody;

@@ -1,6 +1,5 @@
 package main.java.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,13 +42,23 @@ public class JSONParse {
 	}
 
 	public String getResult(String Key) {
-		try {
-			System.out.println(jsonMap.get(Key).toString());
+		if(jsonMap.containsKey(Key))
+		{
+			System.out.println("检查的响应体Json Value： "+jsonMap.get(Key).toString());
 			return this.jsonMap.get(Key).toString();
-		} catch (Exception e) {
-			e.printStackTrace();
+		}else{
+			System.out.println("没有找到符合的响应体Json Key： "+Key);
 			return null;
 		}
+			
+	
+//		try {
+//			System.out.println("检查的响应体Json Value： "+jsonMap.get(Key).toString());
+//			return this.jsonMap.get(Key).toString();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
 	}
 
 	public void parseJson(JSONObject jsonObject) {

@@ -13,10 +13,13 @@ public class Test {
 		// TODO Auto-generated method stub
 //		System.out.println("java program :" + System.currentTimeMillis());  
 //		long a1 = System.currentTimeMillis();
-		WkzfAppServer legal = new WkzfAppServer("/personConter/collect.rest","test");
+		WkzfAppServer legal = new WkzfAppServer("/agent/findAgentByIdOrPhoneNum.rest","test");
 		try {
-			legal.setHeaderParam("type", "");
-			legal.setParam("hostMobile", "13816974762", "string");	
+			legal.setHeaderParam("guestId", "15224");
+			legal.setHeaderParam("token", "07301ae3-1fd0-48b8-805c-7ba3edf90297");
+			legal.setParam("guestId", "15224", "number");	
+			legal.setParam("agentId", "13810", "number");
+			legal.setParam("cityId", "43", "number");
 			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
 //			legal.setJsonParam(a);
 //			yfyk.setParam("houseId", "84370", "string");
@@ -28,8 +31,11 @@ public class Test {
 //		long b = System.currentTimeMillis() - a1;
 //		System.out.println("java program b:" + b);  
 //		System.out.println("java program b:" + legal.checkResponseTime("200")); 
-		legal.testRun("message");
+		legal.testRun("status,message,data");
 		
+//		System.out.println("test:"+legal.getParam("status"));  
+//		System.out.println(legal.getParam("message"));  
+		System.out.println(legal.getParam("/data/agent/id"));  
 	}
 	
 	
