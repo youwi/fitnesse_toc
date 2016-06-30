@@ -30,7 +30,7 @@ public class ConfigConstants {
       //  public final static String YFYK_BASE_URL = "beta.yfyk365.com:8103";// beta
       //  public final static String YFYK_BASE_URL = "appserver.yfyk365.com";// prod
       
-      public final static String WKPP_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8158";// test
+      public final static String WKPP_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8177";// test
       
       public final static String Rent_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8171";// test
 
