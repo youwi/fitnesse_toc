@@ -61,7 +61,7 @@ public class RentAppServer {
 			
 			if(null == env||"test".equals(env.toLowerCase())){
 			 responseBody = testRequst.httpPostRequest(
-					ConfigConstants.Rent_APP_SERVER_TEST_BASE_URL + URL,
+					ConfigConstants.RENT_APP_SERVER_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
 						public String addParam() {
@@ -84,7 +84,7 @@ public class RentAppServer {
 			}else if("sim".equals(env.toLowerCase()))
 			{
 				 responseBody = testRequst.httpPostRequest(
-    					ConfigConstants.Rent_APP_SERVER_TEST_BASE_URL + URL,
+    					ConfigConstants.RENT_APP_SERVER_TEST_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
     						public String addParam() {
