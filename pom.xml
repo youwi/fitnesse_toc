@@ -163,8 +163,8 @@
 			<version>3.4.5</version>
 			<exclusions>
 				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
+					<groupId>log4j</groupId>
+      				<artifactId>log4j</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
