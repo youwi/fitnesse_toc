@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class Data {
     private HashMap<String, Object> map = new HashMap<String, Object>();
     private HashMap<String, String> headermap = new HashMap<String, String>();
-    private String jsonParam = "{}";
+    private String jsonParam = null;
     
     public Data() {
         HashMap<String, String> parameters = new HashMap<String, String>();
@@ -170,6 +170,8 @@ public class Data {
 		if("".equals(jsonParam)!= true)
 		{
 		this.jsonParam = jsonParam;
+		}else{
+			this.jsonParam = "{}";
 		}
 	}
 }
