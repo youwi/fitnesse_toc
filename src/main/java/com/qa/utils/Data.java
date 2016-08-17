@@ -167,6 +167,9 @@ public class Data {
 	}
 
 	public void setJsonParam(String jsonParam) {
+		if("".equals(jsonParam)!= true)
+		{
 		this.jsonParam = jsonParam;
+		}
 	}
 }
