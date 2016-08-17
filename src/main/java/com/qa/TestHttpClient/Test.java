@@ -9,12 +9,12 @@ public class Test {
 		// TODO Auto-generated method stub
 //		System.out.println("java program :" + System.currentTimeMillis());  
 //		long a1 = System.currentTimeMillis();
-		WkzfAppServer legal = new WkzfAppServer("/register/loginOut.rest","test");
+		WkzfAppServer legal = new WkzfAppServer("/siteSearch/searchCityAndPosition","test");
 		try {
-			legal.setHeaderParam("guestId", "24296");
-			legal.setHeaderParam("token", "a9b85b4d-cf80-4e5c-bcc9-fa3e86fe9297");
-			legal.setHeaderParam("deviceId", "6C53D072E00307CC54BC4A9555DC7658");
+			legal.setHeaderParam("guestId", "22294");
+			legal.setHeaderParam("token", "54fe407e-636a-4e03-973f-54fc0235d705");
 			legal.setHeaderParam("version", "2.3");
+//			legal.setHeaderParam("os", "android");
 			legal.setParam("guestId", "24296", "string");	
 			legal.setParam("guestTelPhoneNum", "18588238644", "number");
 //			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";

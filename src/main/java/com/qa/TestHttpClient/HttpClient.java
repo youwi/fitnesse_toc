@@ -2,7 +2,10 @@ package com.qa.TestHttpClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -35,12 +38,21 @@ public class HttpClient {
 			Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
 			HttpPost httpPost = new HttpPost(URL);
 			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
-			httpPost.addHeader("os", "monitor");
 //			httpPost.addHeader("User-ID", "0");
+			int flag = 0;
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
 				System.out.println("请求头 Key： "+me.getKey()+"------请求头 Value： "+me.getValue());
+				if("os".equals(me.getKey()))
+				{
+					flag = 1;
+				}
+			}
+			if(0 == flag)
+			{
+				httpPost.addHeader("os", "monitor");
+//				System.out.println("请求头 Key： "+"os"+"------请求头 Value： "+"monitor");
 			}
             
 			if(null != ci.addParam())
