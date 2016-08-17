@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class Data {
     private HashMap<String, Object> map = new HashMap<String, Object>();
     private HashMap<String, String> headermap = new HashMap<String, String>();
-    private String jsonParam = null;
+    private String jsonParam = "{}";
     
     public Data() {
         HashMap<String, String> parameters = new HashMap<String, String>();
