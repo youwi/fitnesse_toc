@@ -17,20 +17,21 @@ public class HouseholderAppServer {
 	JSONParse jp;
 	String URL;
 	String env = null;
+	String responseBody = null;
+	HttpClient testRequst = new HttpClient();
 
 	public HouseholderAppServer(String URL) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 	}
-	
 	public HouseholderAppServer(String URL,String env) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 		this.env = env;
 	}
-	
+
 	public void setJsonParam(String json)
 			throws Exception {
 		data.setJsonParam(json);
@@ -46,8 +47,7 @@ public class HouseholderAppServer {
 			throws Exception {
 		data.setHeaderParameters(name, value);
 	}
-		
-
+	
 	public String getParam(String key) {
 		return jp.getResult(key);
 	}
@@ -57,9 +57,11 @@ public class HouseholderAppServer {
 			System.out.println("null paramters!!");
 			return false;
 		} else {
-			HttpClient testRequst = new HttpClient();
-			String responseBody = testRequst.httpPostRequest(
-					ConfigConstants.WKZF_HOUSEHOLDER_BASE_URL + URL,
+			
+			
+			if(null == env||"test".equals(env.toLowerCase())){
+			 responseBody = testRequst.httpPostRequest(
+					ConfigConstants.WKZF_HOUSEHOLDER_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
 						public String addParam() {
@@ -79,9 +81,51 @@ public class HouseholderAppServer {
 							return data.getJsonParam();
 						}
 					});
+			}else if("sim".equals(env.toLowerCase()))
+			{
+				 responseBody = testRequst.httpPostRequest(
+    					ConfigConstants.WKZF_HOUSEHOLDER_TEST_BASE_URL + URL,
+    					new HttpRequestCallback() {
+    						@Override
+    						public String addParam() {
+    							// TODO Auto-generated method stub
+    							
+    							return data.getAddParam();
+    						}
+
+    						@Override
+    						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+    							// TODO Auto-generated method stub
+    							return data.getAddHeaderParam();
+    						}
+
+							@Override
+							public String addJsonParam() {
+								// TODO Auto-generated method stub
+								return data.getJsonParam();
+							}
+    					});
+			}else{
+				System.out.println("env name error");
+	        	return false;
+			}
+			
 			JSONObject objResponse = new JSONObject(responseBody);
 			jp.parseJson(objResponse);
 			return jp.checkParam(param);
 		}
+	}
+
+	public boolean checkContainsString(String param) {
+		return responseBody.contains(param);
+	}
+	
+	public boolean checkEqualString(String param) {
+		return responseBody.equals(param);
+	}
+	
+	public boolean checkResponseTime(String param) {
+		System.out.println("响应时间：  "+testRequst.getResponseTime()+"ms");
+		return testRequst.getResponseTime()<Long.parseLong(param)?true:false;
 	}
 }
