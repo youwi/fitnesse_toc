@@ -61,7 +61,7 @@ public class NewBuildingAppServer {
 			
 			if(null == env||"test".equals(env.toLowerCase())){
 			 responseBody = testRequst.httpPostRequest(
-					ConfigConstants.WKZF_NEWBUILDING_TEST_BASE_URL + URL,
+					ConfigConstants.NEWBUILDING_APP_SERVER_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
 						public String addParam() {
@@ -84,7 +84,7 @@ public class NewBuildingAppServer {
 			}else if("sim".equals(env.toLowerCase()))
 			{
 				 responseBody = testRequst.httpPostRequest(
-    					ConfigConstants.WKZF_NEWBUILDING_TEST_BASE_URL + URL,
+    					ConfigConstants.NEWBUILDING_APP_SERVER_SIM_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
     						public String addParam() {

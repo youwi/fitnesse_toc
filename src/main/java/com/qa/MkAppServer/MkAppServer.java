@@ -1,4 +1,4 @@
-package com.qa.HouseholderAppServer;
+package com.qa.MkAppServer;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -12,7 +12,7 @@ import com.qa.constants.ConfigConstants;
 import com.qa.utils.Data;
 import com.qa.utils.JSONParse;
 
-public class HouseholderAppServer {
+public class MkAppServer {
 	Data data;
 	JSONParse jp;
 	String URL;
@@ -20,12 +20,12 @@ public class HouseholderAppServer {
 	String responseBody = null;
 	HttpClient testRequst = new HttpClient();
 
-	public HouseholderAppServer(String URL) {
+	public MkAppServer(String URL) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 	}
-	public HouseholderAppServer(String URL,String env) {
+	public MkAppServer(String URL,String env) {
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
@@ -61,7 +61,7 @@ public class HouseholderAppServer {
 			
 			if(null == env||"test".equals(env.toLowerCase())){
 			 responseBody = testRequst.httpPostRequest(
-					ConfigConstants.HOUSEHOLDER_APP_SERVER_TEST_BASE_URL + URL,
+					ConfigConstants.MK_APP_SERVER_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
 						public String addParam() {
@@ -84,7 +84,7 @@ public class HouseholderAppServer {
 			}else if("sim".equals(env.toLowerCase()))
 			{
 				 responseBody = testRequst.httpPostRequest(
-    					ConfigConstants.HOUSEHOLDER_APP_SERVER_SIM_BASE_URL + URL,
+    					ConfigConstants.MK_APP_SERVER_SIM_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
     						public String addParam() {
