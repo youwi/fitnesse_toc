@@ -2,6 +2,9 @@ package com.qa.TestHttpClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,8 +21,14 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.poi.hssf.extractor.ExcelExtractor;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class HttpClient {
 
@@ -29,7 +38,35 @@ public class HttpClient {
 	private long responseTime = 999999999;
 
 	public HttpClient() {
-		this.httpclient = HttpClients.createDefault();
+		SSLContext ctx = null;
+		try {
+			ctx = SSLContext.getInstance("TLS");
+
+		X509TrustManager tm = new X509TrustManager()
+		{
+			public void checkClientTrusted(X509Certificate[] chain,  String authType) throws CertificateException
+			{
+
+			}
+			public void checkServerTrusted(X509Certificate[] chain,  String authType) throws CertificateException
+			{
+
+			}
+			public X509Certificate[] getAcceptedIssuers()
+			{
+				return null;
+			}
+		};
+		ctx.init(null, new TrustManager[]{tm}, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+		//httpClientBuilder.setSSLContext(ctx);
+		httpClientBuilder.setSslcontext(ctx);
+		 this.httpclient = httpClientBuilder.build();
+		//this.httpclient = HttpClients.createDefault();
 	}
 
 	public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
