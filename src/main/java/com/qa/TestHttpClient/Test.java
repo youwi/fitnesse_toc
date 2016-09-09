@@ -2,6 +2,7 @@ package com.qa.TestHttpClient;
 
 import java.io.IOException;
 
+import com.qa.NewBuildingAppServer.NewBuildingAppServer;
 import com.qa.WkzfAppServer.WkzfAppServer;
 
 public class Test {
@@ -9,14 +10,14 @@ public class Test {
 		// TODO Auto-generated method stub
 //		System.out.println("java program :" + System.currentTimeMillis());  
 //		long a1 = System.currentTimeMillis();
-		WkzfAppServer legal = new WkzfAppServer("/siteSearch/searchCityAndPosition","test");
+		NewBuildingAppServer legal = new NewBuildingAppServer("/newHouse/loadNewHouseDetailInfo.rest","test");
 		try {
-			legal.setHeaderParam("guestId", "22294");
-			legal.setHeaderParam("token", "54fe407e-636a-4e03-973f-54fc0235d705");
-			legal.setHeaderParam("version", "2.3");
+//			legal.setHeaderParam("guestId", "22294");
+//			legal.setHeaderParam("token", "54fe407e-636a-4e03-973f-54fc0235d705");
+//			legal.setHeaderParam("version", "2.3");
 //			legal.setHeaderParam("os", "android");
-			legal.setParam("guestId", "24296", "string");	
-			legal.setParam("guestTelPhoneNum", "18588238644", "number");
+			legal.setParam("subEstateId", "16389", "int");	
+			legal.setParam("guestId", "1895", "int");
 //			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
 //			legal.setJsonParam(a);
 //			yfyk.setParam("houseId", "84370", "string");

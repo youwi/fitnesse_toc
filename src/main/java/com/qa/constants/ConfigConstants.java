@@ -32,6 +32,10 @@ public class ConfigConstants {
     public final static String MK_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8170";// test
     public final static String MK_APP_SERVER_SIM_BASE_URL = "http://mk.sim.wkzf";// sim
     //  public final static String YFYK_BASE_URL = "appserver.yfyk365.com";// prod
+    
+    public final static String NEWBUILDING_OP_SYS_TEST_BASE_URL = "http://10.0.18.79:8179";// test
+    public final static String NEWBUILDING_OP_SYS_SIM_BASE_URL = "http://userappsvr.sim.wkzf:80";// sim
+    //public final static String USER_APP_SERVER_PROD_BASE_URL = "http://userapp.wkzfang.com";// prod
       
       
     public final static String WKPP_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8177";// test
