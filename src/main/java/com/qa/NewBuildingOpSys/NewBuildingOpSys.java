@@ -18,9 +18,12 @@ public class NewBuildingOpSys {
 	String URL;
 	String env = null;
 	String responseBody = null;
-	HttpClient testRequst = new HttpClient();
+	static HttpClient testRequst ;
+	
 
 	public NewBuildingOpSys(String URL) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
