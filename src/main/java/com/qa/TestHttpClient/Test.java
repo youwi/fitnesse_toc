@@ -2,22 +2,21 @@ package com.qa.TestHttpClient;
 
 import java.io.IOException;
 
-import com.qa.NewBuildingAppServer.NewBuildingAppServer;
-import com.qa.WkzfAppServer.WkzfAppServer;
+import com.qa.NewBuildingOpSys.NewBuildingOpSys;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 //		System.out.println("java program :" + System.currentTimeMillis());  
 //		long a1 = System.currentTimeMillis();
-		NewBuildingAppServer legal = new NewBuildingAppServer("/newHouse/loadNewHouseDetailInfo.rest","test");
+		NewBuildingOpSys legal = new NewBuildingOpSys("/buildingDynamics/update.action","test");
 		try {
 //			legal.setHeaderParam("guestId", "22294");
 //			legal.setHeaderParam("token", "54fe407e-636a-4e03-973f-54fc0235d705");
 //			legal.setHeaderParam("version", "2.3");
 //			legal.setHeaderParam("os", "android");
-			legal.setParam("subEstateId", "16389", "int");	
-			legal.setParam("guestId", "1895", "int");
+//			legal.setParam("houseId", "66139", "int");	
+			//legal.setParam("guestId", "1895", "int");
 //			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
 //			legal.setJsonParam(a);
 //			yfyk.setParam("houseId", "84370", "string");
