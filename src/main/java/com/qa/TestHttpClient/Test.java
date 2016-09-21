@@ -2,21 +2,23 @@ package com.qa.TestHttpClient;
 
 import java.io.IOException;
 
-import com.qa.NewBuildingOpSys.NewBuildingOpSys;
+import com.qa.WkzfAppServer.WkzfAppServer;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 //		System.out.println("java program :" + System.currentTimeMillis());  
 //		long a1 = System.currentTimeMillis();
-		NewBuildingOpSys legal = new NewBuildingOpSys("/buildingDynamics/update.action","test");
+		WkzfAppServer legal = new WkzfAppServer("/house/commentEstateBySubEstateId.rest","test");
 		try {
-//			legal.setHeaderParam("guestId", "22294");
-//			legal.setHeaderParam("token", "54fe407e-636a-4e03-973f-54fc0235d705");
-//			legal.setHeaderParam("version", "2.3");
-//			legal.setHeaderParam("os", "android");
-//			legal.setParam("houseId", "66139", "int");	
-			//legal.setParam("guestId", "1895", "int");
+			legal.setHeaderParam("guestId", "19189");
+			legal.setHeaderParam("token", "4ce04c27-3447-452c-9a3e-90e9107b7ce1");
+			legal.setParam("subEstateId", "100803", "String");	
+			legal.setParam("guestId", "19189", "int");
+			legal.setParam("comment", "laokehuasdfasdgasdg12345", "String");
+			legal.setParam("commentSource", "2", "String");
+			legal.setParam("commentImgFile", "E:\\123.png", "fileupload");
+//			legal.setParam("subEstateId", "100803", "String");
 //			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
 //			legal.setJsonParam(a);
 //			yfyk.setParam("houseId", "84370", "string");
@@ -28,7 +30,9 @@ public class Test {
 //		long b = System.currentTimeMillis() - a1;
 //		System.out.println("java program b:" + b);  
 //		System.out.println("java program b:" + legal.checkResponseTime("200")); 
+		System.out.println("start test>>>>>>>>>>>>>>>.");
 		legal.testRun("status,message,data");
+		System.out.println("end test>>>>>>>>>>>>>>>.");
 		
 //		System.out.println("test:"+legal.getParam("status"));  
 //		System.out.println(legal.getParam("message"));  
