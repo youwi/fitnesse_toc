@@ -117,10 +117,10 @@ public class Data {
             value = "";
             type = "string";
         }
-//        System.out.println("value ----> " + value.toString()+ '\n');
+        System.out.println("value ----> " + value.toString()+ '\n');
         switch (type.toLowerCase()) {
 
-        case "fileuploadList":
+        case "fileuploadlist":
         	List<byte[]> imgList = new ArrayList<>();
         	imgList.add(TypeChange.stringToByte64(value.toString()));
             this.setParameters(name, imgList);

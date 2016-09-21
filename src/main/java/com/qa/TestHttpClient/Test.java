@@ -17,7 +17,7 @@ public class Test {
 			legal.setParam("guestId", "19189", "int");
 			legal.setParam("comment", "laokehuasdfasdgasdg12345", "String");
 			legal.setParam("commentSource", "2", "String");
-			legal.setParam("commentImgFile", "E:\\123.png", "fileupload");
+			legal.setParam("commentImgFile", "E:\\123.png", "fileuploadlist");
 //			legal.setParam("subEstateId", "100803", "String");
 //			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
 //			legal.setJsonParam(a);
