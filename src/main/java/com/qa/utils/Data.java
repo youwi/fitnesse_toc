@@ -117,7 +117,7 @@ public class Data {
             value = "";
             type = "string";
         }
-        System.out.println("value ----> " + value.toString()+ '\n');
+//        System.out.println("value ----> " + value.toString()+ '\n');
         switch (type.toLowerCase()) {
 
         case "fileuploadList":
