@@ -13,6 +13,10 @@ public class ConfigConstants {
     public final static String NEWBUILDING_APP_SERVER_SIM_BASE_URL = "http://nbappsvr.sim.wkzf";// sim
   //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
     
+    public final static String WKWAP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8107";// test
+    public final static String WKWAP_SERVER_SIM_BASE_URL = "http://10.0.18.79:8107";// sim
+  //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
+    
     public final static String LEGAL_BASE_URL = "http://10.0.18.79:8151";// test
   //  public final static String WKZF_BASE_URL = "http://beta.wkzfang.com:8117";// beta
   //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
