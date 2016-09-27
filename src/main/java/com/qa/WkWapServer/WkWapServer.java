@@ -60,7 +60,7 @@ public class WkWapServer {
 			
 			
 			if(null == env||"test".equals(env.toLowerCase())){
-			 responseBody = testRequst.httpPostRequest(
+			 responseBody = testRequst.httpGetRequest(
 					ConfigConstants.WKWAP_SERVER_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
@@ -83,7 +83,7 @@ public class WkWapServer {
 					});
 			}else if("sim".equals(env.toLowerCase()))
 			{
-				 responseBody = testRequst.httpPostRequest(
+				 responseBody = testRequst.httpGetRequest(
     					ConfigConstants.WKWAP_SERVER_SIM_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
