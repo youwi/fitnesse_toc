@@ -41,6 +41,10 @@ public class ConfigConstants {
     public final static String NEWBUILDING_OP_SYS_SIM_BASE_URL = "https://nbosyun2.test.wkzf:8179";// sim
     //public final static String USER_APP_SERVER_PROD_BASE_URL = "http://userapp.wkzfang.com";// prod
       
+    
+    public final static String FINANCIAL2_SYS_TEST_BASE_URL = "http://10.0.18.79:8185";// test
+    public final static String FINANCIAL2_SYS_SIM_BASE_URL = "http://10.0.18.79:8185";// sim
+    //public final static String USER_APP_SERVER_PROD_BASE_URL = "http://userapp.wkzfang.com";// prod
       
     public final static String WKPP_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8177";// test
 
