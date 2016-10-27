@@ -1,6 +1,5 @@
 package com.qa.TestHttpClient;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -19,10 +18,8 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 public class HttpClient {
@@ -31,7 +28,7 @@ public class HttpClient {
 
 	private String responseBody = null;
 	private long responseTime = 999999999;
-
+	
 	public HttpClient() {
 		//this.httpclient = HttpClients.createDefault();
 		
@@ -191,6 +188,19 @@ public class HttpClient {
 		}
 	}
 
+	public String httpRequest(String URL, HttpRequestCallback ci, String type) throws IOException
+	{
+		if("get".equals(type.toLowerCase()))
+		{
+			return httpGetRequest(URL,ci);
+		}else if("post".equals(type.toLowerCase()))
+		{
+			return httpPostRequest(URL,ci);
+		}else{
+			return null;
+		}
+	}
+	
 	public String getResponseBody() {
 		return responseBody;
 	}

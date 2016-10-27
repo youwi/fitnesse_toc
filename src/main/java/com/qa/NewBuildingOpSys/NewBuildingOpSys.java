@@ -18,6 +18,7 @@ public class NewBuildingOpSys {
 	String URL;
 	String env = null;
 	String responseBody = null;
+	String type = null;
 	static HttpClient testRequst ;
 	
 
@@ -29,10 +30,21 @@ public class NewBuildingOpSys {
 		this.URL = URL;
 	}
 	public NewBuildingOpSys(String URL,String env) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 		this.env = env;
+	}
+	public NewBuildingOpSys(String URL,String env,String type) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
+		this.data = new Data();
+		this.jp = new JSONParse();
+		this.URL = URL;
+		this.env = env;
+		this.type = type;
 	}
 
 	public void setJsonParam(String json)
@@ -63,7 +75,7 @@ public class NewBuildingOpSys {
 			
 			
 			if(null == env||"test".equals(env.toLowerCase())){
-			 responseBody = testRequst.httpPostRequest(
+			 responseBody = testRequst.httpRequest(
 					ConfigConstants.NEWBUILDING_OP_SYS_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
@@ -83,10 +95,10 @@ public class NewBuildingOpSys {
 							// TODO Auto-generated method stub
 							return data.getJsonParam();
 						}
-					});
+					},type);
 			}else if("sim".equals(env.toLowerCase()))
 			{
-				 responseBody = testRequst.httpPostRequest(
+				 responseBody = testRequst.httpRequest(
     					ConfigConstants.NEWBUILDING_OP_SYS_SIM_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
@@ -107,7 +119,7 @@ public class NewBuildingOpSys {
 								// TODO Auto-generated method stub
 								return data.getJsonParam();
 							}
-    					});
+    					},type);
 			}else{
 				System.out.println("env name error");
 	        	return false;
