@@ -21,10 +21,13 @@ public class Financial2Sys {
 	HttpClient testRequst = new HttpClient();
 
 	public Financial2Sys(String URL) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 	}
+
 	public Financial2Sys(String URL,String env) {
 		this.data = new Data();
 		this.jp = new JSONParse();
