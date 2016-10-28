@@ -2,22 +2,22 @@ package com.qa.TestHttpClient;
 
 import java.io.IOException;
 
-import com.qa.WkzfAppServer.WkzfAppServer;
+import com.qa.NewBuildingOpSys.NewBuildingOpSys;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 //		System.out.println("java program :" + System.currentTimeMillis());  
 //		long a1 = System.currentTimeMillis();
-		WkzfAppServer legal = new WkzfAppServer("/house/commentEstateBySubEstateId.rest","test");
+		NewBuildingOpSys legal = new NewBuildingOpSys("/xf/customer/list.action?cityId=43","test","get");
 		try {
-			legal.setHeaderParam("guestId", "19189");
-			legal.setHeaderParam("token", "4ce04c27-3447-452c-9a3e-90e9107b7ce1");
-			legal.setParam("subEstateId", "100803", "String");	
-			legal.setParam("guestId", "19189", "int");
-			legal.setParam("comment", "laokehuasdfasdgasdg12345", "String");
-			legal.setParam("commentSource", "2", "String");
-			legal.setParam("commentImgFile", "E:\\123.png", "fileuploadlist");
+			legal.setHeaderParam("host", "yun2.test.wkzf");
+			legal.setHeaderParam("Cookie", "jsessionid=D968711BF3F860170B93231D358F343F");
+//			legal.setParam("subEstateId", "100803", "String");	
+//			legal.setParam("guestId", "19189", "int");
+//			legal.setParam("comment", "laokehuasdfasdgasdg12345", "String");
+//			legal.setParam("commentSource", "2", "String");
+//			legal.setParam("commentImgFile", "E:\\123.png", "fileuploadlist");
 //			legal.setParam("subEstateId", "100803", "String");
 //			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
 //			legal.setJsonParam(a);

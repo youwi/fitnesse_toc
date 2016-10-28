@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -17,8 +20,12 @@ import org.apache.http.client.ResponseHandler;
 //import net.sf.json.JSONObject;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
@@ -29,6 +36,7 @@ public class HttpClient {
 	private String responseBody = null;
 	private long responseTime = 999999999;
 	
+	@SuppressWarnings("deprecation")
 	public HttpClient() {
 		//this.httpclient = HttpClients.createDefault();
 		
@@ -38,28 +46,37 @@ public class HttpClient {
 
 	  X509TrustManager tm = new X509TrustManager()
 	  {
-	  public void checkClientTrusted(X509Certificate[] chain,  String authType) throws CertificateException
-	  {
-
-	  }
-	  public void checkServerTrusted(X509Certificate[] chain,  String authType) throws CertificateException
-	  {
-
-	  }
-	  public X509Certificate[] getAcceptedIssuers()
-	  {
-	    return null;
-	  }
+	  public void checkClientTrusted(X509Certificate[] chain,  String authType) throws CertificateException{}
+	  public void checkServerTrusted(X509Certificate[] chain,  String authType) throws CertificateException{}
+	  public X509Certificate[] getAcceptedIssuers(){return null;}
 	  };
 	  ctx.init(null, new TrustManager[]{tm}, null);
 	  } catch (Exception e) {
 	  e.printStackTrace();
 	  }
-
-	  HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-	  //httpClientBuilder.setSSLContext(ctx);
-	  httpClientBuilder.setSslcontext(ctx);
-	   this.httpclient = httpClientBuilder.build();
+	  
+	//这个好像是HOST验证
+	  X509HostnameVerifier hostnameVerifier = new X509HostnameVerifier() {
+			public boolean verify(String arg0, SSLSession arg1) {
+				return true;
+			}
+			public void verify(String arg0, SSLSocket arg1) throws IOException {}
+			public void verify(String arg0, String[] arg1, String[] arg2) throws SSLException {}
+			public void verify(String arg0, X509Certificate arg1) throws SSLException {}
+		};
+	  
+	  SSLSocketFactory socketFactory = new SSLSocketFactory(ctx);
+	  socketFactory.setHostnameVerifier(hostnameVerifier);
+	  //通过SchemeRegistry将SSLSocketFactory注册到我们的HttpClient上
+//	  HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+//	  this.httpclient = httpClientBuilder.build();
+	  httpclient = new DefaultHttpClient();
+	  httpclient.getConnectionManager().getSchemeRegistry().register(new Scheme("https", socketFactory, 443));
+	  
+	  
+//	  //httpClientBuilder.setSSLContext(ctx);
+//	  httpClientBuilder.setSslcontext(ctx);
+//	   
 	}
 
 	public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
