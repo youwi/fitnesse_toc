@@ -217,7 +217,7 @@ public class HttpClient {
 			return null;
 		}
 	}
-	
+
 	public String getResponseBody() {
 		return responseBody;
 	}

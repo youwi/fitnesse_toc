@@ -18,6 +18,7 @@ public class Financial2Sys {
 	String URL;
 	String env = null;
 	String responseBody = null;
+	String type = null;
 	HttpClient testRequst = new HttpClient();
 
 	public Financial2Sys(String URL) {
@@ -29,10 +30,22 @@ public class Financial2Sys {
 	}
 
 	public Financial2Sys(String URL,String env) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 		this.env = env;
+	}
+	
+	public Financial2Sys(String URL,String env,String type) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
+		this.data = new Data();
+		this.jp = new JSONParse();
+		this.URL = URL;
+		this.env = env;
+		this.type = type;
 	}
 
 	public void setJsonParam(String json)
@@ -119,6 +132,73 @@ public class Financial2Sys {
 		}
 	}
 
+	
+	public boolean getTestRun(String param) throws IOException {
+		if (null == param.trim()) {
+			System.out.println("null paramters!!");
+			return false;
+		} else {
+			
+			
+			if(null == env||"test".equals(env.toLowerCase())){
+			 responseBody = testRequst.httpRequest(
+					ConfigConstants.FINANCIAL2_SYS_TEST_BASE_URL + URL,
+					new HttpRequestCallback() {
+						@Override
+						public String addParam() {
+							// TODO Auto-generated method stub
+							return data.getAddParam();
+						}
+
+						@Override
+						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+							// TODO Auto-generated method stub
+							return data.getAddHeaderParam();
+						}
+
+						@Override
+						public String addJsonParam() {
+							// TODO Auto-generated method stub
+							return data.getJsonParam();
+						}
+					},type);
+			}else if("sim".equals(env.toLowerCase()))
+			{
+				 responseBody = testRequst.httpRequest(
+    					ConfigConstants.FINANCIAL2_SYS_SIM_BASE_URL + URL,
+    					new HttpRequestCallback() {
+    						@Override
+    						public String addParam() {
+    							// TODO Auto-generated method stub
+    							
+    							return data.getAddParam();
+    						}
+
+    						@Override
+    						public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+    							// TODO Auto-generated method stub
+    							return data.getAddHeaderParam();
+    						}
+
+							@Override
+							public String addJsonParam() {
+								// TODO Auto-generated method stub
+								return data.getJsonParam();
+							}
+    					},type);
+			}else{
+				System.out.println("env name error");
+	        	return false;
+			}
+			
+			JSONObject objResponse = new JSONObject(responseBody);
+			jp.parseJson(objResponse);
+			return jp.checkParam(param);
+		}
+	}
+
+	
+	
 	public boolean checkContainsString(String param) {
 		return responseBody.contains(param);
 	}
