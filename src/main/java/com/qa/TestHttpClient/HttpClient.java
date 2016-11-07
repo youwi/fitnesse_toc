@@ -85,9 +85,9 @@ public class HttpClient {
 			Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
 			HttpPost httpPost = new HttpPost(URL); 
 			
-			httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
-//			httpPost.addHeader("User-ID", "0");
+			
 			int flag = 0;
+			int CTFlag = 0;
 			while (iter.hasNext()) {
 				Map.Entry<String, String> me = iter.next();
 				httpPost.addHeader(me.getKey(), me.getValue());
@@ -96,11 +96,19 @@ public class HttpClient {
 				{
 					flag = 1;
 				}
+				if("Content-Type".equals(me.getKey()))
+				{
+					CTFlag = 1;
+				}
 			}
 			if(0 == flag)
 			{
 				httpPost.addHeader("os", "monitor");
 //				System.out.println("请求头 Key： "+"os"+"------请求头 Value： "+"monitor");
+			}
+			if(0 == CTFlag)
+			{
+				httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
 			}
             
 			if(null != ci.addParam())
