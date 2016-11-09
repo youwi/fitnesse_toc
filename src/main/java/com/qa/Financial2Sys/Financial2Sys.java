@@ -255,9 +255,10 @@ public class Financial2Sys {
 	        	return false;
 			}
 			
-			JSONObject objResponse = new JSONObject(responseBody);
-			jp.parseJson(objResponse);
-			return jp.checkParam(param);
+			//JSONObject objResponse = new JSONObject(responseBody);
+			//jp.parseJson(objResponse);
+			//return jp.checkParam(param);
+			return true;
 		}
 	}
 
