@@ -18,18 +18,33 @@ public class WkWapServer {
 	String URL;
 	String env = null;
 	String responseBody = null;
-	HttpClient testRequst = new HttpClient();
+	String type = null;
+	static HttpClient testRequst ;
+	
 
 	public WkWapServer(String URL) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 	}
 	public WkWapServer(String URL,String env) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 		this.env = env;
+	}
+	public WkWapServer(String URL,String env,String type) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
+		this.data = new Data();
+		this.jp = new JSONParse();
+		this.URL = URL;
+		this.env = env;
+		this.type = type;
 	}
 
 	public void setJsonParam(String json)
@@ -60,7 +75,7 @@ public class WkWapServer {
 			
 			
 			if(null == env||"test".equals(env.toLowerCase())){
-			 responseBody = testRequst.httpGetRequest(
+			 responseBody = testRequst.httpRequest(
 					ConfigConstants.WKWAP_SERVER_TEST_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
@@ -80,10 +95,10 @@ public class WkWapServer {
 							// TODO Auto-generated method stub
 							return data.getJsonParam();
 						}
-					});
+					},type);
 			}else if("sim".equals(env.toLowerCase()))
 			{
-				 responseBody = testRequst.httpGetRequest(
+				 responseBody = testRequst.httpRequest(
     					ConfigConstants.WKWAP_SERVER_SIM_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
@@ -104,7 +119,7 @@ public class WkWapServer {
 								// TODO Auto-generated method stub
 								return data.getJsonParam();
 							}
-    					});
+    					},type);
 			}else{
 				System.out.println("env name error");
 	        	return false;

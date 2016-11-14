@@ -38,9 +38,7 @@ public class HttpClient {
 	
 	@SuppressWarnings("deprecation")
 	public HttpClient() {
-		//this.httpclient = HttpClients.createDefault();
-		
-		SSLContext ctx = null;
+	  SSLContext ctx = null;
 	  try {
 	  ctx = SSLContext.getInstance("TLS");
 
@@ -68,15 +66,8 @@ public class HttpClient {
 	  SSLSocketFactory socketFactory = new SSLSocketFactory(ctx);
 	  socketFactory.setHostnameVerifier(hostnameVerifier);
 	  //通过SchemeRegistry将SSLSocketFactory注册到我们的HttpClient上
-//	  HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-//	  this.httpclient = httpClientBuilder.build();
 	  httpclient = new DefaultHttpClient();
-	  httpclient.getConnectionManager().getSchemeRegistry().register(new Scheme("https", socketFactory, 443));
-	  
-	  
-//	  //httpClientBuilder.setSSLContext(ctx);
-//	  httpClientBuilder.setSslcontext(ctx);
-//	   
+	  httpclient.getConnectionManager().getSchemeRegistry().register(new Scheme("https", socketFactory, 443));	   
 	}
 
 	public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
