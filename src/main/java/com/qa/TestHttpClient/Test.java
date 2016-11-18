@@ -2,22 +2,23 @@ package com.qa.TestHttpClient;
 
 import java.io.IOException;
 
-import com.qa.NewBuildingAppServer.NewBuildingAppServer;
-import com.qa.WkzfAppServer.WkzfAppServer;
+import com.qa.NewBuildingOpSys.NewBuildingOpSys;
 
 public class Test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 //		System.out.println("java program :" + System.currentTimeMillis());  
 //		long a1 = System.currentTimeMillis();
-		NewBuildingAppServer legal = new NewBuildingAppServer("/newHouse/loadNewHouseDetailInfo.rest","test");
+		NewBuildingOpSys legal = new NewBuildingOpSys("signList/getSignList.action");
 		try {
-//			legal.setHeaderParam("guestId", "22294");
-//			legal.setHeaderParam("token", "54fe407e-636a-4e03-973f-54fc0235d705");
-//			legal.setHeaderParam("version", "2.3");
-//			legal.setHeaderParam("os", "android");
-			legal.setParam("subEstateId", "16389", "int");	
-			legal.setParam("guestId", "1895", "int");
+			legal.setHeaderParam("host", "yun2.test.wkzf");
+			legal.setHeaderParam("Cookie", "JSESSIONID=D968711BF3F860170B93231D358F343F;wksso=5208dd35-5bc9-4a23-a4e0-7dfc50ec91e2");
+			legal.setParam("pageId", "1", "int");	
+			legal.setParam("pageSize", "10", "int");
+			legal.setParam("cityId", "0", "int");
+			legal.setParam("subEstateId", "0", "int");
+			legal.setParam("cusName", "小白", "string");
+			legal.setParam("signStatus", "-1", "int");
 //			String a = "{\"hostMobile\":\"13816974762\",\"type\":\"\"}";
 //			legal.setJsonParam(a);
 //			yfyk.setParam("houseId", "84370", "string");
@@ -29,7 +30,9 @@ public class Test {
 //		long b = System.currentTimeMillis() - a1;
 //		System.out.println("java program b:" + b);  
 //		System.out.println("java program b:" + legal.checkResponseTime("200")); 
+		System.out.println("start test>>>>>>>>>>>>>>>.");
 		legal.testRun("status,message,data");
+		System.out.println("end test>>>>>>>>>>>>>>>.");
 		
 //		System.out.println("test:"+legal.getParam("status"));  
 //		System.out.println(legal.getParam("message"));  

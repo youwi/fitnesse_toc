@@ -1,7 +1,9 @@
 package com.qa.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -115,12 +117,16 @@ public class Data {
             value = "";
             type = "string";
         }
-        
+//        System.out.println("value ----> " + value.toString()+ '\n');
         switch (type.toLowerCase()) {
 
+        case "fileuploadlist":
+        	List<byte[]> imgList = new ArrayList<>();
+        	imgList.add(TypeChange.stringToByte64(value.toString()));
+            this.setParameters(name, imgList);
+            break;
         case "fileupload":
-            this.setParameters(name,
-                    TypeChange.stringToByte64(value.toString()));
+            this.setParameters(name, TypeChange.stringToByte64(value.toString()));
             break;
         case "string":
             this.setParameters(name, value.toString());
