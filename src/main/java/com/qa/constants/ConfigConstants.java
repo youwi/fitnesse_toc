@@ -20,7 +20,10 @@ public class ConfigConstants {
     public final static String LEGAL_BASE_URL = "http://10.0.18.79:8151";// test
   //  public final static String WKZF_BASE_URL = "http://beta.wkzfang.com:8117";// beta
   //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
-       
+
+    public final static String Monkey_King_WeChat_BASE_URL = "http://10.0.18.79:8167";// test
+
+
     public final static String JRSP_BASE_URL = "http://10.0.18.79:8104";// test
   //  public final static String JRSP_BASE_URL = "http://beta.jinrisunpan.com:8104";// beta
   //  public final static String JRSP_BASE_URL = "appserver.jinrisunpan.com";// prod

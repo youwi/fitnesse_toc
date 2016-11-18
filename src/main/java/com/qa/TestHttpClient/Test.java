@@ -13,7 +13,7 @@ public class Test {
 		try {
 			legal.setHeaderParam("host", "yun2.test.wkzf");
 			legal.setHeaderParam("Cookie", "JSESSIONID=D968711BF3F860170B93231D358F343F;wksso=5208dd35-5bc9-4a23-a4e0-7dfc50ec91e2");
-			legal.setParam("pageId", "1", "int");	
+			legal.setParam("pageId", "1", "int");
 			legal.setParam("pageSize", "10", "int");
 			legal.setParam("cityId", "0", "int");
 			legal.setParam("subEstateId", "0", "int");
@@ -26,10 +26,10 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 //		long b = System.currentTimeMillis() - a1;
-//		System.out.println("java program b:" + b);  
-//		System.out.println("java program b:" + legal.checkResponseTime("200")); 
+//		System.out.println("java program b:" + b);
+//		System.out.println("java program b:" + legal.checkResponseTime("200"));
 		System.out.println("start test>>>>>>>>>>>>>>>.");
 		legal.testRun("status,message,data");
 		System.out.println("end test>>>>>>>>>>>>>>>.");
@@ -38,8 +38,8 @@ public class Test {
 //		System.out.println(legal.getParam("message"));  
 //		System.out.println(legal.getParam("/data/agent/id"));  
 	}
-	
-	
 
-//test
+
+
+	//test
 }

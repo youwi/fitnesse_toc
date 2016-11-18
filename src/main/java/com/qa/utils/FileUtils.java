@@ -178,7 +178,7 @@ public class FileUtils {
 	 * @description 读取文件夹下的文件，
 	 */
 	public static Map<String, String> getFileMap(String filePath) {
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String,String>();
 
 		File file = new File(filePath);
 
@@ -328,7 +328,7 @@ public class FileUtils {
 	 *              bedRoom1>
 	 */
 	public static Map<String, String> getImageMap(String fileFolder) {
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String, String>();
 
 		FileUtils.rdFile(map, fileFolder);
 
