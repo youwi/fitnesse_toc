@@ -53,8 +53,8 @@ public class ConfigConstants {
     public final static String WKWEB_SERVER_SIM_BASE_URL = "http://10.0.18.79:8108";// sim
     //public final static String USER_APP_SERVER_PROD_BASE_URL = "http://userapp.wkzfang.com";// prod
     
-    public final static String LEGALMGMT_SYS_TEST_BASE_URL = "http://";// test
-    public final static String LEGALMGMT_SYS_SIM_BASE_URL = "http://";// sim
+    public final static String LEGALMGMT_SYS_TEST_BASE_URL = "https://yun2.test.wkzf";// test
+    public final static String LEGALMGMT_SYS_SIM_BASE_URL = "https://yun2.test.wkzf";// sim
     //public final static String USER_APP_SERVER_PROD_BASE_URL = "http://userapp.wkzfang.com";// prod
     
     public final static String SSO_TEST_BASE_URL = "https://yun2.test.wkzf";// test
