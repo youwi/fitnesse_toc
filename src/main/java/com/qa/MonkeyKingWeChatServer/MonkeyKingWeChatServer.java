@@ -5,6 +5,7 @@ import com.qa.TestHttpClient.HttpRequestCallback;
 import com.qa.constants.ConfigConstants;
 import com.qa.utils.Data;
 import com.qa.utils.JSONParse;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -17,18 +18,33 @@ public class MonkeyKingWeChatServer {
 	String URL;
 	String env = null;
 	String responseBody = null;
-	HttpClient testRequst = new HttpClient();
+	String type = null;
+	static HttpClient testRequst ;
+	
 
 	public MonkeyKingWeChatServer(String URL) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 	}
-	public MonkeyKingWeChatServer(String URL, String env) {
+	public MonkeyKingWeChatServer(String URL,String env) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
 		this.data = new Data();
 		this.jp = new JSONParse();
 		this.URL = URL;
 		this.env = env;
+	}
+	public MonkeyKingWeChatServer(String URL,String env,String type) {
+		if(testRequst==null)
+			testRequst=new HttpClient();
+		this.data = new Data();
+		this.jp = new JSONParse();
+		this.URL = URL;
+		this.env = env;
+		this.type = type;
 	}
 
 	public void setJsonParam(String json)
@@ -59,7 +75,7 @@ public class MonkeyKingWeChatServer {
 			
 			
 			if(null == env||"test".equals(env.toLowerCase())){
-			 responseBody = testRequst.httpPostRequest(
+			 responseBody = testRequst.httpRequest(
 					ConfigConstants.Monkey_King_WeChat_BASE_URL + URL,
 					new HttpRequestCallback() {
 						@Override
@@ -79,11 +95,11 @@ public class MonkeyKingWeChatServer {
 							// TODO Auto-generated method stub
 							return data.getJsonParam();
 						}
-					});
+					},type);
 			}else if("sim".equals(env.toLowerCase()))
 			{
-				 responseBody = testRequst.httpPostRequest(
-    					ConfigConstants.MK_APP_SERVER_SIM_BASE_URL + URL,
+				 responseBody = testRequst.httpRequest(
+    					ConfigConstants.Monkey_King_WeChat_BASE_URL + URL,
     					new HttpRequestCallback() {
     						@Override
     						public String addParam() {
@@ -103,7 +119,7 @@ public class MonkeyKingWeChatServer {
 								// TODO Auto-generated method stub
 								return data.getJsonParam();
 							}
-    					});
+    					},type);
 			}else{
 				System.out.println("env name error");
 	        	return false;
