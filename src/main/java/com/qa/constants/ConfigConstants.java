@@ -22,7 +22,7 @@ public class ConfigConstants {
   //  public final static String WKZF_BASE_URL = "http://userapp.wkzfang.com";// prod
 
     public final static String Monkey_King_WeChat_BASE_URL = "http://10.0.18.79:8167";// test
-    public final static String Monkey_King_Backstage_Server_BASE_URL="http://10.0.18.79:8186";
+    public final static String Monkey_King_Backstage_Server_BASE_URL="https://mkbsyun2.test.wkzf";
 
     public final static String JRSP_BASE_URL = "http://10.0.18.79:8104";// test
   //  public final static String JRSP_BASE_URL = "http://beta.jinrisunpan.com:8104";// beta
