@@ -2,12 +2,13 @@ package com.qa;
 
 import com.qa.TestHttpClient.HttpClient;
 import com.qa.TestHttpClient.HttpRequestCallback;
-import com.qa.constants.ConfigConstants;
+import com.qa.constants.ConfigConstantsTest;
 import com.qa.utils.Data;
 import com.qa.utils.JSONParse;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -16,10 +17,7 @@ import java.util.Map;
  */
 public class BaseServer {
 
-
-
-
-    public String BASE_URL="";
+    String BASE_URL="";
     Data data;
     public JSONParse jp;
     public String URL;
@@ -35,6 +33,7 @@ public class BaseServer {
         this.data = new Data();
         this.jp = new JSONParse();
         this.URL = URL;
+        AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
     public BaseServer(String URL,String env) {
         if(testRequst==null)
@@ -43,6 +42,7 @@ public class BaseServer {
         this.jp = new JSONParse();
         this.URL = URL;
         this.env = env;
+        AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
     public BaseServer(String URL,String env,String type) {
         if(testRequst==null)
@@ -52,6 +52,7 @@ public class BaseServer {
         this.URL = URL;
         this.env = env;
         this.type = type;
+        AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
     public void setJsonParam(String json)
@@ -153,4 +154,60 @@ public class BaseServer {
     public static void setTestRequst(HttpClient testRequst) {
         BaseServer.testRequst = testRequst;
     }
+
+
+    public String getBASE_URL() {
+        return BASE_URL;
+    }
+
+    public void setBASE_URL(String BASE_URL) {
+        //if(env.equals("test"))
+        this.BASE_URL = BASE_URL;
+    }
+    /**
+     *  author: aerchi@gmail.com
+     */
+
+    public static String UpStr(String str){
+        if(str==null||str.equals("")) return "";
+        return str.replaceFirst(str.substring(0, 1),str.substring(0, 1).toUpperCase()) ;
+    }
+    /**
+     * 自动获取BASE_URL
+     *  如 wkzfAppServer 自动获取为  ConfigConstantsTest.WKZF_BASE_URL
+     *  测试环境为：        ConfigConstantsTest.WKZF_BASE_URL
+     *  Sim 环境为：        ConfigConstantsSim.WKZF_BASE_URL
+     *  (环境名首字母大写);
+     */
+    public void AUTO_GET_BASE_URL(){
+        Class clazz=null;
+
+        try {
+        if(env==null ||env.equals("dev")|| env.equals("") )
+            clazz=ConfigConstantsTest.class;
+        else
+            clazz=Class.forName("com.qa.constants."+"ConfigConstants"+UpStr(env));
+            String currName=this.getClass().getSimpleName();
+           // String al
+            Field[]  allfield= clazz.getFields();//
+            for(Field tmp : allfield){
+                String oriName=tmp.getName().replace("_","");
+                String oriName2=(tmp.getName()+"AppServer").replace("_","");
+                String toName=currName+"BASEURL";
+               if(  oriName.toLowerCase().equals(toName.toLowerCase())
+                       || oriName2.toLowerCase().equals(toName.toLowerCase())
+                      )
+               {
+                   String base_url= (String) tmp.get(null);//静态变量,直接获取
+                   this.BASE_URL=base_url;
+               }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

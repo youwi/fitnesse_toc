@@ -1,0 +1,33 @@
+package com.qa;
+
+import com.qa.exampleAppServer.ExampleAppServer;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+/**
+ * Created by yus on 2016/11/26.
+ */
+public class BaseServerTest {
+    @Test
+    public void tt() throws Exception {
+        System.out.println(this.getClass().getName());
+        System.out.println(this.getClass().getSimpleName());
+    }
+
+    @Test
+    public void TestFor_GET_BASE_URL() throws Exception {
+        ExampleAppServer ex=   new ExampleAppServer("10.0.012");
+        System.out.println("BASEURL_::"+ex.getBASE_URL());
+
+        ExampleAppServer ex1=   new ExampleAppServer("10.0.012","test");
+        System.out.println("BASEURL_::"+ex1.getBASE_URL());
+
+        ExampleAppServer ex2=   new ExampleAppServer("10.0.012","sim");
+        System.out.println("BASEURL_::"+ex2.getBASE_URL());
+
+        ExampleAppServer ex3=   new ExampleAppServer("10.0.012","prod");
+        System.out.println("BASEURL_::"+ex3.getBASE_URL());
+    }
+
+}

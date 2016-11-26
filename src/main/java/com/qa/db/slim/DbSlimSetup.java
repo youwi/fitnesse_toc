@@ -23,7 +23,7 @@
  ******************************************************************************/
 package com.qa.db.slim;
 
-import com.qa.constants.ConfigConstants;
+import com.qa.constants.ConfigConstantsTest;
 import com.qa.db.services.DbConnectionFactory;
 
 public class DbSlimSetup {
@@ -35,7 +35,7 @@ public class DbSlimSetup {
 
 	public DbSlimSetup() throws Exception {
 
-		DbConnectionFactory.getDataSource(DEFAULT_CONNECTION_POOL_NAME, ConfigConstants.JDBC_DRIVER_CLASS, ConfigConstants.JDBC_CONNECT_URL, ConfigConstants.JDBC_USERNAME, ConfigConstants.JDBC_PASSWORD, DEFAULT_CONNECTION_POOL_MIN_IDLE, DEFAULT_CONNECTION_POOL_MAX_AXTIVE);
+		DbConnectionFactory.getDataSource(DEFAULT_CONNECTION_POOL_NAME, ConfigConstantsTest.JDBC_DRIVER_CLASS, ConfigConstantsTest.JDBC_CONNECT_URL, ConfigConstantsTest.JDBC_USERNAME, ConfigConstantsTest.JDBC_PASSWORD, DEFAULT_CONNECTION_POOL_MIN_IDLE, DEFAULT_CONNECTION_POOL_MAX_AXTIVE);
 	}
 	
 	public DbSlimSetup(String jdbcDriverClass, String connectURI, String username, String password) throws Exception {
