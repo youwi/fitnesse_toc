@@ -76,6 +76,9 @@ public class BaseServer {
     }
 
     public JSONObject requestForJSON(String fullurl, final Data indata){
+        if(type==null){
+            type="POST";
+        }
         String responseBodyString = null;
         try {
             responseBodyString = testRequst.httpRequest(fullurl,

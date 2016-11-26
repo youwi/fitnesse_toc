@@ -1,7 +1,10 @@
 package com.qa;
 
+import com.qa.HouseholderAppServer.HouseholderAppServer;
 import com.qa.exampleAppServer.ExampleAppServer;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -28,6 +31,19 @@ public class BaseServerTest {
 
         ExampleAppServer ex3=   new ExampleAppServer("10.0.012","prod");
         System.out.println("BASEURL_::"+ex3.getBASE_URL());
+    }
+
+    @Test
+    public void testFitn() throws IOException {
+
+        HouseholderAppServer s=new HouseholderAppServer("/dicArea/getCityList.rest");
+        s.testRun("message,status,data");
+        s.getParam("status" );
+
+      /*          householder app server	/dicArea/getCityList.rest
+        ensure	testRun;
+        check	getParam	status	[null] expected [1]*/
+
     }
 
 }

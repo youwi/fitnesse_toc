@@ -3,7 +3,6 @@ package com.qa.constants;
 public class ConfigConstantsTest {
     public final static String USER_APP_SERVER_BASE_URL = "http://10.0.18.79:8117";// test
 
-    
     public final static String HOUSEHOLDER_APP_SERVER_TEST_BASE_URL = "http://10.0.18.79:8127";// test
 
     public final static String NEWBUILDING_APP_SERVER_BASE_URL = "http://10.0.18.79:8142";// test
