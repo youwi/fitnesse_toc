@@ -34,16 +34,26 @@ public class BaseServerTest {
     }
 
     @Test
-    public void testFitn() throws IOException {
+    public void testFitn() throws Exception {
 
         HouseholderAppServer s=new HouseholderAppServer("/dicArea/getCityList.rest");
         s.testRun("message,status,data");
         s.getParam("status" );
 
+        HouseholderAppServer s2=new HouseholderAppServer("/dicArea/getCityList.rest");
+        s2.setParam("searchStr","天山","String");
+        s2.testRun("message,status,data");
+        s2.getParam("status" );
+
       /*          householder app server	/dicArea/getCityList.rest
         ensure	testRun;
         check	getParam	status	[null] expected [1]*/
 
+     /*   setParam;	cityid	43	int
+        setParam;	searchStr	天山	String
+        ensure	testRun;	message,status,data/*/
     }
+
+
 
 }

@@ -1,6 +1,6 @@
 package com.qa;
 
-import com.qa.TestHttpClient.HttpClient;
+import com.qa.TestHttpClient.HttpClientUtil;
 import com.qa.TestHttpClient.HttpRequestCallback;
 import com.qa.constants.ConfigConstantsTest;
 import com.qa.utils.Data;
@@ -24,20 +24,20 @@ public class BaseServer {
     String env = null;
     String responseBody = null;
     String type = null;
-    static HttpClient testRequst ;
+    static HttpClientUtil httpClientUtil;
 
 
     public BaseServer(String URL) {
-        if(testRequst==null)
-            testRequst=new HttpClient();
+        if(httpClientUtil ==null)
+            httpClientUtil =new HttpClientUtil();
         this.data = new Data();
         this.jp = new JSONParse();
         this.URL = URL;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
     public BaseServer(String URL,String env) {
-        if(testRequst==null)
-            testRequst=new HttpClient();
+        if(httpClientUtil ==null)
+            httpClientUtil =new HttpClientUtil();
         this.data = new Data();
         this.jp = new JSONParse();
         this.URL = URL;
@@ -45,8 +45,8 @@ public class BaseServer {
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
     public BaseServer(String URL,String env,String type) {
-        if(testRequst==null)
-            testRequst=new HttpClient();
+        if(httpClientUtil ==null)
+            httpClientUtil =new HttpClientUtil();
         this.data = new Data();
         this.jp = new JSONParse();
         this.URL = URL;
@@ -81,7 +81,7 @@ public class BaseServer {
         }
         String responseBodyString = null;
         try {
-            responseBodyString = testRequst.httpRequest(fullurl,
+            responseBodyString = httpClientUtil.httpRequest(fullurl,
                      new HttpRequestCallback() {
                          @Override
                          public String addParam() {
@@ -123,8 +123,8 @@ public class BaseServer {
     }
 
     public boolean checkResponseTime(String param) {
-        System.out.println("响应时间：  "+testRequst.getResponseTime()+"ms");
-        return testRequst.getResponseTime()<Long.parseLong(param)?true:false;
+        System.out.println("响应时间：  "+ httpClientUtil.getResponseTime()+"ms");
+        return httpClientUtil.getResponseTime()<Long.parseLong(param)?true:false;
     }
     public Data getData() {
         return data;
@@ -150,12 +150,12 @@ public class BaseServer {
         this.type = type;
     }
 
-    public static HttpClient getTestRequst() {
-        return testRequst;
+    public static HttpClientUtil getHttpClientUtil() {
+        return httpClientUtil;
     }
 
-    public static void setTestRequst(HttpClient testRequst) {
-        BaseServer.testRequst = testRequst;
+    public static void setHttpClientUtil(HttpClientUtil httpClientUtil) {
+        BaseServer.httpClientUtil = httpClientUtil;
     }
 
 

@@ -16,6 +16,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 //import net.sf.json.JSONObject;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -23,6 +24,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 import org.apache.poi.hssf.extractor.ExcelExtractor;
 
@@ -30,15 +32,16 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-public class HttpClient {
+public class HttpClientUtil {
 
 	private CloseableHttpClient httpclient = null;
 
 	private String responseBody = null;
 	private long responseTime = 999999999;
+	int timeout = 5;
 
 	@SuppressWarnings("deprecation")
-	public HttpClient() {
+	public HttpClientUtil() {
 		SSLContext ctx = null;
 		try {
 			ctx = SSLContext.getInstance("TLS");
@@ -64,9 +67,25 @@ public class HttpClient {
 		}
 
 		HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+		RequestConfig config = RequestConfig.custom()
+				.setConnectTimeout(timeout * 1000)
+				.setConnectionRequestTimeout(timeout * 1000)
+				.setSocketTimeout(timeout * 1000).build();
+		CloseableHttpClient client =HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+
+		PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager();
+		//connManager.set
+		client = HttpClients.custom()
+			//	.setKeepAliveStrategy(myStrategy)
+				.setConnectionManager(connManager)
+				.setDefaultRequestConfig(config)
+				.setConnectionManagerShared(true)
+				.build();
+
+		this.httpclient=client;
 		//httpClientBuilder.setSSLContext(ctx);
 		httpClientBuilder.setSslcontext(ctx);
-		 this.httpclient = httpClientBuilder.build();
+		// this.httpclient = httpClientBuilder.build();
 		//this.httpclient = HttpClients.createDefault();
 	}
 
@@ -117,20 +136,7 @@ public class HttpClient {
 			long temp = System.currentTimeMillis();
 			// Before end
 			System.out.println("请求地址：  " + httpPost.getURI());
-			ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-				public String handleResponse(final HttpResponse response)
-						throws ClientProtocolException, IOException {
-					int status = response.getStatusLine().getStatusCode();
-					if (status >= 200 && status < 300) {
-						HttpEntity entity = response.getEntity();
-						return entity != null ? EntityUtils.toString(entity)
-								: null;
-					} else {
-						throw new ClientProtocolException(
-								"Unexpected response status: " + status);
-					}
-				}
-			};
+			ResponseHandler<String> responseHandler =createResponseHandler();
 
 			setResponseBody(httpclient.execute(httpPost, responseHandler));
 			System.out.println("-------------------------------------------");
@@ -178,20 +184,7 @@ public class HttpClient {
 //
 //			}
 			long temp = System.currentTimeMillis();
-			ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-				public String handleResponse(final HttpResponse response)
-						throws ClientProtocolException, IOException {
-					int status = response.getStatusLine().getStatusCode();
-					if (status >= 200 && status < 300) {
-						HttpEntity entity = response.getEntity();
-						return entity != null ? EntityUtils.toString(entity)
-								: null;
-					} else {
-						throw new ClientProtocolException(
-								"Unexpected response status: " + status);
-					}
-				}
-			};
+			ResponseHandler<String> responseHandler =createResponseHandler();
 			setResponseBody(httpclient.execute(httpGet, responseHandler));
 			System.out.println("-------------------------------------------");
 			System.out.println(getResponseBody());
@@ -201,6 +194,22 @@ public class HttpClient {
 		} finally {
 			httpclient.close();
 		}
+	}
+	ResponseHandler createResponseHandler(){
+		return  new ResponseHandler<String>() {
+			public String handleResponse(final HttpResponse response)
+					throws ClientProtocolException, IOException {
+				int status = response.getStatusLine().getStatusCode();
+				if (status >= 200 && status < 300) {
+					HttpEntity entity = response.getEntity();
+					return entity != null ? EntityUtils.toString(entity)
+							: null;
+				} else {
+					throw new ClientProtocolException(
+							"Unexpected response status: " + status);
+				}
+			}
+		};
 	}
 
 	public String httpRequest(String URL, HttpRequestCallback ci, String type) throws IOException

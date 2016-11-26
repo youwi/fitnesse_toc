@@ -101,8 +101,7 @@ public class JSONParse {
 				// getArrayJsonKey(appendKeys);
 				
 				//					String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
-				System.out.println("响应体Json Key--： "
-						+ appendKey+"\n"+"响应体Json Value: "+value);
+				System.out.println("响应体Json Path-Value  "+ appendKey+":\t"+value);
 				
 				jsonMap.put(appendKey, value);
 				if ("" != getArrayJsonKey(appendKeys)) {
