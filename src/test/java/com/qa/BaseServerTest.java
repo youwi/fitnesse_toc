@@ -1,5 +1,6 @@
 package com.qa;
 
+import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.qa.HouseholderAppServer.HouseholderAppServer;
 import com.qa.exampleAppServer.ExampleAppServer;
 import org.junit.Test;
@@ -17,6 +18,13 @@ public class BaseServerTest {
         System.out.println(this.getClass().getName());
         System.out.println(this.getClass().getSimpleName());
     }
+    @Test
+    public void t2222t() throws Exception {
+      String ou=  BaseServer.delHTMLTag("<a href=\"https://yun2.test.wkzf\">https://yun2.test.wkzf</a>/legalmgmt2/contractManagement/signJusticeGroup/getGroupList.action</td>\n");
+        System.out.println(ou);
+    }
+
+
 
     @Test
     public void TestFor_GET_BASE_URL() throws Exception {

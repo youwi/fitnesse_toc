@@ -95,7 +95,7 @@ public class HttpClientUtil {
            //     .setSslcontext(sslContext)
                 .setSSLSocketFactory(sslsf)
                 .setDefaultRequestConfig(config)
-        //        .setConnectionManager(connManager)  // bug? not trust
+        //        .setConnectionManager(connManager)  // bug? not tr ust
                 .setDefaultRequestConfig(config)
                 .setConnectionManagerShared(true)
                 .build();

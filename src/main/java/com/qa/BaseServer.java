@@ -11,7 +11,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * Created by yus on 2016/11/26.
  */
@@ -32,7 +33,7 @@ public class BaseServer {
             httpClientUtil =new HttpClientUtil();
         this.data = new Data();
         this.jp = new JSONParse();
-        this.URL = URL;
+        this.URL = delHTMLTag(URL);
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
     public BaseServer(String URL,String env) {
@@ -40,7 +41,7 @@ public class BaseServer {
             httpClientUtil =new HttpClientUtil();
         this.data = new Data();
         this.jp = new JSONParse();
-        this.URL = URL;
+        this.URL = delHTMLTag(URL);
         this.env = env;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
@@ -49,7 +50,7 @@ public class BaseServer {
             httpClientUtil =new HttpClientUtil();
         this.data = new Data();
         this.jp = new JSONParse();
-        this.URL = URL;
+        this.URL =delHTMLTag(URL);
         this.env = env;
         this.type = type;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
@@ -212,5 +213,26 @@ public class BaseServer {
         }
 
     }
+
+    public static String delHTMLTag(String htmlStr){
+        String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
+        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
+        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式
+
+        Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE);
+        Matcher m_script=p_script.matcher(htmlStr);
+        htmlStr=m_script.replaceAll(""); //过滤script标签
+
+        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE);
+        Matcher m_style=p_style.matcher(htmlStr);
+        htmlStr=m_style.replaceAll(""); //过滤style标签
+
+        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE);
+        Matcher m_html=p_html.matcher(htmlStr);
+        htmlStr=m_html.replaceAll(""); //过滤html标签
+
+        return htmlStr.trim(); //返回文本字符串
+    }
+
 
 }
