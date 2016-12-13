@@ -39,6 +39,8 @@ public class ConfigConstantsSim {
 
     public final static String EXAMPLE_APP_SERVER_BASE_URL = "http://10.0.18.79:Sim";// test
 
+    public final static String NBA_APP_SERVER_BASE_URL = "http://10.0.18.79:8165";// test
+
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
     public final static String JDBC_USERNAME = "guwen";
