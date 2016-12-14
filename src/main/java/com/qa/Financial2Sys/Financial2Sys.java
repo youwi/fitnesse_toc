@@ -30,8 +30,8 @@ public class Financial2Sys  extends BaseServer{
 			return false;
 		} else {
 			JSONObject jo=requestForJSON(ConfigConstantsTest.SSO_BASE_URL + URL,this.getData());
-			jp.parseJson(jo);
-			return jp.checkParam(param);
+			//jp.parseJson(jo);
+			return true;
 		}
 	}
 
