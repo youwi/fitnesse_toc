@@ -103,6 +103,35 @@ public class BaseServer {
         JSONObject objResponse = new JSONObject(responseBodyString);
         return objResponse;
     }
+
+    public void requestForXML(String fullurl, final Data indata){
+        if(type==null){
+            type="POST";
+        }
+        String responseBodyString = null;
+        try {
+            responseBodyString = httpClientUtil.httpRequest(fullurl,
+                    new HttpRequestCallback() {
+                        @Override
+                        public String addParam() {
+                            return indata.getAddParam();
+                        }
+                        @Override
+                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+                            return indata.getAddHeaderParam();
+                        }
+                        @Override
+                        public String addJsonParam() {
+                            return indata.getJsonParam();
+                        }
+                    },type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+
+
     public boolean testRun(String param) throws IOException {
         JSONObject objResponse;
         if (null == param.trim()) {
