@@ -1,16 +1,16 @@
-package com.qa.NBAAppServer;
+package com.qa.NbaAppServer;
 
 import com.qa.BaseServer;
 import com.qa.constants.ConfigConstantsTest;
 
-public class NBAAppServer extends BaseServer {
+public class NbaAppServer extends BaseServer {
 
-	public NBAAppServer(String URL) {
+	public NbaAppServer(String URL) {
 		super(URL);
 		setBASE_URL(ConfigConstantsTest.NBA_APP_SERVER_BASE_URL);
 
 	}
-	public NBAAppServer(String URL, String env) {
+	public NbaAppServer(String URL, String env) {
 		super(URL,env);
 		setBASE_URL(ConfigConstantsTest.NBA_APP_SERVER_BASE_URL);
 	}
