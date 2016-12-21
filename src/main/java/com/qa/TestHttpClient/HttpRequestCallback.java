@@ -1,11 +1,13 @@
 package com.qa.TestHttpClient;
 
+import org.apache.http.Header;
+
 import java.util.Iterator;
 import java.util.Map.Entry;
 
 public interface HttpRequestCallback {
-	String addJsonParam();
-    String addParam();
-    Iterator<Entry<String, String>> AddHeaderParameters();
-    
+	String getJsonParam();
+    String getParam();
+    Iterator<Entry<String, String>> getHeaderParameters();
+    void saveResponseHeaders(Header[] responseHeaders);
 }

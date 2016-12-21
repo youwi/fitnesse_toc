@@ -1,18 +1,12 @@
 package com.qa.TestHttpClient;
 
-import java.io.File;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -24,15 +18,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
-import org.apache.poi.hssf.extractor.ExcelExtractor;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -43,6 +34,7 @@ public class HttpClientUtil {
     private CloseableHttpClient httpclient = null;
 
     private String responseBody = null;
+    private Header[] responseHeaders =null;
     private long responseTime = 999999999;
     int timeout = 5;
 
@@ -110,7 +102,7 @@ public class HttpClientUtil {
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
         try {
 
-            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
+            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpPost httpPost = new HttpPost(URL);
             httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
 //			httpPost.addHeader("User-ID", "0");
@@ -135,14 +127,14 @@ public class HttpClientUtil {
                 httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
             }
 
-            if (null != ci.addParam()) {
-                System.out.println("请求参数：  " + ci.addParam());
-                httpPost.setEntity(new StringEntity(ci.addParam()));
+            if (null != ci.getParam()) {
+                System.out.println("请求参数：  " + ci.getParam());
+                httpPost.setEntity(new StringEntity(ci.getParam()));
             }
 
-            if (null != ci.addJsonParam()) {
-                System.out.println("请求参数：  " + ci.addJsonParam());
-                httpPost.setEntity(new StringEntity(ci.addJsonParam()));
+            if (null != ci.getJsonParam()) {
+                System.out.println("请求参数：  " + ci.getJsonParam());
+                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
             }
 
             long temp = System.currentTimeMillis();
@@ -169,7 +161,7 @@ public class HttpClientUtil {
             throws IOException {
         try {
 
-            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
+            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpGet httpGet = new HttpGet(URL);
 
             httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
@@ -188,9 +180,9 @@ public class HttpClientUtil {
 //				System.out.println("请求头 Key： "+"os"+"------请求头 Value： "+"monitor");
             }
 
-//			if(null != ci.addParam())
+//			if(null != ci.getParam())
 //			{
-//			System.out.println("请求参数：  "+ci.addParam());
+//			System.out.println("请求参数：  "+ci.getParam());
 //
 //			}
             long temp = System.currentTimeMillis();
@@ -199,6 +191,7 @@ public class HttpClientUtil {
             System.out.println("-------------------------------------------");
             System.out.println(getResponseBody());
             System.out.println("-------------------------------------------");
+            ci.saveResponseHeaders(responseHeaders);
 
             return responseBody;
         } finally {
@@ -210,6 +203,7 @@ public class HttpClientUtil {
         return new ResponseHandler<String>() {
             public String handleResponse(final HttpResponse response)
                     throws ClientProtocolException, IOException {
+                responseHeaders=response.getAllHeaders();
                 int status = response.getStatusLine().getStatusCode();
                 if (status >= 200 && status < 300) {
                     HttpEntity entity = response.getEntity();
