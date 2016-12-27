@@ -5,6 +5,7 @@ import com.qa.TestHttpClient.HttpRequestCallback;
 import com.qa.constants.ConfigConstantsTest;
 import com.qa.utils.Data;
 import com.qa.utils.JSONParse;
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -22,9 +23,9 @@ public class BaseServer {
     Data data;
     public JSONParse jp;
     public String URL;
-    String env = null;
+    public String env = null;
     String responseBody = null;
-    String type = null;
+    public String type = null;
     static HttpClientUtil httpClientUtil;
 
 
@@ -76,6 +77,11 @@ public class BaseServer {
         return jp.getResult(key);
     }
 
+    public void getHeaderParam(String name, String value)
+            throws Exception {
+        data.setHeaderParameters(name, value);
+    }
+
     public JSONObject requestForJSON(String fullurl, final Data indata){
         if(type==null){
             type="POST";
@@ -104,7 +110,7 @@ public class BaseServer {
         return objResponse;
     }
 
-    public void requestForXML(String fullurl, final Data indata){
+    public String requestForXML(String fullurl, final Data indata){
         if(type==null){
             type="POST";
         }
@@ -114,7 +120,7 @@ public class BaseServer {
                     new HttpRequestCallback() {
                         @Override
                         public String addParam() {
-                            return indata.getAddParam();
+                            return indata.getAddFormParam();
                         }
                         @Override
                         public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
@@ -128,7 +134,57 @@ public class BaseServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return;
+        return responseBodyString;
+    }
+
+    public String requestForExecution(String fullurl, final Data indata){
+        type="POST";
+        String responseBodyString = null;
+        try {
+            responseBodyString = httpClientUtil.httpRequest(fullurl,
+                    new HttpRequestCallback() {
+                        @Override
+                        public String addParam() {
+                            return indata.getAddFormParam();
+                        }
+                        @Override
+                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+                            return indata.getAddHeaderParam();
+                        }
+                        @Override
+                        public String addJsonParam() {
+                            return indata.getJsonParam();
+                        }
+                    },type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseBodyString;
+    }
+
+    public String requestForwksso(String fullurl, final Data indata){
+        type="get";
+        String responseBodyString = null;
+        try {
+            responseBodyString = httpClientUtil.httpRequest(fullurl,
+                    new HttpRequestCallback() {
+                        @Override
+                        public String addParam() {
+                            return indata.getAddFormParam();
+                        }
+                        @Override
+                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+                            return indata.getAddHeaderParam();
+                        }
+                        @Override
+                        public String addJsonParam() {
+                            return indata.getJsonParam();
+                        }
+                    },type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseBodyString;
     }
 
 
@@ -156,6 +212,11 @@ public class BaseServer {
         System.out.println("响应时间：  "+ httpClientUtil.getResponseTime()+"ms");
         return httpClientUtil.getResponseTime()<Long.parseLong(param)?true:false;
     }
+
+    public Header[] getResponseHeader(String responseHeaderKey) {
+        return httpClientUtil.getResponseHeader(responseHeaderKey);
+    }
+
     public Data getData() {
         return data;
     }

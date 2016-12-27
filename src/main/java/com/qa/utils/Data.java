@@ -1,5 +1,6 @@
 package com.qa.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 public class Data {
@@ -44,7 +49,32 @@ public class Data {
         }
         
     }
-    
+
+    public String getAddFormParam() {
+
+//        JSONObject obj = new JSONObject();
+//        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        String pairs = "";
+        Set<Map.Entry<String, Object>> allSet = null;
+        if(this.getParameters().size() > 0)
+        {
+            allSet = this.getParameters().entrySet();
+            Iterator<Map.Entry<String, Object>> iter = allSet.iterator();
+            while (iter.hasNext()) {
+                Map.Entry<String, Object> me = iter.next();
+//                nameValuePairs.add(new BasicNameValuePair(me.getKey().toString(), me.getValue().toString()));
+//                obj.put(me.getKey().toString(), me.getValue());
+                pairs = pairs+ me.getKey().toString()+"="+me.getValue().toString()+"&";
+            }
+            return pairs.substring(0,pairs.length()-1);
+//            return nameValuePairs.toString();
+        }else{
+            return null;
+        }
+
+    }
+
+
     
     //get header parameter
     public Iterator<Map.Entry<String, String>> getAddHeaderParam() {
