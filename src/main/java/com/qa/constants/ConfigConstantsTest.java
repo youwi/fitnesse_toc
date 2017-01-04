@@ -13,7 +13,7 @@ public class ConfigConstantsTest {
 
     public final static String Monkey_King_WeChat_BASE_URL = "http://10.0.18.79:8167";// test
 
-    public final static String Monkey_King_Backstage_Server_BASE_URL="https://mkbsyun2.test.wkzf:8186";
+    public final static String Monkey_King_Backstage_Server_BASE_URL="https://yun2.test.wkzf/cpbs";
 
     public final static String JRSP_BASE_URL = "http://10.0.18.79:8104";// test
 
