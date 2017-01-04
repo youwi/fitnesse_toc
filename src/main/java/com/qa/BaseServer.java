@@ -217,6 +217,10 @@ public class BaseServer {
         return httpClientUtil.getResponseHeader(responseHeaderKey);
     }
 
+//    public Header[] getwkssoResponseHeader(String responseHeaderKey) {
+//        return httpClientUtil.getwkssoResponseHeader(responseHeaderKey);
+//    }
+
     public Data getData() {
         return data;
     }

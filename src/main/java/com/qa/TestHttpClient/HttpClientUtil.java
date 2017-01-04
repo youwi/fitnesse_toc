@@ -35,6 +35,7 @@ public class HttpClientUtil {
 
     private String responseBody = null;
     private HttpResponse response = null;
+    private HttpResponse wkssoResponse = null;
     private long responseTime = 999999999;
     int timeout = 5;
 
@@ -179,6 +180,7 @@ public class HttpClientUtil {
             }
             long temp = System.currentTimeMillis();
 //            ResponseHandler<String> responseHandler = createResponseHandler();
+            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
             response = httpclient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
             if (status >= 200 && status < 300) {
@@ -188,7 +190,11 @@ public class HttpClientUtil {
                 System.out.println("-------------------------------------------");
                 System.out.println(getResponseBody());
                 System.out.println("-------------------------------------------");
-            } else {
+            }
+//            else if(status == 302){
+//                wkssoResponse = response;
+//            }
+            else {
                 throw new ClientProtocolException(
                         "Unexpected response status: " + status);
             }
@@ -237,6 +243,11 @@ public class HttpClientUtil {
         Header[] headers = response.getHeaders(responseHeaderKey);
         return headers;
     }
+
+//    public Header[] getwkssoResponseHeader(String responseHeaderKey) {
+//        Header[] headers = wkssoResponse.getHeaders(responseHeaderKey);
+//        return headers;
+//    }
 
     public long getResponseTime() {
         return responseTime;

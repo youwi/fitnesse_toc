@@ -11,7 +11,9 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		SSOLogin legal = new SSOLogin("/login","test","post");
-		legal.getWKSSO("13162108888","111111","https://yun2.test.wkzf/fs2/customerReceivables/index");
+		String wksso = legal.getWKSSO("13162108888","111111","https://yun2.test.wkzf/cpbs/sxzBanner/index.action");
+
+		System.out.println("getWKSSO test>>>>>>>>>>>>>>>."+wksso);
 //		try {
 //			legal.setHeaderParam("Content-Type", "application/x-www-form-urlencoded");
 //			legal.setHeaderParam("Host", "yun2.test.wkzf");
