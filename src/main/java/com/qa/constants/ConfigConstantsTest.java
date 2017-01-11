@@ -43,6 +43,8 @@ public class ConfigConstantsTest {
 
     public final static String BDM2_SYS_SERVER_BASE_URL = "https://yun2.test.wkzf/bdm";// test
 
+    public final static String HR2_SYS_SERVER_BASE_URL = "https://yun2.test.wkzf/bdm";
+
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
     public final static String JDBC_USERNAME = "guwen";

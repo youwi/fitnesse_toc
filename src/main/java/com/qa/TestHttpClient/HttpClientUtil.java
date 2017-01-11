@@ -159,6 +159,14 @@ public class HttpClientUtil {
         }
     }
 
+    /**
+     * 老王暗恋你好久了，请你主动表白！！！！
+     * 这辈子的幸福看你的了
+     * @param URL
+     * @param ci
+     * @return
+     * @throws IOException
+     */
     public String httpGetRequest(String URL, HttpRequestCallback ci)
             throws IOException {
         try {
