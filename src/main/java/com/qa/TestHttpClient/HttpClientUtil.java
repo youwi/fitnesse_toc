@@ -188,6 +188,48 @@ public class HttpClientUtil {
             }
             long temp = System.currentTimeMillis();
 //            ResponseHandler<String> responseHandler = createResponseHandler();
+//            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
+            response = httpclient.execute(httpGet);
+            int status = response.getStatusLine().getStatusCode();
+            if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                setResponseBody(EntityUtils.toString(entity));
+                responseTime = System.currentTimeMillis() - temp;
+                System.out.println("-------------------------------------------");
+                System.out.println(getResponseBody());
+                System.out.println("-------------------------------------------");
+            }
+            else {
+                throw new ClientProtocolException(
+                        "Unexpected response status: " + status);
+            }
+            return responseBody;
+        } finally {
+            httpclient.close();
+        }
+    }
+
+    public String httpGet302Request(String URL, HttpRequestCallback ci)
+            throws IOException {
+        try {
+
+            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
+            HttpGet httpGet = new HttpGet(URL);
+//            httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
+            int flag = 0;
+            while (iter.hasNext()) {
+                Map.Entry<String, String> me = iter.next();
+                httpGet.addHeader(me.getKey(), me.getValue());
+                System.out.println("请求头 Key： " + me.getKey() + "------请求头 Value： " + me.getValue());
+                if ("os".equals(me.getKey())) {
+                    flag = 1;
+                }
+            }
+            if (0 == flag) {
+                httpGet.addHeader("os", "monitor");
+            }
+            long temp = System.currentTimeMillis();
+//            ResponseHandler<String> responseHandler = createResponseHandler();
             httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
             response = httpclient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();

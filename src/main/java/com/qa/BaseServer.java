@@ -116,7 +116,7 @@ public class BaseServer {
         }
         String responseBodyString = null;
         try {
-            responseBodyString = httpClientUtil.httpRequest(fullurl,
+            responseBodyString = httpClientUtil.httpPostRequest(fullurl,
                     new HttpRequestCallback() {
                         @Override
                         public String addParam() {
@@ -130,7 +130,7 @@ public class BaseServer {
                         public String addJsonParam() {
                             return indata.getJsonParam();
                         }
-                    },type);
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,7 +141,7 @@ public class BaseServer {
         type="POST";
         String responseBodyString = null;
         try {
-            responseBodyString = httpClientUtil.httpRequest(fullurl,
+            responseBodyString = httpClientUtil.httpPostRequest(fullurl,
                     new HttpRequestCallback() {
                         @Override
                         public String addParam() {
@@ -155,7 +155,7 @@ public class BaseServer {
                         public String addJsonParam() {
                             return indata.getJsonParam();
                         }
-                    },type);
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,7 +166,7 @@ public class BaseServer {
         type="get";
         String responseBodyString = null;
         try {
-            responseBodyString = httpClientUtil.httpRequest(fullurl,
+            responseBodyString = httpClientUtil.httpGet302Request(fullurl,
                     new HttpRequestCallback() {
                         @Override
                         public String addParam() {
@@ -180,7 +180,7 @@ public class BaseServer {
                         public String addJsonParam() {
                             return indata.getJsonParam();
                         }
-                    },type);
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
