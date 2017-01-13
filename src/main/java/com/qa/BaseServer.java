@@ -91,34 +91,21 @@ public class BaseServer {
                     new HttpRequestCallback() {
                         @Override
                         public String getJsonParam() {
-                            return null;
+                            return indata.getJsonParam();
                         }
 
                         @Override
                         public String getParam() {
-                            return null;
+                            return indata.getAddParam();
                         }
 
                         @Override
                         public Iterator<Map.Entry<String, String>> getHeaderParameters() {
-                            return null;
+                            return indata.getAddHeaderParam();
                         }
-
                         @Override
                         public void saveResponseHeaders(Header[] responseHeaders) {
 
-                        }
-
-                        public String addParam() {
-                            return indata.getAddParam();
-                        }
-
-                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
-                            return indata.getAddHeaderParam();
-                        }
-
-                        public String addJsonParam() {
-                            return indata.getJsonParam();
                         }
                     }, type);
         } catch (IOException e) {

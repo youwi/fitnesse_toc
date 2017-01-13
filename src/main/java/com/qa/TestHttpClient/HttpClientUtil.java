@@ -126,7 +126,7 @@ public class HttpClientUtil {
 
             if (null != ci.getParam()) {
                 System.out.println("请求参数：  " + ci.getParam());
-                httpPost.setEntity(new StringEntity(ci.getParam()));
+                httpPost.setEntity(new StringEntity(ci.getParam(),"UTF-8"));
             }
 
             if (null != ci.getJsonParam()) {
@@ -158,10 +158,8 @@ public class HttpClientUtil {
     }
 
     /**
-     * 老王暗恋你好久了，请你主动表白！！！！
-     * 这辈子的幸福看你的了
      * @param URL
-     * @param ci
+     * @param ci 反向取值方法
      * @return
      * @throws IOException
      */
@@ -171,6 +169,7 @@ public class HttpClientUtil {
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpGet httpGet = new HttpGet(URL);
             httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
+
             int flag = 0;
             while (iter.hasNext()) {
                 Map.Entry<String, String> me = iter.next();
@@ -206,50 +205,7 @@ public class HttpClientUtil {
         }
     }
 
-    public String httpGet302Request(String URL, HttpRequestCallback ci)
-            throws IOException {
-        try {
 
-            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
-            HttpGet httpGet = new HttpGet(URL);
-//            httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
-            int flag = 0;
-            while (iter.hasNext()) {
-                Map.Entry<String, String> me = iter.next();
-                httpGet.addHeader(me.getKey(), me.getValue());
-                System.out.println("请求头 Key： " + me.getKey() + "------请求头 Value： " + me.getValue());
-                if ("os".equals(me.getKey())) {
-                    flag = 1;
-                }
-            }
-            if (0 == flag) {
-                httpGet.addHeader("os", "monitor");
-            }
-            long temp = System.currentTimeMillis();
-//            ResponseHandler<String> responseHandler = createResponseHandler();
-            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
-            response = httpclient.execute(httpGet);
-            int status = response.getStatusLine().getStatusCode();
-            if (status >= 200 && status < 300) {
-                HttpEntity entity = response.getEntity();
-                setResponseBody(EntityUtils.toString(entity));
-                responseTime = System.currentTimeMillis() - temp;
-                System.out.println("-------------------------------------------");
-                System.out.println(getResponseBody());
-                System.out.println("-------------------------------------------");
-            }
-//            else if(status == 302){
-//                wkssoResponse = response;
-//            }
-            else {
-                throw new ClientProtocolException(
-                        "Unexpected response status: " + status);
-            }
-            return responseBody;
-        } finally {
-            httpclient.close();
-        }
-    }
 
 //    ResponseHandler createResponseHandler() {
 //        return new ResponseHandler<String>() {
