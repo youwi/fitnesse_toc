@@ -138,7 +138,6 @@ public class BaseServer {
     }
 
     public String requestForExecution(String fullurl, final Data indata){
-        type="POST";
         String responseBodyString = null;
         try {
             responseBodyString = httpClientUtil.httpPostRequest(fullurl,

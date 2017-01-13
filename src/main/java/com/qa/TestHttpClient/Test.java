@@ -3,6 +3,7 @@ package com.qa.TestHttpClient;
 import java.io.IOException;
 
 import com.qa.Financial2Sys.Financial2Sys;
+import com.qa.MonkeyKingBackstageServer.MonkeyKingBackstageServer;
 import com.qa.NewBuildingOpSys.NewBuildingOpSys;
 import com.qa.SSOLogin;
 import com.qa.constants.ConfigConstantsTest;
@@ -11,18 +12,20 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		SSOLogin legal = new SSOLogin("/login","test","post");
-		String wksso = legal.getWKSSO("13162108888","111111","https://yun2.test.wkzf/cpbs/sxzBanner/index.action");
+//		String wksso = legal.getWKSSO("13162108888","111111","https://yun2.test.wkzf/cpbs/customer/index.action");
+		String wksso = legal.getHrWKSSO("13162108888","111111","https://hryun2.test.wkzf:8178/account/getUsers.action");
 
 		System.out.println("getWKSSO test>>>>>>>>>>>>>>>."+wksso);
+
+//		MonkeyKingBackstageServer mk = new MonkeyKingBackstageServer("/estatePartner/addOrModifyPartnerCheckInfo.action","test","post");
 //		try {
-//			legal.setHeaderParam("Content-Type", "application/x-www-form-urlencoded");
-//			legal.setHeaderParam("Host", "yun2.test.wkzf");
-//			legal.setParam("username", "13162108888", "string");
-//			legal.setParam("password", "111111", "string");
-//			legal.setParam("lt", "LT-222-5wiLBKvflet2vaGJvwlcNlpCrpoGDb", "string");
-////			legal.setParam("execution", "e1s1", "string");
-//			legal.setParam("_eventId", "submit", "string");
-//			legal.setParam("submit", "", "string");
+//			mk.setHeaderParam("Host","yun2.test.wkzf");
+//			mk.setHeaderParam("Cookie",wksso);
+//			mk.setParam("id","2","int");
+//			mk.setParam("theoryCheck","125","int");
+//			mk.setParam("practiceCheck","3","string");
+//			mk.setParam("agentId","19223","int");
+//			mk.testRun("status");
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();

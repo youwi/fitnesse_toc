@@ -102,11 +102,8 @@ public class HttpClientUtil {
 
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
         try {
-
             Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
             HttpPost httpPost = new HttpPost(URL);
-//            httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
-//			httpPost.addHeader("User-ID", "0");
             int flag = 0;
             int CTFlag = 0;
             while (iter.hasNext()) {
@@ -141,6 +138,7 @@ public class HttpClientUtil {
             System.out.println("请求地址：  " + httpPost.getURI());
 //            ResponseHandler<String> responseHandler = createResponseHandler();
             response = httpclient.execute(httpPost);
+
             int status = response.getStatusLine().getStatusCode();
             if (status >= 200 && status < 300) {
                 HttpEntity entity = response.getEntity();
@@ -170,10 +168,9 @@ public class HttpClientUtil {
     public String httpGetRequest(String URL, HttpRequestCallback ci)
             throws IOException {
         try {
-
             Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
             HttpGet httpGet = new HttpGet(URL);
-//            httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
+            httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
             int flag = 0;
             while (iter.hasNext()) {
                 Map.Entry<String, String> me = iter.next();
