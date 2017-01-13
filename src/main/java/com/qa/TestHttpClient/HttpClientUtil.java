@@ -34,7 +34,8 @@ public class HttpClientUtil {
     private CloseableHttpClient httpclient = null;
 
     private String responseBody = null;
-    private Header[] responseHeaders =null;
+    private HttpResponse response = null;
+    private HttpResponse wkssoResponse = null;
     private long responseTime = 999999999;
     int timeout = 5;
 
@@ -101,11 +102,8 @@ public class HttpClientUtil {
 
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
         try {
-
-            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
+            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
             HttpPost httpPost = new HttpPost(URL);
-            httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
-//			httpPost.addHeader("User-ID", "0");
             int flag = 0;
             int CTFlag = 0;
             while (iter.hasNext()) {
@@ -121,51 +119,58 @@ public class HttpClientUtil {
             }
             if (0 == flag) {
                 httpPost.addHeader("os", "monitor");
-//				System.out.println("请求头 Key： "+"os"+"------请求头 Value： "+"monitor");
             }
             if (0 == CTFlag) {
                 httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
             }
 
-            if (null != ci.getParam()) {
-                System.out.println("请求参数：  " + ci.getParam());
-                httpPost.setEntity(new StringEntity(ci.getParam()));
+            if (null != ci.addParam()) {
+                System.out.println("请求参数：  " + ci.addParam());
+                httpPost.setEntity(new StringEntity(ci.addParam()));
             }
 
-            if (null != ci.getJsonParam()) {
-                System.out.println("请求参数：  " + ci.getJsonParam());
-                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
+            if (null != ci.addJsonParam()) {
+                System.out.println("请求参数：  " + ci.addJsonParam());
+                httpPost.setEntity(new StringEntity(ci.addJsonParam()));
             }
-
             long temp = System.currentTimeMillis();
             // Before end
             System.out.println("请求地址：  " + httpPost.getURI());
-            ResponseHandler<String> responseHandler = createResponseHandler();
+//            ResponseHandler<String> responseHandler = createResponseHandler();
+            response = httpclient.execute(httpPost);
 
-            setResponseBody(httpclient.execute(httpPost, responseHandler));
-            System.out.println("-------------------------------------------");
-
-            responseTime = System.currentTimeMillis() - temp;
-            // System.out.println(getResponseBody());
-            //System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
-            System.out.println("完整响应体： " + responseBody);
-//			System.out.println("responseBody: " + new String (responseBody.getBytes("ISO-8859-1"),"utf-8"));
-            System.out.println("-------------------------------------------");
+            int status = response.getStatusLine().getStatusCode();
+            if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                setResponseBody(EntityUtils.toString(entity));
+                System.out.println("-------------------------------------------");
+                responseTime = System.currentTimeMillis() - temp;
+                System.out.println("完整响应体： " + responseBody);
+                System.out.println("-------------------------------------------");
+            } else {
+                throw new ClientProtocolException(
+                        "Unexpected response status: " + status);
+            }
             return responseBody;
         } finally {
             httpclient.close();
         }
     }
 
+    /**
+     * 老王暗恋你好久了，请你主动表白！！！！
+     * 这辈子的幸福看你的了
+     * @param URL
+     * @param ci
+     * @return
+     * @throws IOException
+     */
     public String httpGetRequest(String URL, HttpRequestCallback ci)
             throws IOException {
         try {
-
-            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
+            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
             HttpGet httpGet = new HttpGet(URL);
-
             httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
-//			httpPost.addHeader("User-ID", "0");
             int flag = 0;
             while (iter.hasNext()) {
                 Map.Entry<String, String> me = iter.next();
@@ -177,45 +182,91 @@ public class HttpClientUtil {
             }
             if (0 == flag) {
                 httpGet.addHeader("os", "monitor");
-//				System.out.println("请求头 Key： "+"os"+"------请求头 Value： "+"monitor");
             }
-
-//			if(null != ci.getParam())
-//			{
-//			System.out.println("请求参数：  "+ci.getParam());
-//
-//			}
             long temp = System.currentTimeMillis();
-            ResponseHandler<String> responseHandler = createResponseHandler();
-            setResponseBody(httpclient.execute(httpGet, responseHandler));
-            System.out.println("-------------------------------------------");
-            System.out.println(getResponseBody());
-            System.out.println("-------------------------------------------");
-            ci.saveResponseHeaders(responseHeaders);
-
+//            ResponseHandler<String> responseHandler = createResponseHandler();
+//            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
+            response = httpclient.execute(httpGet);
+            int status = response.getStatusLine().getStatusCode();
+            if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                setResponseBody(EntityUtils.toString(entity));
+                responseTime = System.currentTimeMillis() - temp;
+                System.out.println("-------------------------------------------");
+                System.out.println(getResponseBody());
+                System.out.println("-------------------------------------------");
+            }
+            else {
+                throw new ClientProtocolException(
+                        "Unexpected response status: " + status);
+            }
             return responseBody;
         } finally {
             httpclient.close();
         }
     }
 
-    ResponseHandler createResponseHandler() {
-        return new ResponseHandler<String>() {
-            public String handleResponse(final HttpResponse response)
-                    throws ClientProtocolException, IOException {
-                responseHeaders=response.getAllHeaders();
-                int status = response.getStatusLine().getStatusCode();
-                if (status >= 200 && status < 300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity)
-                            : null;
-                } else {
-                    throw new ClientProtocolException(
-                            "Unexpected response status: " + status);
+    public String httpGet302Request(String URL, HttpRequestCallback ci)
+            throws IOException {
+        try {
+
+            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
+            HttpGet httpGet = new HttpGet(URL);
+//            httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
+            int flag = 0;
+            while (iter.hasNext()) {
+                Map.Entry<String, String> me = iter.next();
+                httpGet.addHeader(me.getKey(), me.getValue());
+                System.out.println("请求头 Key： " + me.getKey() + "------请求头 Value： " + me.getValue());
+                if ("os".equals(me.getKey())) {
+                    flag = 1;
                 }
             }
-        };
+            if (0 == flag) {
+                httpGet.addHeader("os", "monitor");
+            }
+            long temp = System.currentTimeMillis();
+//            ResponseHandler<String> responseHandler = createResponseHandler();
+            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
+            response = httpclient.execute(httpGet);
+            int status = response.getStatusLine().getStatusCode();
+            if (status >= 200 && status < 300) {
+                HttpEntity entity = response.getEntity();
+                setResponseBody(EntityUtils.toString(entity));
+                responseTime = System.currentTimeMillis() - temp;
+                System.out.println("-------------------------------------------");
+                System.out.println(getResponseBody());
+                System.out.println("-------------------------------------------");
+            }
+//            else if(status == 302){
+//                wkssoResponse = response;
+//            }
+            else {
+                throw new ClientProtocolException(
+                        "Unexpected response status: " + status);
+            }
+            return responseBody;
+        } finally {
+            httpclient.close();
+        }
     }
+
+//    ResponseHandler createResponseHandler() {
+//        return new ResponseHandler<String>() {
+//            public String handleResponse(final HttpResponse response)
+//                    throws ClientProtocolException, IOException {
+//                int status = response.getStatusLine().getStatusCode();
+//                if (status >= 200 && status < 300) {
+//                    HttpEntity entity = response.getEntity();
+//                    return entity != null ? EntityUtils.toString(entity)
+//                            : null;
+//                } else {
+//                    throw new ClientProtocolException(
+//                            "Unexpected response status: " + status);
+//                }
+//            }
+//        };
+//    }
 
     public String httpRequest(String URL, HttpRequestCallback ci, String type) throws IOException {
         if ("get".equals(type.toLowerCase())) {
@@ -234,6 +285,16 @@ public class HttpClientUtil {
     public void setResponseBody(String responseBody) {
         this.responseBody = responseBody;
     }
+
+    public Header[] getResponseHeader(String responseHeaderKey) {
+        Header[] headers = response.getHeaders(responseHeaderKey);
+        return headers;
+    }
+
+//    public Header[] getwkssoResponseHeader(String responseHeaderKey) {
+//        Header[] headers = wkssoResponse.getHeaders(responseHeaderKey);
+//        return headers;
+//    }
 
     public long getResponseTime() {
         return responseTime;

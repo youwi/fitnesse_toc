@@ -13,7 +13,7 @@ public class ConfigConstantsTest {
 
     public final static String Monkey_King_WeChat_BASE_URL = "http://10.0.18.79:8167";// test
 
-    public final static String Monkey_King_Backstage_Server_BASE_URL="https://mkbsyun2.test.wkzf:8186";
+    public final static String Monkey_King_Backstage_Server_BASE_URL="https://yun2.test.wkzf/cpbs";
 
     public final static String JRSP_BASE_URL = "http://10.0.18.79:8104";// test
 
@@ -42,6 +42,8 @@ public class ConfigConstantsTest {
     public final static String NBA_APP_SERVER_BASE_URL = "http://10.0.18.79:8165";// test
 
     public final static String BDM2_SYS_SERVER_BASE_URL = "https://yun2.test.wkzf/bdm";// test
+
+    public final static String HR2_SYS_SERVER_BASE_URL = "https://hryun2.test.wkzf:8178";
 
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";

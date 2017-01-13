@@ -23,10 +23,9 @@ public class BaseServer {
     Data data;
     public JSONParse jp;
     public String URL;
-    String env = null;
+    public String env = null;
     String responseBody = null;
-    Header[] responseHeaders=null;
-    String type = null;
+    public String type = null;
     static HttpClientUtil httpClientUtil;
 
 
@@ -62,19 +61,6 @@ public class BaseServer {
             throws Exception {
         data.setJsonParam(json);
     }
-    public String getCookieValue(String name){
-        if(responseHeaders==null) return "";
-        for(Header header :responseHeaders){
-            if("Set-Cookie".equals(header.getName())){
-                if(header.getValue().contains(name)){
-                    String [] list=header.getValue().split("=");
-                    if(list.length>1)
-                        return list[1];
-                }
-            }
-        }
-        return "";
-    }
 
     public void setParam(String name, String value, String type)
             throws Exception {
@@ -91,49 +77,113 @@ public class BaseServer {
         return jp.getResult(key);
     }
 
-    public JSONObject requestForJSON(String fullurl, final Data indata){
-
-        String responseBodyString= requestForString(fullurl,indata);
-        JSONObject objResponse = new JSONObject(responseBodyString);
-        return objResponse;
+    public void getHeaderParam(String name, String value)
+            throws Exception {
+        data.setHeaderParameters(name, value);
     }
-    public String requestForString(String fullurl, final Data indata){
+
+    public JSONObject requestForJSON(String fullurl, final Data indata){
         if(type==null){
             type="POST";
         }
         String responseBodyString = null;
         try {
             responseBodyString = httpClientUtil.httpRequest(fullurl,
+                     new HttpRequestCallback() {
+                         @Override
+                         public String addParam() {
+                             return indata.getAddParam();
+                         }
+                         @Override
+                         public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+                             return indata.getAddHeaderParam();
+                         }
+                         @Override
+                         public String addJsonParam() {
+                             return indata.getJsonParam();
+                         }
+                     },type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONObject objResponse = new JSONObject(responseBodyString);
+        return objResponse;
+    }
+
+    public String requestForXML(String fullurl, final Data indata){
+        if(type==null){
+            type="POST";
+        }
+        String responseBodyString = null;
+        try {
+            responseBodyString = httpClientUtil.httpPostRequest(fullurl,
                     new HttpRequestCallback() {
                         @Override
-                        public String getParam() {
-                            return indata.getAddParam();
+                        public String addParam() {
+                            return indata.getAddFormParam();
                         }
                         @Override
-                        public Iterator<Map.Entry<String, String>> getHeaderParameters() {
+                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
                             return indata.getAddHeaderParam();
                         }
-
                         @Override
-                        public void saveResponseHeaders(Header[] srcresponseHeaders) {
-                            responseHeaders=srcresponseHeaders;
-                        }
-
-                        @Override
-                        public String getJsonParam() {
+                        public String addJsonParam() {
                             return indata.getJsonParam();
                         }
-
-                    },type);
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
         return responseBodyString;
     }
 
-    public void requestForXML(String fullurl, final Data indata){
-        requestForString(fullurl,indata);
-        return;
+    public String requestForExecution(String fullurl, final Data indata){
+        String responseBodyString = null;
+        try {
+            responseBodyString = httpClientUtil.httpPostRequest(fullurl,
+                    new HttpRequestCallback() {
+                        @Override
+                        public String addParam() {
+                            return indata.getAddFormParam();
+                        }
+                        @Override
+                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+                            return indata.getAddHeaderParam();
+                        }
+                        @Override
+                        public String addJsonParam() {
+                            return indata.getJsonParam();
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseBodyString;
+    }
+
+    public String requestForwksso(String fullurl, final Data indata){
+        type="get";
+        String responseBodyString = null;
+        try {
+            responseBodyString = httpClientUtil.httpGet302Request(fullurl,
+                    new HttpRequestCallback() {
+                        @Override
+                        public String addParam() {
+                            return indata.getAddFormParam();
+                        }
+                        @Override
+                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+                            return indata.getAddHeaderParam();
+                        }
+                        @Override
+                        public String addJsonParam() {
+                            return indata.getJsonParam();
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responseBodyString;
     }
 
 
@@ -161,6 +211,15 @@ public class BaseServer {
         System.out.println("响应时间：  "+ httpClientUtil.getResponseTime()+"ms");
         return httpClientUtil.getResponseTime()<Long.parseLong(param)?true:false;
     }
+
+    public Header[] getResponseHeader(String responseHeaderKey) {
+        return httpClientUtil.getResponseHeader(responseHeaderKey);
+    }
+
+//    public Header[] getwkssoResponseHeader(String responseHeaderKey) {
+//        return httpClientUtil.getwkssoResponseHeader(responseHeaderKey);
+//    }
+
     public Data getData() {
         return data;
     }
