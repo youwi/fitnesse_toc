@@ -102,7 +102,7 @@ public class HttpClientUtil {
 
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
         try {
-            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
+            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpPost httpPost = new HttpPost(URL);
             int flag = 0;
             int CTFlag = 0;
@@ -124,14 +124,14 @@ public class HttpClientUtil {
                 httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
             }
 
-            if (null != ci.addParam()) {
-                System.out.println("请求参数：  " + ci.addParam());
-                httpPost.setEntity(new StringEntity(ci.addParam()));
+            if (null != ci.getParam()) {
+                System.out.println("请求参数：  " + ci.getParam());
+                httpPost.setEntity(new StringEntity(ci.getParam()));
             }
 
-            if (null != ci.addJsonParam()) {
-                System.out.println("请求参数：  " + ci.addJsonParam());
-                httpPost.setEntity(new StringEntity(ci.addJsonParam()));
+            if (null != ci.getJsonParam()) {
+                System.out.println("请求参数：  " + ci.getJsonParam());
+                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
             }
             long temp = System.currentTimeMillis();
             // Before end
@@ -168,7 +168,7 @@ public class HttpClientUtil {
     public String httpGetRequest(String URL, HttpRequestCallback ci)
             throws IOException {
         try {
-            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
+            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpGet httpGet = new HttpGet(URL);
             httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
             int flag = 0;
@@ -210,7 +210,7 @@ public class HttpClientUtil {
             throws IOException {
         try {
 
-            Iterator<Map.Entry<String, String>> iter = ci.AddHeaderParameters();
+            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpGet httpGet = new HttpGet(URL);
 //            httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
             int flag = 0;

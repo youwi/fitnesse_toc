@@ -81,109 +81,70 @@ public class BaseServer {
             throws Exception {
         data.setHeaderParameters(name, value);
     }
-
-    public JSONObject requestForJSON(String fullurl, final Data indata){
-        if(type==null){
-            type="POST";
+    public String requestForString(String fullurl, final Data indata){
+        if (type == null) {
+            type = "POST";
         }
         String responseBodyString = null;
         try {
             responseBodyString = httpClientUtil.httpRequest(fullurl,
-                     new HttpRequestCallback() {
-                         @Override
-                         public String addParam() {
-                             return indata.getAddParam();
-                         }
-                         @Override
-                         public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
-                             return indata.getAddHeaderParam();
-                         }
-                         @Override
-                         public String addJsonParam() {
-                             return indata.getJsonParam();
-                         }
-                     },type);
+                    new HttpRequestCallback() {
+                        @Override
+                        public String getJsonParam() {
+                            return null;
+                        }
+
+                        @Override
+                        public String getParam() {
+                            return null;
+                        }
+
+                        @Override
+                        public Iterator<Map.Entry<String, String>> getHeaderParameters() {
+                            return null;
+                        }
+
+                        @Override
+                        public void saveResponseHeaders(Header[] responseHeaders) {
+
+                        }
+
+                        public String addParam() {
+                            return indata.getAddParam();
+                        }
+
+                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
+                            return indata.getAddHeaderParam();
+                        }
+
+                        public String addJsonParam() {
+                            return indata.getJsonParam();
+                        }
+                    }, type);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JSONObject objResponse = new JSONObject(responseBodyString);
+        return responseBodyString;
+    }
+
+
+    public JSONObject requestForJSON(String fullurl, final Data indata){
+
+        JSONObject objResponse = new JSONObject(requestForString(fullurl,indata));
         return objResponse;
     }
 
     public String requestForXML(String fullurl, final Data indata){
-        if(type==null){
-            type="POST";
-        }
-        String responseBodyString = null;
-        try {
-            responseBodyString = httpClientUtil.httpPostRequest(fullurl,
-                    new HttpRequestCallback() {
-                        @Override
-                        public String addParam() {
-                            return indata.getAddFormParam();
-                        }
-                        @Override
-                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
-                            return indata.getAddHeaderParam();
-                        }
-                        @Override
-                        public String addJsonParam() {
-                            return indata.getJsonParam();
-                        }
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return responseBodyString;
+       return requestForString(fullurl,indata);
     }
 
     public String requestForExecution(String fullurl, final Data indata){
-        String responseBodyString = null;
-        try {
-            responseBodyString = httpClientUtil.httpPostRequest(fullurl,
-                    new HttpRequestCallback() {
-                        @Override
-                        public String addParam() {
-                            return indata.getAddFormParam();
-                        }
-                        @Override
-                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
-                            return indata.getAddHeaderParam();
-                        }
-                        @Override
-                        public String addJsonParam() {
-                            return indata.getJsonParam();
-                        }
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return responseBodyString;
+         return   requestForString(fullurl,indata);
     }
 
     public String requestForwksso(String fullurl, final Data indata){
         type="get";
-        String responseBodyString = null;
-        try {
-            responseBodyString = httpClientUtil.httpGet302Request(fullurl,
-                    new HttpRequestCallback() {
-                        @Override
-                        public String addParam() {
-                            return indata.getAddFormParam();
-                        }
-                        @Override
-                        public Iterator<Map.Entry<String, String>> AddHeaderParameters() {
-                            return indata.getAddHeaderParam();
-                        }
-                        @Override
-                        public String addJsonParam() {
-                            return indata.getJsonParam();
-                        }
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return responseBodyString;
+        return  requestForString(fullurl,indata);
     }
 
 
