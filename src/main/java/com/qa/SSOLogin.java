@@ -75,4 +75,22 @@ public class SSOLogin  extends BaseServer{
         this.setHeaderParam("Cookie", CASTGC);
         return this.getwksso(url,this.getData());
     }
+
+    public String getHrWKSSO(String name,String password,String url) throws Exception {
+        this.setHeaderParam("Content-Type", "application/x-www-form-urlencoded");
+        this.setHeaderParam("Host", "hryun2.test.wkzf:8178");
+        this.setParam("username", name, "string");
+        this.setParam("password", password, "string");
+        this.setParam("lt", "LT-222-5wiLBKvflet2vaGJvwlcNlpCrpoGDb", "string");
+        this.setParam("_eventId", "submit", "string");
+        this.setParam("submit", "", "string");
+        String execution = this.firstLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
+        this.setParam("execution", execution, "string");
+        this.setHeaderParam("Cookie", this.JSESSIONID);
+        System.out.println("JSESSIONID:----------->"+this.JSESSIONID);
+        String CASTGC = this.secondLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
+        this.setHeaderParam("Cookie", CASTGC);
+        return this.getwksso(url,this.getData());
+    }
+
 }
