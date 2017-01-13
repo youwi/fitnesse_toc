@@ -78,7 +78,6 @@ public class SSOLogin  extends BaseServer{
 
     public String getHrWKSSO(String name,String password,String url) throws Exception {
         this.setHeaderParam("Content-Type", "application/x-www-form-urlencoded");
-
         this.setParam("username", name, "string");
         this.setParam("password", password, "string");
         this.setParam("lt", "LT-222-5wiLBKvflet2vaGJvwlcNlpCrpoGDb", "string");
@@ -86,11 +85,11 @@ public class SSOLogin  extends BaseServer{
         this.setParam("submit", "", "string");
         String execution = this.firstLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
         this.setParam("execution", execution, "string");
+        this.setHeaderParam("Host", "hryun2.test.wkzf:8178");
         this.setHeaderParam("Cookie", this.JSESSIONID);
         System.out.println("JSESSIONID:----------->"+this.JSESSIONID);
         String CASTGC = this.secondLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
         this.setHeaderParam("Cookie", CASTGC);
-        this.setHeaderParam("Host", "hryun2.test.wkzf:8178");
         return this.getwksso(url,this.getData());
     }
 
