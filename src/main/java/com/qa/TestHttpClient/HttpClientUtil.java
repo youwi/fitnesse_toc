@@ -169,7 +169,7 @@ public class HttpClientUtil {
             }
             System.out.println("-------------------------------------------");
         } else if(status==302) {
-            System.out.println("中间状态:302");
+            System.out.println("返回:<中间状态:302>");
         }else{
             throw new ClientProtocolException("Unexpected response status(未处理状态码): " + status);
         }
