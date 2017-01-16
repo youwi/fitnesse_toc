@@ -167,6 +167,8 @@ public class HttpClientUtil {
                 System.out.println("返回:<HTML>" );
             }else{
                 System.out.println("完整响应体： " + responseBody);
+                System.out.println("响应时间： "+responseTime+"ms" );
+
             }
             System.out.println("-------------------------------------------");
         } else if(status==302) {

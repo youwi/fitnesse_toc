@@ -7,7 +7,7 @@ import org.junit.Test;
 public class GetWkSSOTest {
     //getWKSSO;	13162108888	111111	https://yun2.test.wkzf/nbos/promt/osnhlist.action
 
-    @Test
+   // @Test
     public void stcc() throws Exception {
 
     String s=       new SSOLogin("/login","test","post").getWKSSO("13162108888","111111","https://yun2.test.wkzf/nbos/promt/osnhlist.action");
