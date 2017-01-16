@@ -19,6 +19,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -143,30 +144,34 @@ public class HttpClientUtil {
                 httpPost.setEntity(new StringEntity(ci.getJsonParam()));
             }
 
-            long temp = System.currentTimeMillis();
             // Before end
 //            ResponseHandler<String> responseHandler = createResponseHandler();
             response = httpclient.execute(httpPost);
+        //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
+            printState(response);
 
-            int status = response.getStatusLine().getStatusCode();
-            if (status >= 200 && status < 300) {
-                HttpEntity entity = response.getEntity();
-                setResponseBody(EntityUtils.toString(entity));
-                System.out.println("-------------------------------------------");
-                responseTime = System.currentTimeMillis() - temp;
-                if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
-                    System.out.println("返回:<HTML>" );
-                }else{
-                    System.out.println("完整响应体： " + responseBody);
-                }
-                System.out.println("-------------------------------------------");
-            } else {
-                throw new ClientProtocolException(
-                        "Unexpected response status: " + status);
-            }
             return responseBody;
         } finally {
             httpclient.close();
+        }
+    }
+    public void printState(HttpResponse response) throws IOException {
+        long temp = System.currentTimeMillis();
+        int status = response.getStatusLine().getStatusCode();
+        if (status >= 200 && status < 300) {
+            HttpEntity entity = response.getEntity();
+            setResponseBody(EntityUtils.toString(entity));
+            responseTime = System.currentTimeMillis() - temp;
+            if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
+                System.out.println("返回:<HTML>" );
+            }else{
+                System.out.println("完整响应体： " + responseBody);
+            }
+            System.out.println("-------------------------------------------");
+        } else if(status==302) {
+            System.out.println("中间状态:302");
+        }else{
+            throw new ClientProtocolException("Unexpected response status: " + status);
         }
     }
 
@@ -195,26 +200,12 @@ public class HttpClientUtil {
                 httpGet.addHeader("os", "monitor");
             }
             System.out.println("GET 请求地址：  " + httpGet.getURI());
-            long temp = System.currentTimeMillis();
+
 //            ResponseHandler<String> responseHandler = createResponseHandler();
             httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).build());
             response = httpclient.execute(httpGet);
-            int status = response.getStatusLine().getStatusCode();
-            if (status >= 200 && status < 300) {
-                HttpEntity entity = response.getEntity();
-                setResponseBody(EntityUtils.toString(entity));
-                responseTime = System.currentTimeMillis() - temp;
-                System.out.println("-------------------------------------------");
-                if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
-                    System.out.println("返回:<HTML>" );
-                }else{
-                    System.out.println("完整响应体： " + responseBody);
-                }
-                System.out.println("-------------------------------------------");
-            }
-            else {
-                throw new ClientProtocolException("Unexpected response status: " + status);
-            }
+
+            printState(response);
             return responseBody;
         } finally {
             httpclient.close();
