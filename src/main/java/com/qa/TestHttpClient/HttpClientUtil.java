@@ -167,15 +167,17 @@ public class HttpClientUtil {
                 System.out.println("返回:<HTML>" );
             }else{
                 System.out.println("完整响应体： " + responseBody);
-                System.out.println("响应时间： "+responseTime+"ms" );
-
             }
-            System.out.println("-------------------------------------------");
+
         } else if(status==302) {
             System.out.println("返回:<中间状态:302,自动重定向:"+ci.getIsRedirect()+">");
         }else{
+            System.out.println("响应时间： "+responseTime+"ms" );
+            System.out.println("-------------------------------------------");
             throw new ClientProtocolException("Unexpected response status(未处理状态码): " + status);
         }
+        System.out.println("响应时间： "+responseTime+"ms" );
+        System.out.println("-------------------------------------------");
     }
 
     /**
