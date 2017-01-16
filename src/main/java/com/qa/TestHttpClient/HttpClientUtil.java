@@ -171,7 +171,7 @@ public class HttpClientUtil {
         } else if(status==302) {
             System.out.println("中间状态:302");
         }else{
-            throw new ClientProtocolException("Unexpected response status: " + status);
+            throw new ClientProtocolException("Unexpected response status(未处理状态码): " + status);
         }
     }
 
