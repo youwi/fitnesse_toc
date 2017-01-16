@@ -20,7 +20,7 @@ public class SSOLogin  extends BaseServer{
         String responseBody = requestForExecution(fullurl,indata);
         String strTemp = responseBody.substring(responseBody.indexOf("<input type=\"hidden\" name=\"execution\" value=\"")+45);
         String execution = strTemp.substring(0,strTemp.indexOf("\""));
-        System.out.println("DEBUG:execution:------------------------------------------------->"+execution);
+        System.out.println("DEBUG:execution:"+execution);
         Header[] headers = getResponseHeader("Set-Cookie");
         for(Header header:headers)
         {
@@ -74,7 +74,7 @@ public class SSOLogin  extends BaseServer{
         String execution = this.firstLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
         this.setParam("execution", execution, "string");
         this.setHeaderParam("Cookie", this.JSESSIONID);
-        System.out.println("DEBUG:JSESSIONID:----------->"+this.JSESSIONID);
+        System.out.println("DEBUG:JSESSIONID:"+this.JSESSIONID);
         this.getData().isRedirect=false;
         String CASTGC = this.secondLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
         this.setHeaderParam("Cookie", CASTGC);
@@ -94,7 +94,7 @@ public class SSOLogin  extends BaseServer{
         this.setParam("execution", execution, "string");
         this.setHeaderParam("Host", "hryun2.test.wkzf:8178");
         this.setHeaderParam("Cookie", this.JSESSIONID);
-        System.out.println("DEBUG:JSESSIONID:----------->"+this.JSESSIONID);
+        System.out.println("DEBUG:JSESSIONID:"+this.JSESSIONID);
         String CASTGC = this.secondLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
         this.setHeaderParam("Cookie", CASTGC);
         return this.getwksso(url,this.getData());
