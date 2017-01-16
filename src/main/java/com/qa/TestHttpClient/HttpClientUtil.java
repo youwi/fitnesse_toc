@@ -110,7 +110,7 @@ public class HttpClientUtil {
             while (iter.hasNext()) {
                 Map.Entry<String, String> me = iter.next();
                 httpPost.addHeader(me.getKey(), me.getValue());
-                System.out.println("请求头 Key： " + me.getKey() + "------请求头 Value： " + me.getValue());
+                System.out.println("请求头:" + me.getKey() + "\t\t:" + me.getValue());
                 if ("os".equals(me.getKey())) {
                     flag = 1;
                 }
@@ -131,6 +131,7 @@ public class HttpClientUtil {
             if (0 == CTFlag) {
                 httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
             }
+            System.out.println("POST请求地址：  " + httpPost.getURI());
 
             if(  (3==CTFlag)  && ( null != ci.getParam()) ){
                 System.out.println("请求参数：  " + ci.getParam());
@@ -144,7 +145,6 @@ public class HttpClientUtil {
 
             long temp = System.currentTimeMillis();
             // Before end
-            System.out.println("请求地址：  " + httpPost.getURI());
 //            ResponseHandler<String> responseHandler = createResponseHandler();
             response = httpclient.execute(httpPost);
 
@@ -182,7 +182,7 @@ public class HttpClientUtil {
             while (iter.hasNext()) {
                 Map.Entry<String, String> me = iter.next();
                 httpGet.addHeader(me.getKey(), me.getValue());
-                System.out.println("请求头 Key： " + me.getKey() + "------请求头 Value： " + me.getValue());
+                System.out.println("请求头:" + me.getKey() + "\t\t:" + me.getValue());
                 if ("os".equals(me.getKey())) {
                     flag = 1;
                 }
@@ -190,6 +190,7 @@ public class HttpClientUtil {
             if (0 == flag) {
                 httpGet.addHeader("os", "monitor");
             }
+            System.out.println("GET 请求地址：  " + httpGet.getURI());
             long temp = System.currentTimeMillis();
 //            ResponseHandler<String> responseHandler = createResponseHandler();
             httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).build());
@@ -204,8 +205,7 @@ public class HttpClientUtil {
                 System.out.println("-------------------------------------------");
             }
             else {
-                throw new ClientProtocolException(
-                        "Unexpected response status: " + status);
+                throw new ClientProtocolException("Unexpected response status: " + status);
             }
             return responseBody;
         } finally {
