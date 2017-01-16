@@ -1,6 +1,6 @@
 package com.qa;
 
-import com.fasterxml.jackson.databind.deser.Deserializers;
+
 import com.qa.HouseholderAppServer.HouseholderAppServer;
 import com.qa.exampleAppServer.ExampleAppServer;
 import org.junit.Test;
