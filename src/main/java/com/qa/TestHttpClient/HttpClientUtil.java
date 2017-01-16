@@ -34,7 +34,7 @@ import javax.net.ssl.X509TrustManager;
 public class HttpClientUtil {
 
     private CloseableHttpClient httpclient = null;
-
+    long stime = System.currentTimeMillis();
     private String responseBody = null;
     private HttpResponse response = null;
     private HttpResponse wkssoResponse = null;
@@ -147,6 +147,7 @@ public class HttpClientUtil {
             // Before end
 //            ResponseHandler<String> responseHandler = createResponseHandler();
             httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).build());
+            stime = System.currentTimeMillis();
             response = httpclient.execute(httpPost);
         //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
             printState(response,ci);
@@ -157,12 +158,11 @@ public class HttpClientUtil {
         }
     }
     public void printState(HttpResponse response,HttpRequestCallback ci) throws IOException {
-        long temp = System.currentTimeMillis();
         int status = response.getStatusLine().getStatusCode();
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
             setResponseBody(EntityUtils.toString(entity));
-            responseTime = System.currentTimeMillis() - temp;
+            responseTime = System.currentTimeMillis() - stime;
             if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
                 System.out.println("返回:<HTML>" );
             }else{
@@ -208,6 +208,7 @@ public class HttpClientUtil {
 
 //            ResponseHandler<String> responseHandler = createResponseHandler();
             httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).build());
+            stime = System.currentTimeMillis();
             response = httpclient.execute(httpGet);
 
             printState(response,ci);
