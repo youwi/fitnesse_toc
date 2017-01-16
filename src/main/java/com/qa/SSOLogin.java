@@ -32,6 +32,9 @@ public class SSOLogin  extends BaseServer{
         return execution;
     }
     public String secondLoginRun(String fullurl, Data indata) throws IOException {
+        indata.setHeaderParameters("Content-Type","application/x-www-form-urlencoded");
+     //   indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
+
         String responseBody = requestForXML(fullurl,indata);
         Header[] headers = getResponseHeader("Set-Cookie");
         String CASTGC = null;
@@ -71,6 +74,7 @@ public class SSOLogin  extends BaseServer{
         this.setParam("execution", execution, "string");
         this.setHeaderParam("Cookie", this.JSESSIONID);
         System.out.println("JSESSIONID:----------->"+this.JSESSIONID);
+        this.getData().isRedirect=false;
         String CASTGC = this.secondLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
         this.setHeaderParam("Cookie", CASTGC);
         return this.getwksso(url,this.getData());

@@ -13,6 +13,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 //import net.sf.json.JSONObject;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -115,6 +116,13 @@ public class HttpClientUtil {
                 }
                 if ("Content-Type".equals(me.getKey())) {
                     CTFlag = 1;
+                    String vv=me.getValue();
+                    if(vv!=null && vv.contains("application/json")){
+                        CTFlag=2;// JSON
+                    }
+                    if(vv!=null && vv.contains("application/x-www-form-urlencoded")){
+                        CTFlag=3;// form
+                    }
                 }
             }
             if (0 == flag) {
@@ -124,15 +132,16 @@ public class HttpClientUtil {
                 httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
             }
 
-            if (null != ci.getParam()) {
+            if(  (3==CTFlag)  && ( null != ci.getParam()) ){
                 System.out.println("请求参数：  " + ci.getParam());
-                httpPost.setEntity(new StringEntity(ci.getParam(),"UTF-8"));
+                httpPost.setEntity(new StringEntity(ci.getParam()));
             }
 
-            if (null != ci.getJsonParam()) {
+            if ( (2==CTFlag) && (null != ci.getJsonParam())) {
                 System.out.println("请求参数：  " + ci.getJsonParam());
                 httpPost.setEntity(new StringEntity(ci.getJsonParam()));
             }
+
             long temp = System.currentTimeMillis();
             // Before end
             System.out.println("请求地址：  " + httpPost.getURI());
@@ -145,7 +154,7 @@ public class HttpClientUtil {
                 setResponseBody(EntityUtils.toString(entity));
                 System.out.println("-------------------------------------------");
                 responseTime = System.currentTimeMillis() - temp;
-                System.out.println("完整响应体： " + responseBody);
+               // System.out.println("完整响应体： " + responseBody);
                 System.out.println("-------------------------------------------");
             } else {
                 throw new ClientProtocolException(
@@ -168,7 +177,6 @@ public class HttpClientUtil {
         try {
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpGet httpGet = new HttpGet(URL);
-            httpGet.addHeader("Content-Type", "application/json;charset=UTF-8");
 
             int flag = 0;
             while (iter.hasNext()) {
@@ -184,7 +192,7 @@ public class HttpClientUtil {
             }
             long temp = System.currentTimeMillis();
 //            ResponseHandler<String> responseHandler = createResponseHandler();
-//            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
+            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).build());
             response = httpclient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
             if (status >= 200 && status < 300) {
@@ -204,7 +212,6 @@ public class HttpClientUtil {
             httpclient.close();
         }
     }
-
 
 
 //    ResponseHandler createResponseHandler() {

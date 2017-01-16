@@ -10,4 +10,6 @@ public interface HttpRequestCallback {
     String getParam();
     Iterator<Entry<String, String>> getHeaderParameters();
     void saveResponseHeaders(Header[] responseHeaders);
+
+    boolean getIsRedirect();
 }

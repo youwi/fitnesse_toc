@@ -233,6 +233,12 @@
 			<artifactId>fitlibrary</artifactId>
 			<version>20080812</version>
 		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.10</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.codehaus.fitnesse-web/fitnesse-web-fixture -->
 		<!--<dependency>-->
 			<!--<groupId>org.codehaus.fitnesse-web</groupId>-->

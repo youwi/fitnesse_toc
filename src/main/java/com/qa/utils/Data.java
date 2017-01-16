@@ -18,7 +18,8 @@ public class Data {
     private HashMap<String, Object> map = new HashMap<String, Object>();
     private HashMap<String, String> headermap = new HashMap<String, String>();
     private String jsonParam = null;
-    
+    public boolean isRedirect=true;//是否重定向!
+
     public Data() {
         HashMap<String, String> parameters = new HashMap<String, String>();
     }
@@ -31,7 +32,7 @@ public class Data {
         return this.headermap;
     }
    
-    public String getAddParam() {
+    public String getParamAsJsonString() {
     	 	
     	JSONObject obj = new JSONObject();
         Set<Map.Entry<String, Object>> allSet = null;
@@ -50,7 +51,7 @@ public class Data {
         
     }
 
-    public String getAddFormParam() {
+    public String getParamAsFormString() {
 
 //        JSONObject obj = new JSONObject();
 //        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();

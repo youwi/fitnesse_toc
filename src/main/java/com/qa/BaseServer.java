@@ -77,10 +77,6 @@ public class BaseServer {
         return jp.getResult(key);
     }
 
-    public void getHeaderParam(String name, String value)
-            throws Exception {
-        data.setHeaderParameters(name, value);
-    }
     public String requestForString(String fullurl, final Data indata){
         if (type == null) {
             type = "POST";
@@ -91,12 +87,12 @@ public class BaseServer {
                     new HttpRequestCallback() {
                         @Override
                         public String getJsonParam() {
-                            return indata.getJsonParam();
+                            return indata.getParamAsJsonString();
                         }
 
                         @Override
                         public String getParam() {
-                            return indata.getAddParam();
+                            return indata.getParamAsFormString();
                         }
 
                         @Override
@@ -107,6 +103,11 @@ public class BaseServer {
                         public void saveResponseHeaders(Header[] responseHeaders) {
 
                         }
+
+                        @Override
+                        public boolean getIsRedirect() {
+                            return indata.isRedirect;
+                        }
                     }, type);
         } catch (IOException e) {
             e.printStackTrace();
@@ -116,17 +117,21 @@ public class BaseServer {
 
 
     public JSONObject requestForJSON(String fullurl, final Data indata){
-
+        indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
         JSONObject objResponse = new JSONObject(requestForString(fullurl,indata));
         return objResponse;
     }
 
     public String requestForXML(String fullurl, final Data indata){
+        if (type == null) {
+            type = "POST";
+        }
        return requestForString(fullurl,indata);
     }
 
     public String requestForExecution(String fullurl, final Data indata){
-         return   requestForString(fullurl,indata);
+        type="post";
+        return   requestForString(fullurl,indata);
     }
 
     public String requestForwksso(String fullurl, final Data indata){
