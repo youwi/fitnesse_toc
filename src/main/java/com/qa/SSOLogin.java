@@ -59,6 +59,7 @@ public class SSOLogin  extends BaseServer{
                 wksso = header.getValue().toString();
             }
         }
+        this.getData().isRedirect=true;
         return wksso;
     }
 
@@ -79,6 +80,7 @@ public class SSOLogin  extends BaseServer{
         this.setHeaderParam("Cookie", CASTGC);
       //  this.getData().isRedirect=true;
         return this.getwksso(url,this.getData());
+
     }
 
     public String getHrWKSSO(String name,String password,String url) throws Exception {
