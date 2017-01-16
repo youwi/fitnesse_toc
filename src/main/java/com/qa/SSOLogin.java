@@ -77,6 +77,7 @@ public class SSOLogin  extends BaseServer{
         this.getData().isRedirect=false;
         String CASTGC = this.secondLoginRun(ConfigConstantsTest.SSO_BASE_URL + this.URL,this.getData());
         this.setHeaderParam("Cookie", CASTGC);
+        this.getData().isRedirect=true;
         return this.getwksso(url,this.getData());
     }
 

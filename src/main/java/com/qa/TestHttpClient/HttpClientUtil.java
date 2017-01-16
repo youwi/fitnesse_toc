@@ -110,7 +110,7 @@ public class HttpClientUtil {
             while (iter.hasNext()) {
                 Map.Entry<String, String> me = iter.next();
                 httpPost.addHeader(me.getKey(), me.getValue());
-                System.out.println("请求头:" + me.getKey() + "\t\t:" + me.getValue());
+                System.out.println("请求头：  " + me.getKey() + ":" + me.getValue());
                 if ("os".equals(me.getKey())) {
                     flag = 1;
                 }
@@ -131,7 +131,7 @@ public class HttpClientUtil {
             if (0 == CTFlag) {
                 httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
             }
-            System.out.println("POST请求地址：  " + httpPost.getURI());
+            System.out.println("请求地址：  POST  " + httpPost.getURI());
 
             if(  (3==CTFlag)  && ( null != ci.getParam()) ){
                 System.out.println("请求参数：  " + ci.getParam());
@@ -154,7 +154,11 @@ public class HttpClientUtil {
                 setResponseBody(EntityUtils.toString(entity));
                 System.out.println("-------------------------------------------");
                 responseTime = System.currentTimeMillis() - temp;
-               // System.out.println("完整响应体： " + responseBody);
+                if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
+                    System.out.println("返回:<HTML>" );
+                }else{
+                    System.out.println("完整响应体： " + responseBody);
+                }
                 System.out.println("-------------------------------------------");
             } else {
                 throw new ClientProtocolException(
@@ -182,7 +186,7 @@ public class HttpClientUtil {
             while (iter.hasNext()) {
                 Map.Entry<String, String> me = iter.next();
                 httpGet.addHeader(me.getKey(), me.getValue());
-                System.out.println("请求头:" + me.getKey() + "\t\t:" + me.getValue());
+                System.out.println("请求头：  " + me.getKey() + ":" + me.getValue());
                 if ("os".equals(me.getKey())) {
                     flag = 1;
                 }
@@ -201,7 +205,11 @@ public class HttpClientUtil {
                 setResponseBody(EntityUtils.toString(entity));
                 responseTime = System.currentTimeMillis() - temp;
                 System.out.println("-------------------------------------------");
-                System.out.println(getResponseBody());
+                if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
+                    System.out.println("返回:<HTML>" );
+                }else{
+                    System.out.println("完整响应体： " + responseBody);
+                }
                 System.out.println("-------------------------------------------");
             }
             else {
