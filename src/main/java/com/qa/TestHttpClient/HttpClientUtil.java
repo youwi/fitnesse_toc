@@ -151,11 +151,11 @@ public class HttpClientUtil {
             if (0 == CTFlag) {
                 httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
                 System.out.println("请求参数：  " + ci.getJsonParam());
-                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
+                httpPost.setEntity(new StringEntity(ci.getJsonParam(),"utf-8"));
             }
             if ( (2==CTFlag) && (null != ci.getJsonParam())) {
                 System.out.println("请求参数：  " + ci.getJsonParam());
-                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
+                httpPost.setEntity(new StringEntity(ci.getJsonParam(),"utf-8"));
             }
             if(  (3==CTFlag)  && ( null != ci.getParam()) ){
                 System.out.println("请求参数：  " + ci.getParam());
