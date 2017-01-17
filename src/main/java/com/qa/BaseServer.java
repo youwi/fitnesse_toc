@@ -57,13 +57,11 @@ public class BaseServer {
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
-    public void setJsonParam(String json)
-            throws Exception {
+    public void setJsonParam(String json) throws Exception {
         data.setJsonParam(json);
     }
 
-    public void setParam(String name, String value, String type)
-            throws Exception {
+    public void setParam(String name, String value, String type)throws Exception {
         data.setParameters(name, value, type);
     }
 
@@ -87,7 +85,10 @@ public class BaseServer {
                     new HttpRequestCallback() {
                         @Override
                         public String getJsonParam() {
-                            return indata.getParamAsJsonString();
+                            if(indata.getJsonParam()!=null)
+                                return  indata.getJsonParam();
+                            else
+                                return indata.getParamAsJsonString();
                         }
 
                         @Override

@@ -20,7 +20,7 @@ public class BaseServerTest2 {
 
         LegalMgmtSys s=new LegalMgmtSys("/dicArea/getCityList.rest");
         s.setHeaderParam("HOST","yun2.test.wkzf");
-        s.setHeaderParam("Cookie","wksso=c713a8e3-cddd-4c4e-be8e-ae8c2b330144");
+        s.setHeaderParam("Cookie","wksso=95add403-8d45-4cb3-b5fc-5d5678375183; Path=/; HttpOnly");
         s.setParam("cityId","43","int");
         s.testRun("message,status,data");
         s.getParam("status" );

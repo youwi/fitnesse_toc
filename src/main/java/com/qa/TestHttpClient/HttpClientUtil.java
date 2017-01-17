@@ -10,17 +10,21 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-//import net.sf.json.JSONObject;
+ //import net.sf.json.JSONObject;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
+
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.AbstractHttpClient;
+
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
+
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContexts;
@@ -39,10 +43,22 @@ public class HttpClientUtil {
     private HttpResponse response = null;
     private HttpResponse wkssoResponse = null;
     private long responseTime = 999999999;
+    CookieStore httpCookieStore = new BasicCookieStore();
     int timeout = 5;
 
     @SuppressWarnings("deprecation")
     public HttpClientUtil() {
+
+        buildNewHttpClient();
+
+       // HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+
+        //httpClientBuilder.setSSLContext(ctx);
+        //httpClientBuilder.setSslcontext(ctx);//not work on 4.4
+        //this.httpclient = httpClientBuilder.build();
+        //this.httpclient = HttpClients.createDefault();
+    }
+    public void buildNewHttpClient(){
         SSLContext ctx = null;  // 4.3
         SSLContext sslContext=null;// 4.4
         try {
@@ -76,8 +92,6 @@ public class HttpClientUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-       // HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
         RequestConfig config = RequestConfig.custom()
                 .setConnectTimeout(timeout * 1000)
                 .setConnectionRequestTimeout(timeout * 1000)
@@ -87,66 +101,74 @@ public class HttpClientUtil {
         PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager();
         client = HttpClients.custom()
                 //	.setKeepAliveStrategy(myStrategy)
-           //     .setSslcontext(sslContext)
+                //     .setSslcontext(sslContext)
                 .setSSLSocketFactory(sslsf)
                 .setDefaultRequestConfig(config)
-        //        .setConnectionManager(connManager)  // bug? not tr ust
+                //        .setConnectionManager(connManager)  // bug? not tr ust
                 .setDefaultRequestConfig(config)
                 .setConnectionManagerShared(true)
+                .setDefaultCookieStore(httpCookieStore)
                 .build();
 
         this.httpclient = client;
-        //httpClientBuilder.setSSLContext(ctx);
-        //httpClientBuilder.setSslcontext(ctx);//not work on 4.4
-        //this.httpclient = httpClientBuilder.build();
-        //this.httpclient = HttpClients.createDefault();
     }
 
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
         try {
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
             HttpPost httpPost = new HttpPost(URL);
+          //  httpPost.setConfig(RequestConfig.custom().setCookieSpec());
             int flag = 0;
             int CTFlag = 0;
-            while (iter.hasNext()) {
-                Map.Entry<String, String> me = iter.next();
-                httpPost.addHeader(me.getKey(), me.getValue());
-                System.out.println("请求头：  " + me.getKey() + ":" + me.getValue());
-                if ("os".equals(me.getKey())) {
-                    flag = 1;
-                }
-                if ("Content-Type".equals(me.getKey())) {
-                    CTFlag = 1;
-                    String vv=me.getValue();
-                    if(vv!=null && vv.contains("application/json")){
-                        CTFlag=2;// JSON
+            if(iter!=null){
+                while (iter.hasNext()) {
+                    Map.Entry<String, String> me = iter.next();
+                    httpPost.addHeader(me.getKey(), me.getValue());
+                    System.out.println("请求头：  " + me.getKey() + ":" + me.getValue());
+                    if ("os".equals(me.getKey())) {
+                        flag = 1;
                     }
-                    if(vv!=null && vv.contains("application/x-www-form-urlencoded")){
-                        CTFlag=3;// form
+                    if ("Content-Type".equals(me.getKey())) {
+                        CTFlag = 1;
+                        String vv=me.getValue();
+                        if(vv!=null && vv.contains("application/json")){
+                            CTFlag=2;// JSON
+                        }
+                        if(vv!=null && vv.contains("application/x-www-form-urlencoded")){
+                            CTFlag=3;// form
+                        }
                     }
                 }
-            }
-            if (0 == flag) {
-                httpPost.addHeader("os", "monitor");
-            }
-            if (0 == CTFlag) {
-                httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
             }
             System.out.println("请求地址：  POST  " + httpPost.getURI());
 
+            if (0 == flag) {
+                httpPost.addHeader("os", "monitor");
+            }
+            if (1 == CTFlag) {
+                System.out.println("未知类型：  Content-Type:" + httpPost.getFirstHeader("Content-Type"));
+            }
+            if (0 == CTFlag) {
+                httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
+                System.out.println("请求参数：  " + ci.getJsonParam());
+                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
+            }
+            if ( (2==CTFlag) && (null != ci.getJsonParam())) {
+                System.out.println("请求参数：  " + ci.getJsonParam());
+                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
+            }
             if(  (3==CTFlag)  && ( null != ci.getParam()) ){
                 System.out.println("请求参数：  " + ci.getParam());
                 httpPost.setEntity(new StringEntity(ci.getParam()));
             }
 
-            if ( (2==CTFlag) && (null != ci.getJsonParam())) {
-                System.out.println("请求参数：  " + ci.getJsonParam());
-                httpPost.setEntity(new StringEntity(ci.getJsonParam()));
-            }
 
             // Before end
 //            ResponseHandler<String> responseHandler = createResponseHandler();
-            httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).build());
+            if(!ci.getIsRedirect()){
+          //      buildNewHttpClient();
+            }
+            httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
             stime = System.currentTimeMillis();
             response = httpclient.execute(httpPost);
         //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
@@ -170,7 +192,8 @@ public class HttpClientUtil {
             }
 
         } else if(status==302) {
-            System.out.println("返回:<中间状态:302,自动重定向:"+ci.getIsRedirect()+">");
+           // response.getFirstHeader("Location");
+            System.out.println("返回:<中间状态:302,自动重定向:"+ci.getIsRedirect()+"> Location:"+ response.getFirstHeader("Location"));
         }else{
             System.out.println("响应时间： "+responseTime+"ms" );
             System.out.println("-------------------------------------------");
@@ -178,7 +201,7 @@ public class HttpClientUtil {
         }
         System.out.println("响应时间： "+responseTime+"ms" );
         System.out.println("-------------------------------------------");
-    }
+     }
 
     /**
      * @param URL
@@ -207,10 +230,12 @@ public class HttpClientUtil {
             System.out.println("GET 请求地址：  " + httpGet.getURI());
 
 //            ResponseHandler<String> responseHandler = createResponseHandler();
-            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).build());
+            if(!ci.getIsRedirect()){
+             //   buildNewHttpClient();
+            }
+            httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
             stime = System.currentTimeMillis();
             response = httpclient.execute(httpGet);
-
             printState(response,ci);
             return responseBody;
         } finally {

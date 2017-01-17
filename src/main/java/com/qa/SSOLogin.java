@@ -24,9 +24,9 @@ public class SSOLogin  extends BaseServer{
         Header[] headers = getResponseHeader("Set-Cookie");
         for(Header header:headers)
         {
-            if(header.getValue().contains("JSESSIONID") == true)
+            if(header.getValue().contains("JSESSIONID"))
             {
-                JSESSIONID = header.getValue().toString();
+                JSESSIONID = header.getValue();
             }
         }
         return execution;
@@ -40,9 +40,9 @@ public class SSOLogin  extends BaseServer{
         String CASTGC = null;
         for(Header header:headers)
         {
-            if(header.getValue().contains("CASTGC") == true)
+            if(header.getValue().contains("CASTGC"))
             {
-                CASTGC = header.getValue().toString();
+                CASTGC = header.getValue();
             }
         }
         return CASTGC;
@@ -54,13 +54,26 @@ public class SSOLogin  extends BaseServer{
         String wksso = null;
         for(Header header:headers)
         {
-            if(header.getValue().contains("wksso") == true)
+            if(header.getValue().contains("wksso"))
             {
-                wksso = header.getValue().toString();
+                wksso = header.getValue();
             }
+        }
+        Header[] newLocation=getResponseHeader("Location");
+        for(Header header:newLocation){
+            type="GET";
+            isLoginSuccess(header.getValue());
         }
         this.getData().isRedirect=true;
         return wksso;
+    }
+    //判断登陆成功与否
+    public boolean isLoginSuccess(String url302){
+       String out= requestForString(url302,new Data());
+        if(out.contains("<input type=\"hidden\" name=\"execution\" value=\"")){
+            System.out.println("DEBUG:登陆跳转未成功");
+        };
+        return true;
     }
 
     public String getWKSSO(String name,String password,String url) throws Exception {
