@@ -13,12 +13,12 @@ import static org.junit.Assert.*;
  * Created by yus on 2016/11/26.
  */
 public class BaseServerTest {
-    @Test
+    //@Test
     public void tt() throws Exception {
         System.out.println(this.getClass().getName());
         System.out.println(this.getClass().getSimpleName());
     }
-    @Test
+   // @Test
     public void t2222t() throws Exception {
       String ou=  BaseServer.delHTMLTag("<a href=\"https://yun2.test.wkzf\">https://yun2.test.wkzf</a>/legalmgmt2/contractManagement/signJusticeGroup/getGroupList.action</td>\n");
         System.out.println(ou);
@@ -26,7 +26,7 @@ public class BaseServerTest {
 
 
 
-    @Test
+   // @Test
     public void TestFor_GET_BASE_URL() throws Exception {
         ExampleAppServer ex=   new ExampleAppServer("10.0.012");
         System.out.println("BASEURL_::"+ex.getBASE_URL());
@@ -41,7 +41,7 @@ public class BaseServerTest {
         System.out.println("BASEURL_::"+ex3.getBASE_URL());
     }
 
-    @Test
+   // @Test
     public void testFitn() throws Exception {
 
         HouseholderAppServer s=new HouseholderAppServer("/dicArea/getCityList.rest");

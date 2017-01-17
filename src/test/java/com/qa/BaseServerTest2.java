@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class BaseServerTest2 {
 
-    @Test
+   // @Test
     public void testFun() throws Exception {
         HouseholderAppServer s2=new HouseholderAppServer("/dicArea/getCityList.rest");
         s2.setParam("searchStr","天山","String");
