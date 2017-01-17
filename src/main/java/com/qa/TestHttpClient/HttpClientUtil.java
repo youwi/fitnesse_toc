@@ -193,7 +193,9 @@ public class HttpClientUtil {
 
         } else if(status==302) {
            // response.getFirstHeader("Location");
-            System.out.println("返回:<中间状态:302,自动重定向:"+ci.getIsRedirect()+"> Location:"+ response.getFirstHeader("Location"));
+            String location= response.getFirstHeader("Location").getValue();
+            System.out.println("返回:<中间状态:302,自动重定向:"+ci.getIsRedirect()+"> "+ response.getFirstHeader("Location"));
+           // httpGetRequest(location,ci); 死循环
         }else{
             System.out.println("响应时间： "+responseTime+"ms" );
             System.out.println("-------------------------------------------");
