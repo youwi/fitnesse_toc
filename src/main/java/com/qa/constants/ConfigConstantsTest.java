@@ -45,7 +45,7 @@ public class ConfigConstantsTest {
 
     public final static String HR2_SYS_SERVER_BASE_URL = "https://hryun2.test.wkzf:8178";
 
-    public final static String YFRS_SERVER_TEST_BASE_URL = "http://10.0.18.79:8180";
+    public final static String YFRS_SERVER_TEST_BASE_URL = "https://report.test.wkzf:8180";
 
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
