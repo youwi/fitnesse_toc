@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -118,7 +119,18 @@ public class BaseServer {
 
 
     public JSONObject requestForJSON(String fullurl, final Data indata){
-        indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
+        if (type == null) {
+            type = "POST";
+        }
+        String oriContentType=indata.getHeaderParameters().get("Content-Type");
+        if(oriContentType==null && type!=null){
+            if(Objects.equals(type.toLowerCase(), "get")){
+                indata.setHeaderParameters("Content-Type", "application/x-www-form-urlencoded");
+            }else if(Objects.equals(type.toLowerCase(), "post")){
+                indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
+            }
+        }
+
         JSONObject objResponse = new JSONObject(requestForString(fullurl,indata));
         return objResponse;
     }
