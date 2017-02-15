@@ -80,7 +80,7 @@ public class BaseServer {
         if (type == null) {
             type = "POST";
         }
-        String responseBodyString = null;
+        String responseBodyString = "{}";
         try {
             responseBodyString = httpClientUtil.httpRequest(fullurl,
                     new HttpRequestCallback() {

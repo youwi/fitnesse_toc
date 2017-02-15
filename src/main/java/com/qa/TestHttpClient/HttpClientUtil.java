@@ -6,7 +6,8 @@ import java.security.cert.X509Certificate;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.http.Header;
+ import org.apache.http.Header;
+import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -15,6 +16,9 @@ import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.AbstractExecutionAwareRequest;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -31,6 +35,7 @@ import org.apache.http.ssl.SSLContexts;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 
+
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -44,7 +49,7 @@ public class HttpClientUtil {
     private HttpResponse wkssoResponse = null;
     private long responseTime = 999999999;
     CookieStore httpCookieStore = new BasicCookieStore();
-    int timeout = 5;
+    int timeout = 10;
 
     @SuppressWarnings("deprecation")
     public HttpClientUtil() {
@@ -105,7 +110,7 @@ public class HttpClientUtil {
                 .setSSLSocketFactory(sslsf)
                 .setDefaultRequestConfig(config)
                 //        .setConnectionManager(connManager)  // bug? not tr ust
-                .setDefaultRequestConfig(config)
+                //.setDefaultRequestConfig(config)
                 .setConnectionManagerShared(true)
                 .setDefaultCookieStore(httpCookieStore)
                 .build();
@@ -116,11 +121,11 @@ public class HttpClientUtil {
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
         try {
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
-            HttpPost httpPost = new HttpPost(URL);
-          //  httpPost.setConfig(RequestConfig.custom().setCookieSpec());
+            final HttpPost httpPost = new HttpPost(URL);
+            //  httpPost.setConfig(RequestConfig.custom().setCookieSpec());
             int flag = 0;
             int CTFlag = 0;
-            if(iter!=null){
+            if (iter != null) {
                 while (iter.hasNext()) {
                     Map.Entry<String, String> me = iter.next();
                     httpPost.addHeader(me.getKey(), me.getValue());
@@ -130,12 +135,12 @@ public class HttpClientUtil {
                     }
                     if ("Content-Type".equals(me.getKey())) {
                         CTFlag = 1;
-                        String vv=me.getValue();
-                        if(vv!=null && vv.contains("application/json")){
-                            CTFlag=2;// JSON
+                        String vv = me.getValue();
+                        if (vv != null && vv.contains("application/json")) {
+                            CTFlag = 2;// JSON
                         }
-                        if(vv!=null && vv.contains("application/x-www-form-urlencoded")){
-                            CTFlag=3;// form
+                        if (vv != null && vv.contains("application/x-www-form-urlencoded")) {
+                            CTFlag = 3;// form
                         }
                     }
                 }
@@ -149,36 +154,72 @@ public class HttpClientUtil {
                 System.out.println("未知类型：  Content-Type:" + httpPost.getFirstHeader("Content-Type"));
             }
             if (0 == CTFlag) {
-                httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
                 System.out.println("请求参数：  " + ci.getJsonParam());
-                httpPost.setEntity(new StringEntity(ci.getJsonParam(),"utf-8"));
+                StringEntity entity = new StringEntity(ci.getJsonParam(), "utf-8");
+                entity.setContentType("application/json;charset=UTF-8");
+                httpPost.setEntity(entity);
             }
-            if ( (2==CTFlag) && (null != ci.getJsonParam())) {
+            if ((2 == CTFlag) && (null != ci.getJsonParam())) {
                 System.out.println("请求参数：  " + ci.getJsonParam());
-                httpPost.setEntity(new StringEntity(ci.getJsonParam(),"utf-8"));
+                StringEntity entity = new StringEntity(ci.getJsonParam(), "utf-8");
+                entity.setContentType("application/json;charset=UTF-8");
+                httpPost.setEntity(entity);
             }
-            if(  (3==CTFlag)  && ( null != ci.getParam()) ){
+            if ((3 == CTFlag) && (null != ci.getParam())) {
                 System.out.println("请求参数：  " + ci.getParam());
-                httpPost.setEntity(new StringEntity(ci.getParam()));
+                StringEntity entity = new StringEntity(ci.getParam(), "utf-8");
+                entity.setContentType("application/x-www-form-urlencoded");
+                httpPost.setEntity(entity);
             }
 
 
             // Before end
 //            ResponseHandler<String> responseHandler = createResponseHandler();
-            if(!ci.getIsRedirect()){
-          //      buildNewHttpClient();
+            if (!ci.getIsRedirect()) {
+                //      buildNewHttpClient();
             }
             httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
             stime = System.currentTimeMillis();
+            //  new Runnable();
+            response=null;
+
+            asyncCloseTimeout( httpPost);
             response = httpclient.execute(httpPost);
-        //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
-            printState(response,ci);
+
+                     //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
+            printState(response, ci);
 
             return responseBody;
-        } finally {
-            httpclient.close();
+        }catch (Exception e){
+
         }
-    }
+        return  responseBody;
+     }
+
+    /**
+     * 监视线程
+     * @param httpPOSTorGET
+     */
+    public void asyncCloseTimeout(final AbstractExecutionAwareRequest httpPOSTorGET){
+         Runnable watch = new Runnable() {
+             @Override
+             public void run() {
+                 try {
+                     Thread.sleep(timeout * 1000);
+                     System.err.println("force close http connection(强制断开连接)");
+                     HttpEntity entity=null;
+                     if(response!=null){ entity = response.getEntity();}
+                     if (entity != null) {httpPOSTorGET.abort();}
+                     httpclient.close();
+                 } catch (InterruptedException e) {
+                     e.printStackTrace();
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
+             }
+         };
+         new Thread(watch).start();
+     }
     public void printState(HttpResponse response,HttpRequestCallback ci) throws IOException {
         int status = response.getStatusLine().getStatusCode();
         if (status >= 200 && status < 300) {
@@ -216,7 +257,7 @@ public class HttpClientUtil {
             throws IOException {
         try {
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
-            HttpGet httpGet = new HttpGet(URL);
+            final HttpGet httpGet = new HttpGet(URL);
 
             int flag = 0;
             while (iter.hasNext()) {
@@ -238,7 +279,10 @@ public class HttpClientUtil {
             }
             httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
             stime = System.currentTimeMillis();
+            response=null;
+            asyncCloseTimeout(httpGet);
             response = httpclient.execute(httpGet);
+
             printState(response,ci);
             return responseBody;
         } finally {
