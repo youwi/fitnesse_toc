@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by yu on 2017/2/14.
  */
 public class SkTest {
-   // @Test
+   @Test
    public void timeouTest() throws IOException {
        // new HttpClientUtil().httpPostRequest("http://127.0.0.1:4000", new HttpRequestCallback() {
          new BaseServer("http://127.0.0.1:4000").testRun("")  ;
@@ -40,9 +40,9 @@ public class SkTest {
 
         ///subscribe/guestTipoffHouse.rest?guestId=21972&tmpHouseId=d909a491f8ebfc18&notExist=1
     }
-   // @Test
+   @Test
     public void s2tk() throws Exception {
-        String sso="wksso=680429ca-0fb1-4ab5-a514-5661a6b9ea29; Path=/;";
+        String sso="wksso=c16756a7-cd7a-40f8-9a46-0494c8de2182";
         Financial2Sys s= new Financial2Sys("/finance/customerNameCheck.action","test","post");
 
         s.setHeaderParam("Host","10.0.18.79:8185");

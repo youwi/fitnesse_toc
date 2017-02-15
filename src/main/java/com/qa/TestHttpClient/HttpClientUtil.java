@@ -181,7 +181,6 @@ public class HttpClientUtil {
             httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
             stime = System.currentTimeMillis();
             //  new Runnable();
-            response=null;
 
             asyncCloseTimeout( httpPost);
             response = httpclient.execute(httpPost);
@@ -201,15 +200,24 @@ public class HttpClientUtil {
      * @param httpPOSTorGET
      */
     public void asyncCloseTimeout(final AbstractExecutionAwareRequest httpPOSTorGET){
-         Runnable watch = new Runnable() {
+        response=null;
+        Runnable watch = new Runnable() {
              @Override
              public void run() {
                  try {
                      Thread.sleep(timeout * 1000);
                      System.err.println("force close http connection(强制断开连接)");
+                     responseBody=null;
                      HttpEntity entity=null;
-                     if(response!=null){ entity = response.getEntity();}
-                     if (entity != null) {httpPOSTorGET.abort();}
+                     if(response!=null){
+                         entity = response.getEntity();
+                     }
+                     if(entity!=null){
+                         EntityUtils.consume(entity);
+                     }
+                     if (httpPOSTorGET != null) {
+                         httpPOSTorGET.abort();
+                     }
                      httpclient.close();
                  } catch (InterruptedException e) {
                      e.printStackTrace();
