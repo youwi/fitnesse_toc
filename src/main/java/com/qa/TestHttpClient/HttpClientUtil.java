@@ -249,7 +249,11 @@ public class HttpClientUtil {
             System.out.println("响应时间： "+responseTime+"ms" );
             System.out.println("-------------------------------------------");
             System.out.println("未处理状态码 :"+status);
-         //   throw new ClientProtocolException("Unexpected response status(未处理状态码): " + status);
+            HttpEntity entiy =response.getEntity();
+            if(entiy!=null){
+                EntityUtils.consume(entiy);
+            }
+            //throw new ClientProtocolException("Unexpected response status(未处理状态码): " + status);
         }
         System.out.println("响应时间： "+responseTime+"ms" );
         System.out.println("-------------------------------------------");

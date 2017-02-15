@@ -27,7 +27,7 @@ public class BaseServer {
     public String env = null;
     String responseBody = null;
     public String type = null;
-    static HttpClientUtil httpClientUtil;
+    HttpClientUtil httpClientUtil;
 
 
     public BaseServer(String URL) {
@@ -210,13 +210,10 @@ public class BaseServer {
         this.type = type;
     }
 
-    public static HttpClientUtil getHttpClientUtil() {
-        return httpClientUtil;
+    public HttpClientUtil getHttpClientUtil() {
+        return new HttpClientUtil();
     }
 
-    public static void setHttpClientUtil(HttpClientUtil httpClientUtil) {
-        BaseServer.httpClientUtil = httpClientUtil;
-    }
 
 
     public String getBASE_URL() {

@@ -85,7 +85,7 @@ public class SkTest {
         s= new Financial2Sys("/finance/customerNameCheck.action","test","post");
         s.setHeaderParam("Host","10.0.18.79:8185");
         s.setHeaderParam("Cookie",sso);
-        s.setJsonParam("{\"type\":1,\"name\":\"zhangsan\",\"id\":16}");
+        s.setJsonParam("{\"type\":\"0\",\"name\":\"zhangsan\",\"id\":16}");
         s.testRun("status,message,data");
         s.getParam("status");	//	0
         s.getParam("message");
