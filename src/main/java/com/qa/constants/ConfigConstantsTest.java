@@ -47,6 +47,12 @@ public class ConfigConstantsTest {
 
     public final static String YFRS_SERVER_TEST_BASE_URL = "https://report.test.wkzf:8180";
 
+    public final static String HOUSE_APP_SERVER_TEST_BASE_URL = "https://";
+
+    public final static String AGENT_APP_SERVER_TEST_BASE_URL = "https://";
+
+    public final static String NEW_COMMUNITY_APP_SERVER_TEST_BASE_URL = "https://";
+
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
     public final static String JDBC_USERNAME = "guwen";
