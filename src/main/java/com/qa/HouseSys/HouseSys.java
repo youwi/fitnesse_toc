@@ -16,4 +16,8 @@ public class HouseSys extends BaseServer {
         super(URL,env);
         setBASE_URL(ConfigConstantsTest.HOUSE_SYS_SERVER_TEST_BASE_URL);
     }
+    public HouseSys(String URL,String env,String type) {
+        super(URL,env,type);
+        setBASE_URL(ConfigConstantsTest.HOUSE_SYS_SERVER_TEST_BASE_URL);
+    }
 }
