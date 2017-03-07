@@ -47,17 +47,17 @@ public class ConfigConstantsTest {
 
     public final static String YFRS_SERVER_TEST_BASE_URL = "https://report.test.wkzf:8180";
 
-    public final static String HOUSE_APP_SERVER_TEST_BASE_URL = "https://";
+    public final static String HOUSE_APP_SERVER_TEST_BASE_URL = "https://10.0.18.79:8110";
 
-    public final static String AGENT_APP_SERVER_TEST_BASE_URL = "https://";
+    public final static String AGENT_APP_SERVER_TEST_BASE_URL = "https://10.0.18.79:8109";
 
-    public final static String NEW_COMMUNITY_APP_SERVER_TEST_BASE_URL = "https://";
+    public final static String NEW_COMMUNITY_APP_SERVER_TEST_BASE_URL = "https://10.0.18.79:8121";
 
     public final static String HOUSE_SYS_SERVER_TEST_BASE_URL = "https://10.0.18.79:8192";
 
-    public final static String RATE_SYS_SERVER_TEST_BASE_URL = "https://";
+    public final static String RATE_SYS_SERVER_TEST_BASE_URL = "https://10.0.18.79:8137";
 
-    public final static String OPMGMT2_SYS_SERVER_TEST_BASE_URL = "https:/10.0.18.79:8193/";
+    public final static String OPMGMT2_SYS_SERVER_TEST_BASE_URL = "https:/10.0.18.79:8193";
 
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
