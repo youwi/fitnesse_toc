@@ -65,5 +65,5 @@ public class ConfigConstantsTest {
     public final static String JDBC_PASSWORD = "guwen@lifang.com";
 
 
-
+    public static final String YFYK2_H5_BASE_URL = "https:/10.0.18.79:8195";
 }
