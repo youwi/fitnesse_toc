@@ -25,7 +25,9 @@ public class BaseServerTest2 {
         s.testRun("message,status,data");
         s.getParam("status" );
 
-
+    class SEI{
+        
+    }
 
       /*          householder app server	/dicArea/getCityList.rest
         ensure	testRun;
