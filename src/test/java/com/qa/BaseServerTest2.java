@@ -1,9 +1,7 @@
 package com.qa;
 
 import com.qa.HouseholderAppServer.HouseholderAppServer;
-import com.qa.LegalMgmtSys.LegalMgmtSys;
-import com.qa.exampleAppServer.ExampleAppServer;
-import org.junit.Test;
+import com.qa.LegalMgmt2Sys.LegalMgmt2Sys;
 
 /**
  * Created by yus on 2016/11/26.
@@ -18,7 +16,7 @@ public class BaseServerTest2 {
         s2.getParam("status" );
 
 
-        LegalMgmtSys s=new LegalMgmtSys("/dicArea/getCityList.rest");
+        LegalMgmt2Sys s=new LegalMgmt2Sys("/dicArea/getCityList.rest");
         s.setHeaderParam("HOST","yun2.test.wkzf");
         s.setHeaderParam("Cookie","wksso=95add403-8d45-4cb3-b5fc-5d5678375183; Path=/; HttpOnly");
         s.setParam("cityId","43","int");

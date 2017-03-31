@@ -59,6 +59,10 @@ public class ConfigConstantsTest {
 
     public final static String OPMGMT2_SYS_SERVER_TEST_BASE_URL = "https:/10.0.18.79:8193";
 
+    public final static String LEGALMGMT2SYS_SERVER_TEST_BASE_URL = "https:/10.0.18.79:8189";
+    public final static String LEGALMGMT2SYS_SERVER_DEV_BASE_URL = "https:/10.0.18.79:8189";
+    public final static String LEGALMGMT2SYS_SERVER_SIM_BASE_URL = "https:/10.0.18.79:8189";
+
     public final static String JDBC_DRIVER_CLASS = "com.mysql.jdbc.Driver";
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
     public final static String JDBC_USERNAME = "guwen";
