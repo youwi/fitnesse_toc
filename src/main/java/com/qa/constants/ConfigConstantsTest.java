@@ -41,7 +41,7 @@ public class ConfigConstantsTest {
 
     public final static String NBA_APP_SERVER_BASE_URL = "http://10.0.18.79:8165";// test
 
-    public final static String BDM2_SYS_SERVER_BASE_URL = "https://yun2.test.wkzf/bdm";// test
+    public final static String BDM2_SYS_SERVER_BASE_URL = "https://yun2.test.wkzf/bdmbs";// test
 
     public final static String HR2_SYS_SERVER_BASE_URL = "https://hryun2.test.wkzf:8178";
 
