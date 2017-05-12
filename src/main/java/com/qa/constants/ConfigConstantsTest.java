@@ -59,6 +59,8 @@ public class ConfigConstantsTest {
 
     public final static String OPMGMT2_SYS_SERVER_TEST_BASE_URL = "https:/10.0.18.79:8193";
 
+    public final static String WKWeChatMP_SVR_SERVER_TEST_BASE_URL="https:/10.0.18.79:8188";
+
     public final static String LEGALMGMT2SYS_SERVER_TEST_BASE_URL = "https:/10.0.18.79:8189";
     public final static String LEGALMGMT2SYS_SERVER_DEV_BASE_URL = "https:/10.0.18.79:8189";
     public final static String LEGALMGMT2SYS_SERVER_SIM_BASE_URL = "https:/10.0.18.79:8189";
