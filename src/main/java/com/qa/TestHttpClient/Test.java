@@ -1,26 +1,18 @@
 package com.qa.TestHttpClient;
 
-import java.io.IOException;
-
-import com.qa.Financial2Sys.Financial2Sys;
-import com.qa.MonkeyKingBackstageServer.MonkeyKingBackstageServer;
-import com.qa.NewBuildingOpSys.NewBuildingOpSys;
-import com.qa.SSOLogin;
-import com.qa.constants.ConfigConstantsTest;
-
 public class Test {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		SSOLogin legal = new SSOLogin("/login","test","post");
+	//	SSOLogin legal = new SSOLogin("/login","test","post");
 //		String wksso = legal.getWKSSO("13162108888","111111","https://yun2.test.wkzf/cpbs/customer/index.action");
-		String wksso = legal.getHrWKSSO("13162108888","111111","https://hryun2.test.wkzf:8178/account/getUsers.action");
+//		String wksso = legal.getHrWKSSO("13162108888","111111","https://hryun2.test.wkzf:8178/account/getUsers.action");
 
-		System.out.println("getWKSSO test>>>>>>>>>>>>>>>."+wksso);
+//		System.out.println("getWKSSO test>>>>>>>>>>>>>>>."+wksso);
 
 //		MonkeyKingBackstageServer mk = new MonkeyKingBackstageServer("/estatePartner/addOrModifyPartnerCheckInfo.action","test","post");
 //		try {
-//			mk.setHeaderParam("Host","yun2.test.wkzf");
-//			mk.setHeaderParam("Cookie",wksso);
+//			mk.setHeader("Host","yun2.test.wkzf");
+//			mk.setHeader("Cookie",wksso);
 //			mk.setParam("id","2","int");
 //			mk.setParam("theoryCheck","125","int");
 //			mk.setParam("practiceCheck","3","string");
@@ -34,11 +26,11 @@ public class Test {
 //		String execution = legal.firstLoginRun(ConfigConstantsTest.SSO_BASE_URL + legal.URL,legal.getData());
 //		System.out.println("second test>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.");
 //		legal.setParam("execution", execution, "string");
-//		legal.setHeaderParam("Cookie", legal.JSESSIONID);
+//		legal.setHeader("Cookie", legal.JSESSIONID);
 //		System.out.println("JSESSIONID:----------->"+legal.JSESSIONID);
 //		String CASTGC = legal.secondLoginRun(ConfigConstantsTest.SSO_BASE_URL + legal.URL,legal.getData());
 //		System.out.println("getwksso test>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//		legal.setHeaderParam("Cookie", CASTGC);
+//		legal.setHeader("Cookie", CASTGC);
 //		System.out.println("getwksso test>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>."+legal.getwksso("https://yun2.test.wkzf/fs2/customerReceivables/index",legal.getData()));
 //		System.out.println("end test>>>>>>>>>>>>>>>.");
 	}

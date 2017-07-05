@@ -1,6 +1,5 @@
 package com.qa.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,19 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
-public class Data {
+public class ParamData {
     private HashMap<String, Object> map = new HashMap<String, Object>();
-    private HashMap<String, String> headermap = new HashMap<String, String>();
+    private HashMap<String, String> headerMap = new HashMap<String, String>();
     private String jsonParam = null;
     public boolean isRedirect=true;//是否重定向!
 
-    public Data() {
+    public ParamData() {
         HashMap<String, String> parameters = new HashMap<String, String>();
     }
 
@@ -29,7 +24,7 @@ public class Data {
     }
     
     public HashMap<String, String> getHeaderParameters() {
-        return this.headermap;
+        return this.headerMap;
     }
    
     public String getParamAsJsonString() {
@@ -120,7 +115,7 @@ public class Data {
     
     //set header parameter
     public void setHeaderParameters(String name, String value) {
-    	headermap.put(name, value);
+    	headerMap.put(name, value);
     }
 
     public void println(String type1, String err) {
@@ -204,9 +199,8 @@ public class Data {
 	}
 
 	public void setJsonParam(String jsonParam) {
-		if("".equals(jsonParam)!= true)
-		{
-		this.jsonParam = jsonParam;
+		if("".equals(jsonParam)!= true){
+		    this.jsonParam = jsonParam;
 		}else{
 			this.jsonParam = "{}";
 		}

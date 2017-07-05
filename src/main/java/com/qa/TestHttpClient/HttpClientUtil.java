@@ -232,7 +232,7 @@ public class HttpClientUtil {
         int status = response.getStatusLine().getStatusCode();
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
-            setResponseBody(EntityUtils.toString(entity));
+            setResponseBody(EntityUtils.toString(entity,"utf-8"));
             responseTime = System.currentTimeMillis() - stime;
             if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
                 System.out.println("返回:<HTML>" );

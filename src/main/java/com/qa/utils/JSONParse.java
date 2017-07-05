@@ -66,6 +66,7 @@ public class JSONParse {
 		parseJson(jsonObject, "");
 		// getArrayJsonKey(appendKeys);
 	}
+	static String jsonSepChar=".";
 
 	private void parseJson(JSONObject jsonObject, String appendKey) {
 		if (null == jsonObject)
@@ -78,30 +79,25 @@ public class JSONParse {
 			String value = jsonObject.optString(key);
 
 			if (null != arrayTmp) {
-				appendKeys.add("/");
+				appendKeys.add(jsonSepChar);
 				appendKeys.add(key);
 				parseJsonArray(arrayTmp);
-				// System.out.println("analyze-------array");
-			} else if (null != objTmp) {
-				// System.out.println("analyze-------obj");
-				appendKeys.add("/");
+ 			} else if (null != objTmp) {
+ 				appendKeys.add(jsonSepChar);
 				appendKeys.add(key);
 				parseJson(objTmp, "");
 			} else if (value != null && !value.contains("{")) {
-				// System.out.println("analyze-------value");
-//				System.out.println("key:------------" + key
-//						+ "-------value:---------" + value);
+
 				if ("" != getArrayJsonKey(appendKeys)) {
-					appendKeys.add("/");
+					appendKeys.add(jsonSepChar);
 					appendKeys.add(key);
 					appendKey = getArrayJsonKey(appendKeys);
 				} else {
 					appendKey = key;
 				}
-				// getArrayJsonKey(appendKeys);
-				
-				//					String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
-				System.out.println("响应体Json Path-Value  "+ appendKey+":\t"+value);
+
+				//String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
+				System.out.println("json-node-debug: "+ appendKey+":\t"+value);
 				
 				jsonMap.put(appendKey, value);
 				if ("" != getArrayJsonKey(appendKeys)) {
@@ -130,32 +126,20 @@ public class JSONParse {
 
 			if (null != arrayTmp) {
 				parseJsonArray(arrayTmp);
-				// System.out.println("jsonMap_arrayTmp-------");
 			} else if (null != objTmp) {
-				// System.out.println("jsonMap_objTmp-------");
 				appendKeys.add("/");
 				appendKeys.add(i + "");
-				// getArrayJsonKey(appendKeys);
+
 				parseJson(objTmp, "");
-				// if ("" != getArrayJsonKey(appendKeys)) {
-				// appendKeys.remove(appendKeys.size() - 1);
-				// appendKeys.remove(appendKeys.size() - 1);
-				// }
+
 			} else if (value != null && !value.contains("{")) {
-//				System.out.println("analyze-------value");
-//				System.out.println("key:------------" + i
-//						+ "-------value:---------" + value);
+
 				if ("" != getArrayJsonKey(appendKeys)) {
 					appendKeys.add("/");
 					appendKeys.add(i + "");
 					appendKey = getArrayJsonKey(appendKeys);
 				}
-				// else {
-				// appendKey = i+"";
-				// }
-				// getArrayJsonKey(appendKeys);
-				System.out.println("appendKeys:"
-						+ appendKey+"\n"+"value-----:"+value);
+//				System.out.println("appendKeys:"+ appendKey+"\n"+"value-----:"+value);
 				jsonMap.put(appendKey, value);
 				appendKeys.remove(appendKeys.size() - 1);
 				appendKeys.remove(appendKeys.size() - 1);
