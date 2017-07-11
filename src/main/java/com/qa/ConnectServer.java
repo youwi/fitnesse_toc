@@ -3,11 +3,16 @@ package com.qa;
 import com.qa.TestHttpClient.HttpClientUtil;
 import com.qa.TestHttpClient.HttpRequestCallback;
 import com.qa.constants.ConfigConstantsTest;
+import com.qa.utils.JSUtil;
 import com.qa.utils.ParamData;
 import com.qa.utils.JSONParse;
+import com.qa.utils.ScriptUtil;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -86,6 +91,17 @@ public class ConnectServer {
      */
     public boolean setBody(String bodyString) {
         paramData.setJsonParam(delHTMLTag(bodyString));
+        return true;
+    }
+
+    /**
+     * 支持书写 js 转换
+     * @param bodyString 脚本
+     * @param type 实现有 js,json,groovy
+     * @return
+     */
+    public boolean setBody(String bodyString,String type){
+        paramData.setJsonParam(ScriptUtil.buildScript(bodyString,type));
         return true;
     }
 
