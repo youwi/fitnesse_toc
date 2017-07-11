@@ -97,6 +97,10 @@ public class ConnectServer {
         paramData.setParameters(name, value, type);
         return true;
     }
+    public boolean setParam(String name, String value) throws Exception {
+        paramData.setParameters(name, value);
+        return true;
+    }
 
     //set header parameter
     public boolean setHeader(String name, String value) throws Exception {

@@ -116,6 +116,8 @@ public class JSONParse {
 		}
 	}
 
+	public static String jsonArraySep="[";
+	public static String jsonArraySepend="]";
 	private void parseJsonArray(JSONArray array) {
 		String appendKey = "";
 		int len = array.length();
@@ -127,16 +129,16 @@ public class JSONParse {
 			if (null != arrayTmp) {
 				parseJsonArray(arrayTmp);
 			} else if (null != objTmp) {
-				appendKeys.add("/");
-				appendKeys.add(i + "");
+				appendKeys.add(jsonArraySep);
+				appendKeys.add(i + jsonArraySepend);
 
 				parseJson(objTmp, "");
 
 			} else if (value != null && !value.contains("{")) {
 
 				if ("" != getArrayJsonKey(appendKeys)) {
-					appendKeys.add("/");
-					appendKeys.add(i + "");
+					appendKeys.add(jsonArraySep);
+					appendKeys.add(i + jsonArraySepend);
 					appendKey = getArrayJsonKey(appendKeys);
 				}
 //				System.out.println("appendKeys:"+ appendKey+"\n"+"value-----:"+value);
