@@ -17,6 +17,19 @@ public class ScriptUtil {
     static Gson gson=new Gson();
 
 
+    /**
+     * 判断是否能运行为 js
+     * @return
+     */
+    public static boolean isJavascript(String script){
+        try {
+            script = script.trim();
+            JSUtil.engine.eval("var out=" + script);
+             return  true;
+        } catch (ScriptException e) {
+            return false;
+        }
+    }
     public static String buildScript(String script, String type) {
         if (type == null) {
             return script;

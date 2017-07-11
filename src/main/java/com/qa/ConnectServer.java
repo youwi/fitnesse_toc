@@ -90,9 +90,15 @@ public class ConnectServer {
      *注:默认删除 html 标记
      */
     public boolean setBody(String bodyString) {
-        paramData.setJsonParam(delHTMLTag(bodyString));
+        bodyString=delHtmlPre(bodyString);
+        if(ScriptUtil.isJavascript(bodyString)){
+            paramData.setJsonParam(ScriptUtil.buildScript(bodyString,"json"));
+        }else{
+            paramData.setJsonParam(bodyString);
+        }
         return true;
     }
+
 
     /**
      * 支持书写 js 转换
@@ -101,7 +107,7 @@ public class ConnectServer {
      * @return
      */
     public boolean setBody(String bodyString,String type){
-        paramData.setJsonParam(ScriptUtil.buildScript(bodyString,type));
+        paramData.setJsonParam(ScriptUtil.buildScript(delHtmlPre(bodyString),type));
         return true;
     }
 
@@ -323,24 +329,42 @@ public class ConnectServer {
 
     }
 
-    public static String delHTMLTag(String htmlStr) {
+    /**
+     * 只删除少量的 Html,如前缀和后缀,只去除最外层一个标签标签
+     * @param maybeHtml
+     * @return
+     */
+    public static String delSimpleHtmlTag(String maybeHtml){
+         return maybeHtml;
+         //TODO
+    }
+    public static String delHtmlPre(String htmlStr){
+        return htmlStr.trim().replace("<pre>","").replace("</pre>","").trim();
+    }
+
+    /**
+     * 去除 html 中所有的标签和脚本,只保留文本
+     * @param htmlString 源文本
+     * @return
+     */
+    public static String delHTMLTag(String htmlString) {
         String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
         String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
         String regEx_html = "<[^>]+>"; //定义HTML标签的正则表达式
 
         Pattern p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
-        Matcher m_script = p_script.matcher(htmlStr);
-        htmlStr = m_script.replaceAll(""); //过滤script标签
+        Matcher m_script = p_script.matcher(htmlString);
+        htmlString = m_script.replaceAll(""); //过滤script标签
 
         Pattern p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
-        Matcher m_style = p_style.matcher(htmlStr);
-        htmlStr = m_style.replaceAll(""); //过滤style标签
+        Matcher m_style = p_style.matcher(htmlString);
+        htmlString = m_style.replaceAll(""); //过滤style标签
 
         Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
-        Matcher m_html = p_html.matcher(htmlStr);
-        htmlStr = m_html.replaceAll(""); //过滤html标签
+        Matcher m_html = p_html.matcher(htmlString);
+        htmlString = m_html.replaceAll(""); //过滤html标签
 
-        return htmlStr.trim(); //返回文本字符串
+        return htmlString.trim(); //返回文本字符串
     }
 
 
