@@ -28,4 +28,29 @@ public class ConnectServerTest {
                 "}", "json");
     }
 
+    @Test
+    public void subHttpIpPort() {
+
+
+        assert "http://www.dev.haolie.cn".equals(ConnectServer.subHttpIpPort("http://www.dev.haolie.cn/api/account/xauth"));
+        assert "http://10.0.18.42:80".equals(ConnectServer.subHttpIpPort("http://10.0.18.42:80/api/account/xauth"));
+
+        assert "http://10.0.18.42:80".equals(ConnectServer.subHttpIpPort("10.0.18.42:80/api/account/xauth"));
+
+    }
+    @Test
+    public void SeTES(){
+
+        new Set("HAO_LIE_HR","http://www.dev.haolie.cn","dev");
+        new Set("HAO_LIE_CW","http://CW.dev.haolie.cn","dev");
+
+        new Set("HAO_LIE_HR","http://www.dev.haolie.test","test");
+        new Set("HAO_LIE_CW","http://CW.dev.haolie.test","test");
+
+        SetEnv.setEnv("test");
+        ConnectServer cs = new ConnectServer("http://www.dev.haolie.cn/abc/abc.rest");
+        cs.autoSetBaseUrl();
+        assert "http://www.dev.haolie.test".equals(cs.BASE_URL);
+    }
+
 }

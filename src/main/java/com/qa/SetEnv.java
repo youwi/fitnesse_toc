@@ -9,7 +9,7 @@ public class SetEnv {
         this.env=env;
     }
 
-    static String env;
+    static String env="dev";
 
     public static String getEnv() {
         return env;
@@ -18,6 +18,8 @@ public class SetEnv {
     public static void setEnv(String env) {
         SetEnv.env = env;
     }
+
+
 
 
 }

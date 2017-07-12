@@ -3,16 +3,12 @@ package com.qa;
 import com.qa.TestHttpClient.HttpClientUtil;
 import com.qa.TestHttpClient.HttpRequestCallback;
 import com.qa.constants.ConfigConstantsTest;
-import com.qa.utils.JSUtil;
 import com.qa.utils.ParamData;
 import com.qa.utils.JSONParse;
 import com.qa.utils.ScriptUtil;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -293,14 +289,15 @@ public class ConnectServer {
     }
 
     /**
-     * 自动获取BASE_URL
-     * 如 wkzfAppServer 自动获取为
+     * 根据服务名称自动从配置文件中获取BASE_URL
+     * 如 自动获取为
      * 测试环境为：
      * Sim 环境为：
      * (环境名首字母大写);
      */
     public void AUTO_GET_BASE_URL() {
         Class clazz = null;
+        this.env=SetEnv.getEnv();
 
         try {
             if (env == null || env.equals("dev") || env.equals(""))
@@ -326,7 +323,30 @@ public class ConnectServer {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * 根据环境信息自动设置 URL 前缀
+     * 如  BAIDU/api.rest=> http://baidu.com/api.rest
+     */
+    public void autoSetBaseUrl(){
+        String httpIpPort=subHttpIpPort(this.URL);
+        this.BASE_URL= Set.getValueSibling(httpIpPort,SetEnv.getEnv());
+    }
+
+    /**
+     * 从 URL 中提取 IP:端口
+     * @param url
+     * @return
+     */
+    public static String subHttpIpPort(String url){
+        if(url!=null){
+           String[] tmp1= url.split("http://");
+           String  tmpString=tmp1.length>1?tmp1[1]:tmp1[0];
+           String[] tmp2= tmpString.split("/");
+           return "http://"+tmp2[0];
+        }
+        return "";
     }
 
     /**

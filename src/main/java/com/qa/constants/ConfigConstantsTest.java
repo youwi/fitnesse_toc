@@ -2,8 +2,14 @@ package com.qa.constants;
 
 public class ConfigConstantsTest {
 
+    public final static String LIE_LUO_BO_CW_URL="http://cw.lieluobo.testing";
+    public final static String LIE_LUO_BO_HR_URL="http://hr.lieluobo.testing";
+    public final static String LIE_LUO_BO_WWW_URL="http://www.lieluobo.testing";
+    public final static String AUTOMIND_WWW_URL="http://am2-test.imd.com";
 
-    public final static String SSO_BASE_URL = "https://yun2.test.wkzf";// test
+
+
+
 
 
 
@@ -11,7 +17,4 @@ public class ConfigConstantsTest {
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
     public final static String JDBC_USERNAME = "guwen";
     public final static String JDBC_PASSWORD = "guwen@lifang.com";
-
-
-    public static final String YFYK2_H5_BASE_URL = "https://10.0.18.79:8195";
-}
+ }
