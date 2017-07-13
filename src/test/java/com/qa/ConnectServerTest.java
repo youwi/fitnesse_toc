@@ -26,6 +26,11 @@ public class ConnectServerTest {
                 "page: 1,\n" +
                 "size: 10\n" +
                 "}", "json");
+       assert "{\"staffId\":1,\"teamId\":1,\"page\":1,\"size\":10}".equals(cs.paramData.getJsonParam() );
+
+       cs.setBody("[1,2,3]");
+       assert "[1,2,3]".equals(cs.paramData.getJsonParam() );
+
     }
 
     @Test
@@ -49,8 +54,9 @@ public class ConnectServerTest {
 
         SetEnv.setEnv("test");
         ConnectServer cs = new ConnectServer("http://www.dev.haolie.cn/abc/abc.rest");
-        cs.autoSetBaseUrl();
+      //  cs.autoSetBaseUrl();
         assert "http://www.dev.haolie.test".equals(cs.BASE_URL);
+        assert "http://www.dev.haolie.test/abc/abc.rest".equals(cs.BASE_URL+cs.URL);
     }
 
 }

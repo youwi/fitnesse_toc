@@ -6,7 +6,8 @@ import java.security.cert.X509Certificate;
 import java.util.Iterator;
 import java.util.Map;
 
- import org.apache.http.Header;
+import com.qa.exceptions.HttpStatusException;
+import org.apache.http.Header;
 import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -125,6 +126,10 @@ public class HttpClientUtil {
             //  httpPost.setConfig(RequestConfig.custom().setCookieSpec());
             int flag = 0;
             int CTFlag = 0;
+            System.out.println("------------------------------------------------------------------");
+
+            System.out.println("请求地址：  POST  " + httpPost.getURI());
+
             if (iter != null) {
                 while (iter.hasNext()) {
                     Map.Entry<String, String> me = iter.next();
@@ -145,7 +150,6 @@ public class HttpClientUtil {
                     }
                 }
             }
-            System.out.println("请求地址：  POST  " + httpPost.getURI());
 
             if (0 == flag) {
                 httpPost.addHeader("os", "monitor");
@@ -186,13 +190,22 @@ public class HttpClientUtil {
             response = httpclient.execute(httpPost);
 
                      //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
-            printState(response, ci);
+            try{
+                printState(response, ci);
+            }catch (HttpStatusException e){
+                if(e.status==401){
+                    //目前是 json
+                }else if(e.status==400 || e.status==500){
+                    throw e;
+                }
+            }
+
 
             return responseBody;
         }catch (Exception e){
-
+           // System.out.println("error:"+e.getMessage() +" /"+URL);
+            throw new RuntimeException(e.getMessage());
         }
-        return  responseBody;
      }
 
     /**
@@ -230,6 +243,7 @@ public class HttpClientUtil {
      }
     public void printState(HttpResponse response,HttpRequestCallback ci) throws IOException {
         int status = response.getStatusLine().getStatusCode();
+        System.out.println("返回状态码:"+status);
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
             setResponseBody(EntityUtils.toString(entity,"utf-8"));
@@ -247,16 +261,20 @@ public class HttpClientUtil {
            // httpGetRequest(location,ci); 死循环
         }else{
             System.out.println("响应时间： "+responseTime+"ms" );
-            System.out.println("-------------------------------------------");
-            System.out.println("未处理状态码 :"+status);
+             System.out.println("未处理状态码 :"+status);
             HttpEntity entiy =response.getEntity();
             if(entiy!=null){
-                EntityUtils.consume(entiy);
+                String errorMsg=EntityUtils.toString(entiy,"utf-8");
+                System.out.println("完整响应体： " + errorMsg);
+                if(errorMsg!=null)
+                    responseBody=errorMsg;
+                throw new HttpStatusException(status,"message:<< 未处理状态码:"+status+" 返回结果:"+errorMsg+">>");
+
             }
             //throw new ClientProtocolException("Unexpected response status(未处理状态码): " + status);
         }
         System.out.println("响应时间： "+responseTime+"ms" );
-        System.out.println("-------------------------------------------");
+
      }
 
     /**

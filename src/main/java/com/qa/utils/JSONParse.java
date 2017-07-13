@@ -3,6 +3,9 @@ package com.qa.utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,14 +45,19 @@ public class JSONParse {
 	}
 
 	public String getResult(String Key) {
-		if(jsonMap.containsKey(Key))
-		{
-			System.out.println("检查的响应体Json Value： "+jsonMap.get(Key).toString());
+		if(jsonMap.containsKey(Key)){
+			System.out.println("json-node-value： "+Key+" : "+jsonMap.get(Key).toString());
 			return this.jsonMap.get(Key).toString();
-		}else{
-			System.out.println("没有找到符合的响应体Json Key： "+Key);
-			return null;
+		}else {
+			String m = jsonOnArrayFind(jsonMap, Key);
+			if (m != null) {
+				return m;
+			} else {
+				System.out.println("json-node not exist:" + Key);
+				return null;
+			}
 		}
+
 			
 	
 //		try {
@@ -60,6 +68,65 @@ public class JSONParse {
 //			return null;
 //		}
 	}
+
+	/**
+	 * 由于数组索引值不固定,需要模糊验证(可以使用正则表达式)
+	 * 如下:
+	 * 数据
+	 * .body[7].updatedAt:	2017-05-18T10:05:50+08:00
+	 * 验证: .body[*].updatedAt ==	2017-05-18T10:05:50+08:00
+	 * @param map
+	 * @param mkey
+	 * @return
+	 */
+	public static String jsonOnArrayFind(Map<String,String> map, String mkey){
+		Pattern pattern = Pattern.compile(mkey);
+
+		for(String stringKey :map.keySet()){
+			Matcher matcher = pattern.matcher(stringKey);
+			if (matcher.find()) {
+				return map.get(stringKey);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 使用*号表达式
+	 * 	 * .body[7].updatedAt:	2017-05-18T10:05:50+08:00
+	 * 验证: .body[*].updatedAt ==	2017-05-18T10:05:50+08:00
+	 * @param map
+	 * @param mkey
+	 * @return
+	 */
+	public static String jsonOnArrayFindR(Map<String,String> map, String mkey){
+		Pattern pattern = Pattern.compile(mkey);
+		String[] mat=mkey.split("\\*");
+		if(mat.length<2)
+			return null;
+		if(mat.length==2){
+			for(String stringKey :map.keySet()){
+				if(stringKey.startsWith(mat[0]) && stringKey.endsWith(mat[1]))
+					return map.get(stringKey);
+			}
+		}
+		if(mat.length>2){
+			for(String stringKey :map.keySet()){
+				boolean isAllContains=true;
+				if(stringKey.startsWith(mat[0]) && stringKey.endsWith(mat[mat.length-1])){
+					for(String m:mat){
+						isAllContains&=stringKey.contains(m);
+					}
+				}else{
+					isAllContains=false;
+				}
+				if(isAllContains)
+					return map.get(stringKey);
+			}
+		}
+		return null;
+	}
+
 
 	public void parseJson(JSONObject jsonObject) {
 		this.setObj(jsonObject);

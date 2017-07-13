@@ -3,9 +3,11 @@ package com.qa;
 import com.qa.TestHttpClient.HttpClientUtil;
 import com.qa.TestHttpClient.HttpRequestCallback;
 import com.qa.constants.ConfigConstantsTest;
+import com.qa.exceptions.HttpStatusException;
 import com.qa.utils.ParamData;
 import com.qa.utils.JSONParse;
 import com.qa.utils.ScriptUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
@@ -30,6 +32,7 @@ public class ConnectServer {
     String responseBody = null;
     String type = null;
     HttpClientUtil httpClientUtil;
+    boolean responseBodyIsJson;
 
 
     public ConnectServer(String URL) {
@@ -39,6 +42,7 @@ public class ConnectServer {
         this.paramData.getHeaderParameters().putAll(SetGlobalHeader.headersMap);
         this.jp = new JSONParse();
         this.URL = delHTMLTag(URL);
+        this.autoSetBaseUrl();
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
@@ -51,6 +55,8 @@ public class ConnectServer {
         this.jp = new JSONParse();
         this.URL = delHTMLTag(URL);
         this.env = env;
+        this.autoSetBaseUrl();
+
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
@@ -63,12 +69,14 @@ public class ConnectServer {
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.type = type;
+        this.autoSetBaseUrl();
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
     public boolean post() {
         jp.parseJson( requestForJSON(BASE_URL + URL, paramData));
         return true;
+       // return "message:<<OK>>";
     }
     public boolean get(){
         this.type="GET";
@@ -87,7 +95,7 @@ public class ConnectServer {
      */
     public boolean setBody(String bodyString) {
         bodyString=delHtmlPre(bodyString);
-        if(ScriptUtil.isJavascript(bodyString)){
+        if(ScriptUtil.isJson(bodyString)){
             paramData.setJsonParam(ScriptUtil.buildScript(bodyString,"json"));
         }else{
             paramData.setJsonParam(bodyString);
@@ -166,8 +174,14 @@ public class ConnectServer {
                             return indata.isRedirect;
                         }
                     }, type);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (RuntimeException e) {
+            if(e instanceof HttpStatusException){
+                this.responseBody=httpClientUtil.getResponseBody();
+                throw e;
+            }
+
+        }catch (IOException e){
+            System.out.println(e.getMessage());
         }
         return responseBodyString;
     }
@@ -176,11 +190,19 @@ public class ConnectServer {
      * 获取返回结果中的json结果
      * @return
      */
-    public String getJsonValue(String key){
-       return jp.getResult(key);
-    }
     public String jsonValue(String key){
-        return getJsonValue(key);
+        if(responseBodyIsJson)
+            return jp.getResult(key);
+        else throw new RuntimeException("message:<< response is not json "+responseBody+">>");
+    }
+    public boolean jsonLike(String json){
+        return true;
+    }
+    public boolean jsonContain(String json){
+        return true;
+    }
+    public boolean javascript(String js){
+        return true;
     }
 
 
@@ -198,9 +220,13 @@ public class ConnectServer {
                 indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
             }
         }
-
-        JSONObject objResponse = new JSONObject(this.requestForString(fullurl, indata));
-        return objResponse;
+        String responseString=this.requestForString(fullurl, indata);
+        if(ScriptUtil.isJson(responseString)){
+            JSONObject objResponse = new JSONObject(responseString);
+            this.responseBodyIsJson=true;
+            return objResponse;
+        };
+        return new JSONObject("{}");
     }
 
     public String requestForXML(String fullurl, final ParamData indata) {
@@ -331,7 +357,10 @@ public class ConnectServer {
      */
     public void autoSetBaseUrl(){
         String httpIpPort=subHttpIpPort(this.URL);
-        this.BASE_URL= Set.getValueSibling(httpIpPort,SetEnv.getEnv());
+        if(StringUtils.isNotEmpty( httpIpPort)) {
+            this.BASE_URL = Set.getValueSibling(httpIpPort, SetEnv.getEnv());
+            this.URL=this.URL.replace(httpIpPort,"");
+        }
     }
 
     /**

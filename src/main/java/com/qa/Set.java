@@ -79,6 +79,6 @@ public class Set {
                 }
             }
         }
-        return "";
+        return value;
     }
 }
