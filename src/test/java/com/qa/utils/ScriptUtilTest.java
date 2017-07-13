@@ -20,5 +20,24 @@ public class ScriptUtilTest {
     @Test
     public void isJavascript() throws Exception {
     }
+    @Test
+    public void undefined(){
+      assert  !ScriptUtil.runJavaScript("undefined");
+    }
+    @Test
+    public void runBool(){
+        assert  ScriptUtil.runJavaScript("true");
+    }
+    @Test
+    public void runScript(){
+        assert  ScriptUtil.runJavaScript("true==true");
+    }
+
+    @Test
+    public void runScriptBinding(){
+        ScriptUtil.binding("string","ss");
+        assert  ScriptUtil.runJavaScript("ss==\"string\"");
+    }
+
 
 }

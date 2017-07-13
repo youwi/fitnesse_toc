@@ -1,10 +1,14 @@
 package com.qa.TestHttpClient;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.qa.exceptions.HttpStatusException;
 import org.apache.http.Header;
@@ -12,7 +16,7 @@ import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
- //import net.sf.json.JSONObject;
+//import net.sf.json.JSONObject;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
@@ -57,29 +61,34 @@ public class HttpClientUtil {
 
         buildNewHttpClient();
 
-       // HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+        // HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
 
         //httpClientBuilder.setSSLContext(ctx);
         //httpClientBuilder.setSslcontext(ctx);//not work on 4.4
         //this.httpclient = httpClientBuilder.build();
         //this.httpclient = HttpClients.createDefault();
     }
-    public void buildNewHttpClient(){
+
+    public void buildNewHttpClient() {
         SSLContext ctx = null;  // 4.3
-        SSLContext sslContext=null;// 4.4
+        SSLContext sslContext = null;// 4.4
         try {
             ctx = SSLContext.getInstance("SSL");
             X509TrustManager tm = new X509TrustManager() {
                 public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                 }
+
                 public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                 }
+
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
+
                 public boolean isServerTrusted(java.security.cert.X509Certificate[] certs) {
                     return true;
                 }
+
                 public boolean isClientTrusted(java.security.cert.X509Certificate[] certs) {
                     return true;
                 }
@@ -102,7 +111,7 @@ public class HttpClientUtil {
                 .setConnectTimeout(timeout * 1000)
                 .setConnectionRequestTimeout(timeout * 1000)
                 .setSocketTimeout(timeout * 1000).build();
-        CloseableHttpClient client ;//= HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+        CloseableHttpClient client;//= HttpClientBuilder.create().setDefaultRequestConfig(config).build();
         SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
         PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager();
         client = HttpClients.custom()
@@ -120,166 +129,166 @@ public class HttpClientUtil {
     }
 
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
-        try {
-            Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
-            final HttpPost httpPost = new HttpPost(URL);
-            //  httpPost.setConfig(RequestConfig.custom().setCookieSpec());
-            int flag = 0;
-            int CTFlag = 0;
-            System.out.println("------------------------------------------------------------------");
 
-            System.out.println("请求地址：  POST  " + httpPost.getURI());
+        Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
+        final HttpPost httpPost = new HttpPost(urlParamMatcher(URL, ci.getParam()));
+        //  httpPost.setConfig(RequestConfig.custom().setCookieSpec());
+        int flag = 0;
+        int CTFlag = 0;
+        System.out.println("------------------------------------------------------------------");
 
-            if (iter != null) {
-                while (iter.hasNext()) {
-                    Map.Entry<String, String> me = iter.next();
-                    httpPost.addHeader(me.getKey(), me.getValue());
-                    System.out.println("请求头：  " + me.getKey() + ":" + me.getValue());
-                    if ("os".equals(me.getKey())) {
-                        flag = 1;
+        System.out.println("请求地址：  POST  " + httpPost.getURI());
+
+        if (iter != null) {
+            while (iter.hasNext()) {
+                Map.Entry<String, String> me = iter.next();
+                httpPost.addHeader(me.getKey(), me.getValue());
+                System.out.println("请求头：  " + me.getKey() + ":" + me.getValue());
+                if ("os".equals(me.getKey())) {
+                    flag = 1;
+                }
+                if ("Content-Type".equals(me.getKey())) {
+                    CTFlag = 1;
+                    String vv = me.getValue();
+                    if (vv != null && vv.contains("application/json")) {
+                        CTFlag = 2;// JSON
                     }
-                    if ("Content-Type".equals(me.getKey())) {
-                        CTFlag = 1;
-                        String vv = me.getValue();
-                        if (vv != null && vv.contains("application/json")) {
-                            CTFlag = 2;// JSON
-                        }
-                        if (vv != null && vv.contains("application/x-www-form-urlencoded")) {
-                            CTFlag = 3;// form
-                        }
+                    if (vv != null && vv.contains("application/x-www-form-urlencoded")) {
+                        CTFlag = 3;// form
                     }
                 }
             }
-
-            if (0 == flag) {
-                httpPost.addHeader("os", "monitor");
-            }
-            if (1 == CTFlag) {
-                System.out.println("未知类型：  Content-Type:" + httpPost.getFirstHeader("Content-Type"));
-            }
-            if (0 == CTFlag) {
-                System.out.println("请求参数：  " + ci.getJsonParam());
-                StringEntity entity = new StringEntity(ci.getJsonParam(), "utf-8");
-                entity.setContentType("application/json;charset=UTF-8");
-                httpPost.setEntity(entity);
-            }
-            if ((2 == CTFlag) && (null != ci.getJsonParam())) {
-                System.out.println("请求参数：  " + ci.getJsonParam());
-                StringEntity entity = new StringEntity(ci.getJsonParam(), "utf-8");
-                entity.setContentType("application/json;charset=UTF-8");
-                httpPost.setEntity(entity);
-            }
-            if ((3 == CTFlag) && (null != ci.getParam())) {
-                System.out.println("请求参数：  " + ci.getParam());
-                StringEntity entity = new StringEntity(ci.getParam(), "utf-8");
-                entity.setContentType("application/x-www-form-urlencoded");
-                httpPost.setEntity(entity);
-            }
-
-
-            // Before end
-//            ResponseHandler<String> responseHandler = createResponseHandler();
-            if (!ci.getIsRedirect()) {
-                //      buildNewHttpClient();
-            }
-            httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
-            stime = System.currentTimeMillis();
-            //  new Runnable();
-
-            asyncCloseTimeout( httpPost);
-            response = httpclient.execute(httpPost);
-
-                     //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
-            try{
-                printState(response, ci);
-            }catch (HttpStatusException e){
-                if(e.status==401){
-                    //目前是 json
-                }else if(e.status==400 || e.status==500){
-                    throw e;
-                }
-            }
-
-
-            return responseBody;
-        }catch (Exception e){
-           // System.out.println("error:"+e.getMessage() +" /"+URL);
-            throw new RuntimeException(e.getMessage());
         }
-     }
+
+        if (0 == flag) {
+            httpPost.addHeader("os", "monitor");
+        }
+        if (1 == CTFlag) {
+            System.out.println("未知类型：  Content-Type:" + httpPost.getFirstHeader("Content-Type"));
+        }
+        if (0 == CTFlag) {
+            System.out.println("请求参数：  " + ci.getJsonParam());
+            StringEntity entity = new StringEntity(ci.getJsonParam(), "utf-8");
+            entity.setContentType("application/json;charset=UTF-8");
+            httpPost.setEntity(entity);
+        }
+        if ((2 == CTFlag) && (null != ci.getJsonParam())) {
+            System.out.println("请求参数：  " + ci.getJsonParam());
+            StringEntity entity = new StringEntity(ci.getJsonParam(), "utf-8");
+            entity.setContentType("application/json;charset=UTF-8");
+            httpPost.setEntity(entity);
+        }
+        if ((3 == CTFlag) && (null != ci.getParam())) {
+            System.out.println("请求参数：  " + ci.getParam());
+            StringEntity entity = new StringEntity(ci.getParam(), "utf-8");
+            entity.setContentType("application/x-www-form-urlencoded");
+            httpPost.setEntity(entity);
+        }
+
+
+        // Before end
+//            ResponseHandler<String> responseHandler = createResponseHandler();
+        if (!ci.getIsRedirect()) {
+            //      buildNewHttpClient();
+        }
+        httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
+        stime = System.currentTimeMillis();
+        //  new Runnable();
+
+        asyncCloseTimeout(httpPost);
+        response = httpclient.execute(httpPost);
+
+        //    List<Cookie> cookies = ((AbstractHttpClient) httpclient).getCookieStore().getCookies();
+        try {
+            printState(response, ci);
+        } catch (HttpStatusException e) {
+            if (e.status == 401) {
+                //目前是 json
+            } else if (e.status == 400 || e.status == 500) {
+                throw e;
+            }
+        }
+
+
+        return responseBody;
+
+    }
 
     /**
      * 监视线程
+     *
      * @param httpPOSTorGET
      */
-    public void asyncCloseTimeout(final AbstractExecutionAwareRequest httpPOSTorGET){
-        response=null;
+    public void asyncCloseTimeout(final AbstractExecutionAwareRequest httpPOSTorGET) {
+        response = null;
         Runnable watch = new Runnable() {
-             @Override
-             public void run() {
-                 try {
-                     Thread.sleep(timeout * 1000);
-                     System.err.println("force close http connection(强制断开连接)");
-                     responseBody=null;
-                     HttpEntity entity=null;
-                     if(response!=null){
-                         entity = response.getEntity();
-                     }
-                     if(entity!=null){
-                         EntityUtils.consume(entity);
-                     }
-                     if (httpPOSTorGET != null) {
-                         httpPOSTorGET.abort();
-                     }
-                     httpclient.close();
-                 } catch (InterruptedException e) {
-                     e.printStackTrace();
-                 } catch (IOException e) {
-                     e.printStackTrace();
-                 }
-             }
-         };
-         new Thread(watch).start();
-     }
-    public void printState(HttpResponse response,HttpRequestCallback ci) throws IOException {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(timeout * 1000);
+                    System.err.println("force close http connection(强制断开连接)");
+                    // responseBody=null;
+                    HttpEntity entity = null;
+                    if (response != null) {
+                        entity = response.getEntity();
+                    }
+                    if (entity != null) {
+                        EntityUtils.consume(entity);
+                    }
+                    if (httpPOSTorGET != null) {
+                        httpPOSTorGET.abort();
+                    }
+                    httpclient.close();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        new Thread(watch).start();
+    }
+
+    public void printState(HttpResponse response, HttpRequestCallback ci) throws IOException {
         int status = response.getStatusLine().getStatusCode();
-        System.out.println("返回状态码:"+status);
+        System.out.println("返回状态码:" + status);
+        responseTime = System.currentTimeMillis() - stime;
         if (status >= 200 && status < 300) {
             HttpEntity entity = response.getEntity();
-            setResponseBody(EntityUtils.toString(entity,"utf-8"));
-            responseTime = System.currentTimeMillis() - stime;
-            if(response.getFirstHeader("Content-Type").getValue().contains("text/html")){
-                System.out.println("返回:<HTML>" );
-            }else{
+            setResponseBody(EntityUtils.toString(entity, "utf-8"));
+
+            if (response.getFirstHeader("Content-Type").getValue().contains("text/html")) {
+                System.out.println("返回:<HTML>");
+            } else {
                 System.out.println("完整响应体： " + responseBody);
             }
 
-        } else if(status==302) {
-           // response.getFirstHeader("Location");
-            String location= response.getFirstHeader("Location").getValue();
-            System.out.println("返回:<中间状态:302,自动重定向:"+ci.getIsRedirect()+"> "+ response.getFirstHeader("Location"));
-           // httpGetRequest(location,ci); 死循环
-        }else{
-            System.out.println("响应时间： "+responseTime+"ms" );
-             System.out.println("未处理状态码 :"+status);
-            HttpEntity entiy =response.getEntity();
-            if(entiy!=null){
-                String errorMsg=EntityUtils.toString(entiy,"utf-8");
+        } else if (status == 302) {
+            // response.getFirstHeader("Location");
+            String location = response.getFirstHeader("Location").getValue();
+            System.out.println("返回:<中间状态:302,自动重定向:" + ci.getIsRedirect() + "> " + response.getFirstHeader("Location"));
+            // httpGetRequest(location,ci); 死循环
+        } else {
+            System.out.println("响应时间： " + responseTime + "ms");
+            System.out.println("未处理状态码 :" + status);
+            HttpEntity entiy = response.getEntity();
+            if (entiy != null) {
+                String errorMsg = EntityUtils.toString(entiy, "utf-8");
                 System.out.println("完整响应体： " + errorMsg);
-                if(errorMsg!=null)
-                    responseBody=errorMsg;
-                throw new HttpStatusException(status,"message:<< 未处理状态码:"+status+" 返回结果:"+errorMsg+">>");
+                if (errorMsg != null)
+                    responseBody = errorMsg + "";
+                throw new HttpStatusException(status, "message:<< 未处理状态码:" + status + " 返回结果:" + errorMsg + ">>");
 
             }
             //throw new ClientProtocolException("Unexpected response status(未处理状态码): " + status);
         }
-        System.out.println("响应时间： "+responseTime+"ms" );
+        System.out.println("响应时间： " + responseTime + "ms");
 
-     }
+    }
 
     /**
      * @param URL
-     * @param ci 反向取值方法
+     * @param ci  反向取值方法
      * @return
      * @throws IOException
      */
@@ -287,6 +296,7 @@ public class HttpClientUtil {
             throws IOException {
         try {
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
+            URL = urlParamMatcher(URL, ci.getParam());
             final HttpGet httpGet = new HttpGet(URL);
 
             int flag = 0;
@@ -304,20 +314,92 @@ public class HttpClientUtil {
             System.out.println("GET 请求地址：  " + httpGet.getURI());
 
 //            ResponseHandler<String> responseHandler = createResponseHandler();
-            if(!ci.getIsRedirect()){
-             //   buildNewHttpClient();
+            if (!ci.getIsRedirect()) {
+                //   buildNewHttpClient();
             }
             httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
             stime = System.currentTimeMillis();
-            response=null;
+            response = null;
             asyncCloseTimeout(httpGet);
             response = httpclient.execute(httpGet);
 
-            printState(response,ci);
+            printState(response, ci);
             return responseBody;
         } finally {
             httpclient.close();
         }
+    }
+
+    /**
+     * www.baidu.com/aapi/{id}/abc.api
+     * 替换 url 上的 IP
+     *
+     * @return URL
+     */
+    public static String urlParamMatcher(String url, String formString) {
+
+
+        if (Pattern.matches(".*\\{\\w*\\}.*", url)) {
+            // 按指定模式在字符串查找
+            Map<String, String> map = buildMapByForm(formString);
+            // 创建 Pattern 对象
+            String partern = "(\\{\\w*\\})";
+
+            Pattern rurl = Pattern.compile(partern);
+            // 现在创建 matcher 对象
+            Matcher m = rurl.matcher(url);
+            while (m.find()) {
+
+                String namePix = m.group(0);
+                String namePull = namePix.replace("{", "").replace("}", "");
+                url = url.replace(namePix, map.get(namePull));
+                map.remove(namePull);
+            }
+            return urlClear(url + "?" + buildFromByMap(map));
+        } else {
+            return urlClear(url + "?" + formString);
+        }
+    }
+
+    public static String urlClear(String url) {
+
+        if (url != null) {
+            if (url.endsWith("?")) {
+                return url.substring(0, url.lastIndexOf("?"));
+            } else
+                return url;
+        } else {
+            return "";
+        }
+
+    }
+
+    /**
+     * 把表单转换成 map
+     * 如  a=b&bc=c  => a:b,bc:c
+     */
+    public static Map buildMapByForm(String form) {
+        Map map = new HashMap();
+        if (form != null) {
+            String[] all = form.split("\\&");
+            for (String s : all) {
+                String[] nameValue = s.split("=");
+                if (nameValue.length == 1)
+                    map.put(nameValue[0], "");
+                else {
+                    map.put(nameValue[0], nameValue[1]);
+                }
+            }
+        }
+        return map;
+    }
+
+    public static String buildFromByMap(Map<String, String> map) {
+        String out = "";
+        for (String key : map.keySet()) {
+            out += key + "=" + map.get(key);
+        }
+        return out;
     }
 
 

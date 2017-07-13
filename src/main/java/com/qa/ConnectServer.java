@@ -111,7 +111,11 @@ public class ConnectServer {
      * @return
      */
     public boolean setBody(String bodyString,String type){
-        paramData.setJsonParam(ScriptUtil.buildScript(delHtmlPre(bodyString),type));
+        if("raw".equals(type)){
+            paramData.setJsonParam(bodyString);
+        }else {
+            paramData.setJsonParam(ScriptUtil.buildScript(delHtmlPre(bodyString), type));
+        }
         return true;
     }
 
@@ -179,6 +183,7 @@ public class ConnectServer {
                 this.responseBody=httpClientUtil.getResponseBody();
                 throw e;
             }
+            return responseBody;
 
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -201,9 +206,13 @@ public class ConnectServer {
     public boolean jsonContain(String json){
         return true;
     }
-    public boolean javascript(String js){
+    public boolean javaScript(String js){
         return true;
     }
+    public boolean groovyScript(String js){
+        return true;
+    }
+
 
 
     public JSONObject requestForJSON(String fullurl, final ParamData indata) {
@@ -214,7 +223,7 @@ public class ConnectServer {
         if (oriContentType == null && type != null) {
             if (Objects.equals(type.toLowerCase(), "get")) {
                 if(indata.getParameters().size()>0){
-                    indata.setHeaderParameters("Content-Type", "application/x-www-form-urlencoded");
+                    //indata.setHeaderParameters("Content-Type", "application/x-www-form-urlencoded");
                 }
             } else if (Objects.equals(type.toLowerCase(), "post")) {
                 indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");

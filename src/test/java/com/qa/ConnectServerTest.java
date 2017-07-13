@@ -59,4 +59,8 @@ public class ConnectServerTest {
         assert "http://www.dev.haolie.test/abc/abc.rest".equals(cs.BASE_URL+cs.URL);
     }
 
+
+
+
+
 }

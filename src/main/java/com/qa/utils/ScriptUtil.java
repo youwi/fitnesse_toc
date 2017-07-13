@@ -2,9 +2,7 @@ package com.qa.utils;
 
 import com.google.gson.Gson;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import javax.script.*;
 
 /**
  * Created by yu on 16/8/23.
@@ -38,6 +36,39 @@ public class ScriptUtil {
         } catch (ScriptException e) {
             return false;
         }
+    }
+
+    /**
+     * 绑定到 js 变量的值
+     * @param obj 变量
+     * @param name 变量名
+     * @return
+     */
+    public static boolean binding(Object obj,String name){
+        Bindings bindings = engine.createBindings(); //Local级别的Binding
+        bindings.put(name,obj);
+        engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
+        return true;
+    }
+    public static boolean runJavaScript(String script){
+        if(script==null) return false;
+        try {
+            script = script.trim();
+            Object object=JSUtil.engine.eval(script);
+            if(object instanceof Boolean){
+                return (Boolean) object;
+            }
+            if(object==null){
+                return false;
+            }
+            if(object instanceof String){
+                return !object.equals("undefined");
+            }
+        } catch (ScriptException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
     public static String buildScript(String script, String type) {
         if (type == null) {
