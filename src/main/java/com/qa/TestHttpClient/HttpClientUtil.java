@@ -22,10 +22,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.AbstractExecutionAwareRequest;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.*;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
@@ -292,12 +289,17 @@ public class HttpClientUtil {
      * @return
      * @throws IOException
      */
-    public String httpGetRequest(String URL, HttpRequestCallback ci)
-            throws IOException {
+    public String httpGetRequest(String URL, HttpRequestCallback ci)     throws IOException {
+        URL = urlParamMatcher(URL, ci.getParam());
+        final HttpGet httpDelete=new HttpGet(URL);
+        return  httpDeleteGetRequest(URL,ci,httpDelete);
+    }
+    public String httpDeleteGetRequest(String URL, HttpRequestCallback ci,HttpRequestBase httpGet)throws IOException {
         try {
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
-            URL = urlParamMatcher(URL, ci.getParam());
-            final HttpGet httpGet = new HttpGet(URL);
+
+            System.out.println("------------------------------------------------------------------");
+            System.out.println(httpGet.getMethod()+" 请求地址：  " + httpGet.getURI());
 
             int flag = 0;
             while (iter.hasNext()) {
@@ -311,9 +313,7 @@ public class HttpClientUtil {
             if (0 == flag) {
                 httpGet.addHeader("os", "monitor");
             }
-            System.out.println("GET 请求地址：  " + httpGet.getURI());
 
-//            ResponseHandler<String> responseHandler = createResponseHandler();
             if (!ci.getIsRedirect()) {
                 //   buildNewHttpClient();
             }
@@ -328,7 +328,15 @@ public class HttpClientUtil {
         } finally {
             httpclient.close();
         }
+
     }
+
+    public String httpDeleteRequest(String URL, HttpRequestCallback ci) throws IOException {
+        URL = urlParamMatcher(URL, ci.getParam());
+        final HttpDelete httpDelete=new HttpDelete(URL);
+        return httpDeleteGetRequest(URL,ci,httpDelete);
+    }
+
 
     /**
      * www.baidu.com/aapi/{id}/abc.api
@@ -357,6 +365,8 @@ public class HttpClientUtil {
             }
             return urlClear(url + "?" + buildFromByMap(map));
         } else {
+            if(formString==null)
+                formString="";
             return urlClear(url + "?" + formString);
         }
     }
@@ -425,8 +435,10 @@ public class HttpClientUtil {
             return httpGetRequest(URL, ci);
         } else if ("post".equals(type.toLowerCase())) {
             return httpPostRequest(URL, ci);
-        } else {
-            return null;
+        } else if("delete".equals(type.toLowerCase())){
+            return httpDeleteRequest(URL,ci);
+        }else{
+            return "";
         }
     }
 

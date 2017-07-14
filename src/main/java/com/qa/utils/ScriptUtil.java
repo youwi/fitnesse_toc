@@ -3,6 +3,12 @@ package com.qa.utils;
 import com.google.gson.Gson;
 
 import javax.script.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+
 
 /**
  * Created by yu on 16/8/23.
@@ -20,7 +26,9 @@ public class ScriptUtil {
      * @return
      */
     public static boolean isJson(String script){
+        if(script==null) return  false;
         try {
+
             script = script.trim();
             JSUtil.engine.eval("var out=" + script);
              return  true;
@@ -29,6 +37,7 @@ public class ScriptUtil {
         }
     }
     public static boolean isJavascript(String json){
+        if(json==null) return  false;
         try {
             json = json.trim();
             JSUtil.engine.eval(json);
@@ -36,6 +45,28 @@ public class ScriptUtil {
         } catch (ScriptException e) {
             return false;
         }
+    }
+    public static boolean preLoadCompileJs()  {
+        try{
+            String jsScript=  inputStream2String( ScriptUtil.class.getResourceAsStream("/jsonUtil.js"));// Charset.forName("utf-8"));
+            JSUtil.engine.eval(jsScript);
+
+        }catch (IOException e ){
+            System.out.println(e.getMessage());
+        }catch (ScriptException e){
+            System.out.println(e.getMessage());
+        }
+        return  true;
+    }
+   public static String  inputStream2String(InputStream is) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(is));
+        StringBuffer buffer = new StringBuffer();
+        String line = "";
+        while ((line = in.readLine()) != null){
+            buffer.append(line);
+            buffer.append("\n");
+        }
+        return buffer.toString();
     }
 
     /**

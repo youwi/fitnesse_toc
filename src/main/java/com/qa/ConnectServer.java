@@ -78,6 +78,11 @@ public class ConnectServer {
         return true;
        // return "message:<<OK>>";
     }
+    public boolean delete(){
+        this.type="DELETE";
+        jp.parseJson(requestForJSON(BASE_URL+URL,paramData));
+        return true;
+    }
     public boolean get(){
         this.type="GET";
         jp.parseJson(requestForJSON(BASE_URL+URL,paramData));
@@ -204,10 +209,20 @@ public class ConnectServer {
         return true;
     }
     public boolean jsonContain(String json){
-        return true;
+        ScriptUtil.preLoadCompileJs();
+        ScriptUtil.runJavaScript("response=null");
+        ScriptUtil.runJavaScript("response="+responseBody);
+        //ScriptUtil.binding(responseBody,"response"); //绑定为直接的字符串
+        //ScriptUtil.runJavaScript("response=JSON.parse(response)");
+        return ScriptUtil.runJavaScript("CONTAIN(response,"+json+")");
+
     }
     public boolean javaScript(String js){
-        return true;
+        ScriptUtil.preLoadCompileJs();
+        ScriptUtil.runJavaScript("response=null");
+        ScriptUtil.runJavaScript("response="+responseBody);
+        return ScriptUtil.runJavaScript(js);
+
     }
     public boolean groovyScript(String js){
         return true;
@@ -226,6 +241,8 @@ public class ConnectServer {
                     //indata.setHeaderParameters("Content-Type", "application/x-www-form-urlencoded");
                 }
             } else if (Objects.equals(type.toLowerCase(), "post")) {
+                indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
+            }else if(Objects.equals(type.toLowerCase(), "delete")){
                 indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
             }
         }

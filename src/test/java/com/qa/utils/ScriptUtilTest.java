@@ -10,6 +10,15 @@ import static org.junit.Assert.*;
  */
 public class ScriptUtilTest {
     @Test
+    public void preLoadCompileJs() throws Exception {
+        ScriptUtil.preLoadCompileJs();
+        assert ScriptUtil.runJavaScript("CONTAIN({\"page\":1,\"size\":10},{\"page\":1,\"size\":10})");
+        assert !ScriptUtil.runJavaScript("CONTAIN({\"page\":1,\"size\":10},{\"page\":1,\"size\":11})");
+        assert ScriptUtil.runJavaScript("CONTAIN({\"code\":1,\"msg\":\"OK\",\"body\":{\"industryList\":[{\"code\":1,\"amount\":1},{\"code\":18,\"amount\":2},{\"code\":56,\"amount\":1}],\"locationList\":[{\"code\":110000,\"amount\":1},{\"code\":310000,\"amount\":1}]}}\n,{\"code\":110000,\"amount\":1})");
+    }
+
+
+    @Test
     public void isJson() throws Exception {
         assert ScriptUtil.isJson("{}");
         assert ScriptUtil.isJson("{}");
