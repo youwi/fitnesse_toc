@@ -37,8 +37,9 @@ public class ConnectServer {
     String env = null;
     String responseBody = null;
     String type = null;
-    HttpClientUtil httpClientUtil;
+  static  HttpClientUtil httpClientUtil= new HttpClientUtil();
     boolean responseBodyIsJson;
+
 
 
     public ConnectServer(String URL) {
@@ -134,7 +135,6 @@ public class ConnectServer {
             }catch (Exception e2){
                 System.out.println("debug:> json parse ERROR (语法错误或可能多余的逗号这些)");
                 return null;
-
             }
         }
 
@@ -161,10 +161,6 @@ public class ConnectServer {
         paramData.setHeaderParameters("Content-Type", contentType);
     }
 
-    public boolean setParam(String name, String value, String type) throws Exception {
-        paramData.setParameters(name, value, type);
-        return true;
-    }
     public boolean setParam(String name, String value) throws Exception {
         paramData.setParameters(name, value);
         return true;

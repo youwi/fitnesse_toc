@@ -47,6 +47,7 @@ public class HttpClientUtil {
     CookieStore httpCookieStore = new BasicCookieStore();
     int timeout = 10;
 
+
     @SuppressWarnings("deprecation")
     public HttpClientUtil() {
 
@@ -60,7 +61,8 @@ public class HttpClientUtil {
         //this.httpclient = HttpClients.createDefault();
     }
 
-    public void buildNewHttpClient() {
+    public   void buildNewHttpClient() {
+        stime=System.currentTimeMillis();
         SSLContext ctx = null;  // 4.3
         SSLContext sslContext = null;// 4.4
         try {
@@ -117,9 +119,11 @@ public class HttpClientUtil {
                 .build();
 
         this.httpclient = client;
+        System.out.println("http初始化时间： " +  (System.currentTimeMillis()-stime )+ "ms");
     }
 
     public String httpPostRequest(String URL, HttpRequestCallback ci) throws IOException {
+        stime = System.currentTimeMillis();
 
         Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
         final HttpPost httpPost = new HttpPost(urlParamMatcher(URL, ci.getParam()));
@@ -183,7 +187,6 @@ public class HttpClientUtil {
             //      buildNewHttpClient();
         }
         httpPost.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
-        stime = System.currentTimeMillis();
         //  new Runnable();
 
         asyncCloseTimeout(httpPost);
@@ -290,6 +293,7 @@ public class HttpClientUtil {
     }
     public String httpDeleteGetRequest(String URL, HttpRequestCallback ci,HttpRequestBase httpGet)throws IOException {
         try {
+            stime = System.currentTimeMillis();
             Iterator<Map.Entry<String, String>> iter = ci.getHeaderParameters();
 
             System.out.println("------------------------------------------------------------------");
@@ -312,7 +316,7 @@ public class HttpClientUtil {
                 //   buildNewHttpClient();
             }
             httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(ci.getIsRedirect()).setCircularRedirectsAllowed(false).build());
-            stime = System.currentTimeMillis();
+
             response = null;
             asyncCloseTimeout(httpGet);
             response = httpclient.execute(httpGet);

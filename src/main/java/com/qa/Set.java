@@ -38,6 +38,9 @@ public class Set {
 
         }
     }
+    public long date(){
+        return System.currentTimeMillis();
+    }
     static String env=SetEnv.env;
     static Map<String,Map<String,String>> envMap=new HashMap();
 

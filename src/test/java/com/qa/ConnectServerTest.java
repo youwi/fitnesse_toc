@@ -32,6 +32,21 @@ public class ConnectServerTest {
         assert "[1,2,3]".equals(cs.paramData.getJsonParam());
 
     }
+    @Test
+    public void setBody2() throws Exception {
+        ConnectServer cs = new ConnectServer("empty");
+        cs.setBody(" {\n" +
+                "staffId: 1,//注释\n" +
+                "teamId: 1,\n" +
+                "page: 1,\n" +
+                "size: 10\n" +
+                "}");
+        assert "{\"staffId\":1,\"teamId\":1,\"page\":1,\"size\":10}".equals(cs.paramData.getJsonParam());
+
+        cs.setBody("[1,2,3]");
+        assert "[1,2,3]".equals(cs.paramData.getJsonParam());
+
+    }
 
     @Test
     public void jsonContain() {

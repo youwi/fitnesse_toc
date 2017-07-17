@@ -35,4 +35,29 @@ public class Test {
 //		System.out.println("end test>>>>>>>>>>>>>>>.");
 	}
 
+	public void ss(){
+		//import com.qa.db.*;
+		Object obj= new SetGlobalHeader("author","haolie");
+		ConnectServer obj1=new	ConnectServer("http://www.lieluobo.testing/api/account/team/byLeader");
+		obj1.setBody("{\"leaderId\":null}");
+		obj1.post();
+		check(obj1.jsonStructure("code,msg")+"",	true);
+		check(obj1.jsonValue("msg"),	"请求参数不可为空");
+	}
+
+
+	public void check(String src,Object object){
+
+	}
+
+	@org.testng.annotations.Test
+	public void ch(){
+		long stime=System.currentTimeMillis();
+		Object obj= new SetGlobalHeader("author","haolie");
+		ConnectServer obj1=new	ConnectServer("http://www.lieluobo.testing/api/account/team/byLeader");
+		System.out.println(System.currentTimeMillis()-stime);
+
+		return ;
+	}
+
 }
