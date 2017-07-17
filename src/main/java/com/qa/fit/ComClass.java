@@ -9,7 +9,7 @@ public class ComClass {
         try {
             Thread.currentThread().sleep(1);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         return true;
     }
@@ -18,7 +18,7 @@ public class ComClass {
         try {
             Thread.currentThread().sleep(1);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         return true;
     }

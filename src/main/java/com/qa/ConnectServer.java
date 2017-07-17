@@ -414,9 +414,10 @@ public class ConnectServer {
                 }
             }
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
+            ExceptionUtil.printlnSo(e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
     }
 

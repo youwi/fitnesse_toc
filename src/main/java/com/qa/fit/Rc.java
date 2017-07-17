@@ -21,20 +21,20 @@ public class Rc {
         try {
             clazz = Class.forName("");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         Method m1 = null;
         try {
             m1 = clazz.getDeclaredMethod("outInfo");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         Method m2 = null;
         try {
             m2 = clazz.getDeclaredMethod("setMsg", String.class);
             Method m3 = clazz.getDeclaredMethod("getMsg");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
 
 //        m1.invoke(foo);

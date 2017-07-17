@@ -184,7 +184,7 @@ public class ParamData {
             default:
                 this.println(type, "err");
                 Exception e = new Exception();
-                e.printStackTrace();
+                ExceptionUtil.printlnSo(e);
                 throw e;
 
         }

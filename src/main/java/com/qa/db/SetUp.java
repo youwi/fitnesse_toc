@@ -11,7 +11,7 @@ import java.util.Map;
 public class SetUp {
 
     public static String DEFAULT_CONNECTION_POOL_NAME = "default";
-    public static int DEFAULT_WAIT_TIMEOUT = 45000;
+    public static int DEFAULT_WAIT_TIMEOUT = 5000;
     static Map<String, Connection> mapConnection = new HashMap();
 
 
@@ -43,6 +43,15 @@ public class SetUp {
     }
 
     public static int runStandSql(String sql){
+      return   runStandSqlWithOutException(sql,false);
+    }
+
+    /**
+     * 无视异常的情况还是有的.
+     * @param sql
+     * @return
+     */
+    public static int runStandSqlWithOutException(String sql,boolean ignoreEx){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rset = null;
@@ -53,10 +62,12 @@ public class SetUp {
 
             conn.setAutoCommit(true);
             stmt = conn.createStatement();
+            System.out.println("debug sql: "+sql);
             _count = stmt.executeUpdate(sql);
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            ExceptionUtil.printlnSo(e);
+            if(!ignoreEx)
+                throw new RuntimeException("message:<<run sql error"+e.getMessage()+">>");
         } finally {
             try {
                 if (rset != null)

@@ -107,8 +107,8 @@ public class Select {
                 dataTable.add(dataItem);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            ExceptionUtil.printlnSo(e);
+            throw new RuntimeException("message:<<"+e.getMessage()+">>");
         } finally {
             try {
                 if (rset != null)

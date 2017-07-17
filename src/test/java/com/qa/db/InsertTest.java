@@ -31,6 +31,8 @@ public class InsertTest {
                 "containSubStaff: true  //是否包含子团队成员\n" +
                 "}");
 
+
+        System.out.println( Insert.mapToSql(map));
         System.out.println(map);
     }
 

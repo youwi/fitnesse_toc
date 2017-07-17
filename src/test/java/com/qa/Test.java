@@ -20,7 +20,7 @@ public class Test {
 //			mk.testRun("status");
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
-//			e.printStackTrace();
+//			ExceptionUtil.printlnSo(e);
 //		}
 //		System.out.println("first test>>>>>>>>>>>>>>>.");
 //		String execution = legal.firstLoginRun(ConfigConstantsTest.SSO_BASE_URL + legal.URL,legal.getData());

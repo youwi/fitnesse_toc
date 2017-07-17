@@ -74,7 +74,7 @@ public class FileUtils {
 				return fis.available();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			ExceptionUtil.printlnSo(e);
 			return 0;
 		} finally {
 			try {
@@ -232,11 +232,11 @@ public class FileUtils {
 				Zin.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ExceptionUtil.printlnSo(e);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ExceptionUtil.printlnSo(e);
 		}
 		long endTime = System.currentTimeMillis();
 		System.out.println("耗费时间： " + (endTime - startTime) + " ms");
@@ -403,7 +403,7 @@ public class FileUtils {
 			bis.write(a);
 			return bis;
 		} catch (IOException e) {
-			e.printStackTrace();
+			ExceptionUtil.printlnSo(e);
 			return null;
 		}
 

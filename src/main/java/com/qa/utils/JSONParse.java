@@ -64,7 +64,7 @@ public class JSONParse {
 //			System.out.println("检查的响应体Json Value： "+jsonMap.get(Key).toString());
 //			return this.jsonMap.get(Key).toString();
 //		} catch (Exception e) {
-//			e.printStackTrace();
+//			ExceptionUtil.printlnSo(e);
 //			return null;
 //		}
 	}

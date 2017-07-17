@@ -96,7 +96,7 @@ public class HttpClientUtil {
                     //.useTLS()
                     .build();
         } catch (Exception e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         RequestConfig config = RequestConfig.custom()
                 .setConnectTimeout(timeout * 1000)
@@ -231,9 +231,9 @@ public class HttpClientUtil {
                     }
                     httpclient.close();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    ExceptionUtil.printlnSo(e);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    ExceptionUtil.printlnSo(e);
                 }
             }
         };

@@ -112,7 +112,7 @@ public class ScriptUtil {
                 return !object.equals("undefined");
             }
         } catch (ScriptException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
             return false;
         }
         return false;
@@ -134,7 +134,7 @@ public class ScriptUtil {
                         return obj.toString();
                     return  gson.toJson(obj);
                  } catch (ScriptException e) {
-                    e.printStackTrace();
+                    ExceptionUtil.printlnSo(e);
                     return "{\"error\":\"fitnesse script Parse Error\"}";
                 }
             } else if (type.equals("js")) {
@@ -147,7 +147,7 @@ public class ScriptUtil {
                         return obj.toString();
                     return  gson.toJson(obj);
                 } catch (ScriptException e) {
-                    e.printStackTrace();
+                    ExceptionUtil.printlnSo(e);
                     return "{\"error\":\"fitnesse script Parse Error\"}";
                 }
             }
