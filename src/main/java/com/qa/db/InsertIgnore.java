@@ -7,7 +7,8 @@ package com.qa.db;
 public class InsertIgnore extends Insert{
 
     public InsertIgnore(String sql) {
-        super(sql);
+        super();
+        _count=SetUp.runStandSqlWithOutException(sql,true);
     }
 
     public InsertIgnore(String tableName, String kv) {

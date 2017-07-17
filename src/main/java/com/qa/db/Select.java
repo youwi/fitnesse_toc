@@ -17,7 +17,7 @@ import java.util.Map;
  * IAT @wkzf
  * Created by yu on 2017/7/17.
  */
-public class Select {
+public class Select extends SQL{
 
     Gson gson= GsonJsonUtil.gson;
 
@@ -44,7 +44,12 @@ public class Select {
         sql = sql.trim();
         getDataTable(sql);
      }
-     //为何以 Json 格式返回呢?
+
+    public Select() {
+
+    }
+
+    //为何以 Json 格式返回呢?
      public String data(){
          return gson.toJson(dataTable);
      }
@@ -78,7 +83,7 @@ public class Select {
         return gson.toJson(out);
     }
 
-    protected List getDataTable(String sql) {
+    public static List getDataTable(String sql) {
 
         Connection conn = null;
         Statement stmt = null;

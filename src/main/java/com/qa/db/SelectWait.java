@@ -12,7 +12,7 @@ import java.sql.Statement;
  * IAT @wkzf
  * Created by yu on 2017/7/17.
  */
-public class SelectWait extends SQL {
+public class SelectWait extends Select {
     private   int timeout=SetUp.DEFAULT_WAIT_TIMEOUT;
 
 
@@ -22,12 +22,20 @@ public class SelectWait extends SQL {
      * @param timeout 毫秒
      */
     public SelectWait(String sql, int timeout) {
+        super();
 
         sql = sql.replaceAll("\\n", " ");
         sql = sql.replaceAll("\\t", " ");
         sql = sql.replaceAll("<br/>", " ");
         sql = sql.trim();
         this.timeout=timeout;
+        this.waitForRowCount(sql);
+    }
+    public SelectWait(String sql) {
+        sql = sql.replaceAll("\\n", " ");
+        sql = sql.replaceAll("\\t", " ");
+        sql = sql.replaceAll("<br/>", " ");
+        sql = sql.trim();
         this.waitForRowCount(sql);
     }
 
@@ -38,7 +46,7 @@ public class SelectWait extends SQL {
         long endTime=now+timeout;
 
         while (rowCount == 0 && ((System.currentTimeMillis()<= endTime))) {
-            rowCount = SetUp.runStandSql(sql);
+            rowCount = getDataTable(sql).size();
 
             if (rowCount > 0) {
                 return;
