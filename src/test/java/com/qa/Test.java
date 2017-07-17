@@ -1,4 +1,4 @@
-package com.qa.TestHttpClient;
+package com.qa;
 
 public class Test {
 	public static void main(String[] args) throws Exception {

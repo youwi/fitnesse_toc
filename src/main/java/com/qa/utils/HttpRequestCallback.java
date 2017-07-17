@@ -1,4 +1,4 @@
-package com.qa.TestHttpClient;
+package com.qa.utils;
 
 import org.apache.http.Header;
 

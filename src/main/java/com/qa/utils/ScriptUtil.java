@@ -1,7 +1,7 @@
 package com.qa.utils;
 
 import com.google.gson.Gson;
-import groovy.util.Eval;
+
 
 import javax.script.*;
 import java.io.BufferedReader;
@@ -19,7 +19,7 @@ public class ScriptUtil {
 
     static ScriptEngineManager manager = new ScriptEngineManager();
     public static ScriptEngine engine =null;// manager.getEngineByName("javascript");
-    static Gson gson=new Gson();
+    static Gson gson=GsonJsonUtil.gson;
 
 
     static void  newEngine(){
@@ -92,7 +92,7 @@ public class ScriptUtil {
         return true;
     }
     public static boolean runGroovyScript(String script){
-         Eval.me(script);
+
          return true;
 
     }

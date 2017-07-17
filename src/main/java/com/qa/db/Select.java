@@ -1,11 +1,16 @@
 package com.qa.db;
 
+import com.google.gson.Gson;
+import com.qa.utils.GsonJsonUtil;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * IAT @wkzf
@@ -13,7 +18,15 @@ import java.util.List;
  */
 public class Select {
 
-    private String connectionPoolName=SetUp.DEFAULT_CONNECTION_POOL_NAME;
+    Gson gson= GsonJsonUtil.gson;
+
+    /**
+     *  标准缓存
+     * 多列式多值式直接保存方式
+     * [{password: e10adc3949ba59abbe56e057f20f883e}]
+     */
+    static  ArrayList<Map<String,Object>> dataTable = new ArrayList();
+
 
     public Select(String sql) {
         List<List<List<String>>> dataTable = getDataTable(sql);
@@ -30,22 +43,47 @@ public class Select {
         sql = sql.trim();
         getDataTable(sql);
      }
+     //为何以 Json 格式返回呢?
+     public String data(){
+         return gson.toJson(dataTable);
+     }
 
+     public int count(){
+         return dataTable.size();
+     }
 
+    /**
+     * 注:只返回第一行的字段值.
+     * @param key
+     * @return
+     */
+     public Object value(String key){
+        for(Map map:dataTable){
+           return map.get(key);
+        }
+        return null;
+     }
 
+    /**
+     * 统一输出格式为 json 字符串
+     * @param key
+     * @return
+     */
+    public String values(String key){
+         List out=new ArrayList();
+        for(Map map:dataTable){
+            out.add( map.get(key));
+        }
+        return gson.toJson(out);
+    }
 
-    protected List<List<List<String>>> getDataTable(String sql) {
+    protected List getDataTable(String sql) {
 
-
-
-        //
-        // Now, we can use JDBC DataSource as we normally would.
-        //
         Connection conn = null;
         Statement stmt = null;
         ResultSet rset = null;
 
-        ArrayList<List<List<String>>> dataTable = new ArrayList<List<List<String>>>();
+        dataTable = new ArrayList();
 
         try {
             conn = SetUp.getConnection();
@@ -62,14 +100,11 @@ public class Select {
             }
 
             while (rset.next()) {
-                ArrayList<List<String>> dataRow = new ArrayList<List<String>>();
+                Map<String,Object> dataItem = new HashMap();
                 for (int i = 1; i <= numcols; i++) {
-                    ArrayList<String> dataItem = new ArrayList<String>();
-                    dataItem.add(String.valueOf(columnNames.get(i - 1)));
-                    dataItem.add(String.valueOf(rset.getString(i)));
-                    dataRow.add(dataItem);
+                    dataItem.put(String.valueOf(columnNames.get(i - 1)),String.valueOf(rset.getString(i)));
                 }
-                dataTable.add(dataRow);
+                dataTable.add(dataItem);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,11 +120,7 @@ public class Select {
                     stmt.close();
             } catch (Exception e) {
             }
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-            }
+
         }
 
         return dataTable;

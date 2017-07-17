@@ -1,29 +1,30 @@
 package com.qa;
 
-import com.qa.TestHttpClient.HttpClientUtil;
-import com.qa.TestHttpClient.HttpRequestCallback;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.qa.utils.*;
 import com.qa.constants.ConfigConstantsTest;
 import com.qa.exceptions.HttpStatusException;
-import com.qa.utils.ParamData;
-import com.qa.utils.JSONParse;
-import com.qa.utils.ScriptUtil;
+/*
 import groovy.json.JsonSlurper;
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
-import javafx.beans.binding.BooleanBinding;
+import groovy.util.Eval;
+*/
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.rmi.server.ExportException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import groovy.util.Eval;
 /**
  * Created by yus on 2016/11/26.
  */
@@ -105,13 +106,40 @@ public class ConnectServer {
      */
     public boolean setBody(String bodyString) {
         bodyString=delHtmlPre(bodyString);
-        if(ScriptUtil.isJson(bodyString)){
-            paramData.setJsonParam(ScriptUtil.buildScript(bodyString,"json"));
+        if(canGsonParse(bodyString)){
+            paramData.setJsonParam(GsonJsonUtil.gson.toJson(gsonParse(bodyString)));
         }else{
             paramData.setJsonParam(bodyString);
         }
         return true;
     }
+
+    /**
+     * 判断是不是一个普通json,并可以用Gson 来解析
+     * @return
+     */
+    boolean canGsonParse(String maybeJson){
+        Object ob=gsonParse(maybeJson);
+        if(ob==null)return false;
+        return true;
+    }
+    Object gsonParse(String mayBeJson){
+        try{
+            Map map= GsonJsonUtil.gson.fromJson(mayBeJson,Map.class);
+            return map;
+        }catch (Exception e){
+            try{
+                List list= GsonJsonUtil.gson.fromJson(mayBeJson,List.class);
+                return list;
+            }catch (Exception e2){
+                System.out.println("debug:> json parse ERROR (语法错误或可能多余的逗号这些)");
+                return null;
+
+            }
+        }
+
+    }
+
 
 
     /**
@@ -231,7 +259,7 @@ public class ConnectServer {
         return ScriptUtil.runJavaScript(js);
 
     }
-    public Object groovyScript(String groovyString) {
+  /*  public Object groovyScript(String groovyString) {
         groovyString=delHtmlPre(groovyString);
         Binding sharedData = new Binding();
         Object object =new JsonSlurper().parseText(responseBody);
@@ -241,7 +269,7 @@ public class ConnectServer {
         Object result2 = shell.evaluate(groovyString)  ;
 
         return result2;
-    }
+    }*/
 
 
 

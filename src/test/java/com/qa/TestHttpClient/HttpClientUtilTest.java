@@ -1,8 +1,6 @@
 package com.qa.TestHttpClient;
 
-import org.testng.annotations.*;
-
-import static org.junit.Assert.*;
+import com.qa.utils.HttpClientUtil;
 
 /**
  * IAT @wkzf

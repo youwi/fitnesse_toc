@@ -1,5 +1,5 @@
 package com.qa;
-import com.qa.TestHttpClient.HttpClientUtil;
+import com.qa.utils.HttpClientUtil;
 
 /**
  * Created by yu on 2017/1/16.

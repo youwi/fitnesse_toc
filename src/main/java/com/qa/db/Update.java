@@ -11,76 +11,22 @@ import java.util.List;
  * IAT @wkzf
  * Created by yu on 2017/7/17.
  */
-public class Update {
+public class Update extends SQL {
 
-    private String connectionPoolName=SetUp.DEFAULT_CONNECTION_POOL_NAME;
+
 
     public Update(String sql) {
-
-        getDataTable(sql);
+        super(sql);
     }
 
-    private void Update(String tableName,String values,String condition)    {
-        String sql="update "+tableName+" "+values+" "+condition;
+    public Update(String tableName,String values,String condition){
+        String sql="update "+tableName+" set "+values+" where "+condition;
 
         sql = sql.replaceAll("\\n", " ");
         sql = sql.replaceAll("\\t", " ");
         sql = sql.replaceAll("<br/>", " ");
         sql = sql.trim();
-        List<List<List<String>>> dataTable = getDataTable(sql);
-        new ArrayList<Object>(dataTable);
+       _count= SetUp.runStandSql(sql);
     }
 
-
-    protected List<List<List<String>>> getDataTable( String sql) {
-
-
-
-        //
-        // Now, we can use JDBC DataSource as we normally would.
-        //
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rset = null;
-
-        ArrayList<List<List<String>>> dataTable = new ArrayList<List<List<String>>>();
-
-        try {
-            conn = SetUp.getConnection();
-
-            conn.setAutoCommit(true);
-            stmt = conn.createStatement();
-            int rowsUpdated = stmt.executeUpdate(sql);
-
-            ArrayList<List<String>> dataRow = new ArrayList<List<String>>();
-            ArrayList<String> dataItem = new ArrayList<String>();
-            dataItem.add(String.valueOf("rowsUpdated"));
-            dataItem.add(String.valueOf(rowsUpdated));
-
-            dataRow.add(dataItem);
-            dataTable.add(dataRow);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (rset != null)
-                    rset.close();
-            } catch (Exception e) {
-            }
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (Exception e) {
-            }
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-            }
-        }
-
-        return dataTable;
-    }
 }

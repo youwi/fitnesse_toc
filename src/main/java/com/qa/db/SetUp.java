@@ -1,8 +1,6 @@
 package com.qa.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,4 +42,35 @@ public class SetUp {
         return   mapConnection.get(DEFAULT_CONNECTION_POOL_NAME);
     }
 
+    public static int runStandSql(String sql){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rset = null;
+        int _count=0;
+
+        try {
+            conn = SetUp.getConnection();
+
+            conn.setAutoCommit(true);
+            stmt = conn.createStatement();
+            _count = stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (rset != null)
+                    rset.close();
+            } catch (Exception e) {
+            }
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (Exception e) {
+            }
+
+        }
+
+        return _count;
+    }
 }

@@ -3,9 +3,8 @@ package com.qa.fit;
 import fit.Fixture;
 import fit.Parse;
 import fit.exception.FitParseException;
-import org.junit.*;
 
-import java.lang.reflect.Method;
+
 
 /**
  * Created by yu on 16/8/25.
@@ -46,7 +45,7 @@ public class MyFixture extends Fixture {
 
     }
 
-    @Test
+
     public void AAstest() throws FitParseException {
 
         MyFixture tt=new MyFixture();
@@ -72,14 +71,6 @@ public class MyFixture extends Fixture {
     }
 
 
-    @Test
-    public void aaaMain(){
 
-        try {
-            new fit.FitServer().main(new String[]{"cheng", "8888", "8888"});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 
