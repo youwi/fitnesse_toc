@@ -1,6 +1,7 @@
 package com.qa.utils;
 
 import com.google.gson.Gson;
+import groovy.util.Eval;
 
 import javax.script.*;
 import java.io.BufferedReader;
@@ -17,15 +18,21 @@ public class ScriptUtil {
 
 
     static ScriptEngineManager manager = new ScriptEngineManager();
-    public static ScriptEngine engine = manager.getEngineByName("javascript");
+    public static ScriptEngine engine =null;// manager.getEngineByName("javascript");
     static Gson gson=new Gson();
 
 
+    static void  newEngine(){
+        if(engine==null){
+            engine = manager.getEngineByName("javascript");
+        }
+    }
     /**
      * 判断是否能运行为 js
      * @return
      */
     public static boolean isJson(String script){
+        newEngine();
         if(script==null) return  false;
         try {
 
@@ -48,6 +55,7 @@ public class ScriptUtil {
     }
     public static boolean preLoadCompileJs()  {
         try{
+            newEngine();
             String jsScript=  inputStream2String( ScriptUtil.class.getResourceAsStream("/jsonUtil.js"));// Charset.forName("utf-8"));
             JSUtil.engine.eval(jsScript);
 
@@ -76,18 +84,26 @@ public class ScriptUtil {
      * @return
      */
     public static boolean binding(Object obj,String name){
+        newEngine();
+
         Bindings bindings = engine.createBindings(); //Local级别的Binding
         bindings.put(name,obj);
         engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return true;
     }
-    public static boolean runJavaScript(String script){
+    public static boolean runGroovyScript(String script){
+         Eval.me(script);
+         return true;
+
+    }
+    public static Object runJavaScript(String script){
+        newEngine();
         if(script==null) return false;
         try {
             script = script.trim();
             Object object=JSUtil.engine.eval(script);
             if(object instanceof Boolean){
-                return (Boolean) object;
+                return object;
             }
             if(object==null){
                 return false;
@@ -102,6 +118,7 @@ public class ScriptUtil {
         return false;
     }
     public static String buildScript(String script, String type) {
+        newEngine();
         if (type == null) {
             return script;
         } else {

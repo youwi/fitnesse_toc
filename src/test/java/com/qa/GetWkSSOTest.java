@@ -1,12 +1,5 @@
 package com.qa;
 import com.qa.TestHttpClient.HttpClientUtil;
-import com.qa.TestHttpClient.HttpRequestCallback;
-import com.qa.db.slim.DbSlimSetup;
-import com.qa.db.slim.DbSlimUpdateQuery;
-import org.apache.http.Header;
-import org.junit.Test;
-
-import java.util.*;
 
 /**
  * Created by yu on 2017/1/16.
@@ -58,14 +51,6 @@ public class GetWkSSOTest {
 
     }
    // @Test
-    public void stcc11(){
-        try {
-            DbSlimSetup s=  new DbSlimSetup();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.err.println(new DbSlimUpdateQuery().rowsUpdated("delete from nhouse.xf_book_see_house WHERE customerMobile=13956255625") );
 
-    }
 
 }

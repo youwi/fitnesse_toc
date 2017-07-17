@@ -7,18 +7,23 @@ import com.qa.exceptions.HttpStatusException;
 import com.qa.utils.ParamData;
 import com.qa.utils.JSONParse;
 import com.qa.utils.ScriptUtil;
+import groovy.json.JsonSlurper;
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
+import javafx.beans.binding.BooleanBinding;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import groovy.util.Eval;
 /**
  * Created by yus on 2016/11/26.
  */
@@ -183,6 +188,7 @@ public class ConnectServer {
                             return indata.isRedirect;
                         }
                     }, type);
+            this.responseBody=responseBodyString;
         } catch (RuntimeException e) {
             if(e instanceof HttpStatusException){
                 this.responseBody=httpClientUtil.getResponseBody();
@@ -208,24 +214,33 @@ public class ConnectServer {
     public boolean jsonLike(String json){
         return true;
     }
-    public boolean jsonContain(String json){
+    public Boolean jsonContain(String json){
+        json=delHtmlPre(json);
         ScriptUtil.preLoadCompileJs();
         ScriptUtil.runJavaScript("response=null");
         ScriptUtil.runJavaScript("response="+responseBody);
         //ScriptUtil.binding(responseBody,"response"); //绑定为直接的字符串
         //ScriptUtil.runJavaScript("response=JSON.parse(response)");
-        return ScriptUtil.runJavaScript("CONTAIN(response,"+json+")");
-
+        return (Boolean) ScriptUtil.runJavaScript("CONTAIN(response,"+json+")");
     }
-    public boolean javaScript(String js){
+    public Object javaScript(String js){
+        js=delHtmlPre(js);
         ScriptUtil.preLoadCompileJs();
         ScriptUtil.runJavaScript("response=null");
         ScriptUtil.runJavaScript("response="+responseBody);
         return ScriptUtil.runJavaScript(js);
 
     }
-    public boolean groovyScript(String js){
-        return true;
+    public Object groovyScript(String groovyString) {
+        groovyString=delHtmlPre(groovyString);
+        Binding sharedData = new Binding();
+        Object object =new JsonSlurper().parseText(responseBody);
+        sharedData.setProperty("response",object);
+        GroovyShell shell = new GroovyShell()  ;
+        shell.setProperty("response",object);
+        Object result2 = shell.evaluate(groovyString)  ;
+
+        return result2;
     }
 
 

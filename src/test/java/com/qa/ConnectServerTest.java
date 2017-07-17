@@ -45,8 +45,34 @@ public class ConnectServerTest {
     public void javaScript(){
         ConnectServer cs = new ConnectServer("empty");
         cs.responseBody = "{\"code\":1,\"msg\":\"OK\",\"body\":{\"industryList\":[{\"code\":1,\"amount\":1},{\"code\":18,\"amount\":2},{\"code\":56,\"amount\":1}],\"locationList\":[{\"code\":110000,\"amount\":1},{\"code\":310000,\"amount\":1}]}}\n";
-        assert cs.javaScript("CONTAIN(response,{\"code\":1,\"amount\":1})");
+        assert (Boolean) cs.javaScript("CONTAIN(response,{\"code\":1,\"amount\":1})");
 
+    }
+    @Test
+    public void as(){
+        ConnectServer cs = new ConnectServer("empty");
+        cs.responseBody="{\"code\":1,\"msg\":\"OK\",\"body\":[{\"id\":101716,\"name\":\"客户公司-变动状态-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":20,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[1,44],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0},{\"id\":101705,\"name\":\"客户公司-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":10,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[5,8,2],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0}],\"meta\":{\"pagination\":{\"page\":1,\"size\":10,\"total\":2,\"totalPages\":1}}}\n";
+        assert cs.jsonContain("{name:\t\"客户公司-自动化测试预埋数据\",orgBdName:\t\"员工4-HRBD-自动化测试预埋数据\"}");
+
+    }
+
+    @Test
+    public void groovyTest(){
+        ConnectServer cs = new ConnectServer("empty");
+        cs.responseBody="{\"code\":1,\"msg\":\"OK\",\"body\":[{\"id\":101716,\"name\":\"客户公司-变动状态-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":20,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[1,44],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0},{\"id\":101705,\"name\":\"客户公司-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":10,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[5,8,2],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0}],\"meta\":{\"pagination\":{\"page\":1,\"size\":10,\"total\":2,\"totalPages\":1}}}\n";
+        assert  cs.groovyScript("response.code==1").equals(true);
+        assert  cs.groovyScript("response.code").equals(1);
+        assert  cs.groovyScript("response.body[0].id").equals(101716);
+        assert  !cs.groovyScript("response.body[0].id").equals(101715);
+    }
+    @Test
+    public void groovyTest2(){
+        ConnectServer cs = new ConnectServer("empty");
+        cs.responseBody="{\"code\":1,\"msg\":\"OK\",\"body\":[{\"id\":101716,\"name\":\"客户公司-变动状态-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":20,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[1,44],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0},{\"id\":101705,\"name\":\"客户公司-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":10,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[5,8,2],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0}],\"meta\":{\"pagination\":{\"page\":1,\"size\":10,\"total\":2,\"totalPages\":1}}}\n";
+        assert  cs.groovyScript("response.code==1").equals(true);
+        assert  cs.groovyScript("response.code").equals(1);
+        assert  cs.groovyScript("response.body[0].id").equals(101716);
+        assert  !cs.groovyScript("response.body[0].id").equals(101715);
     }
     @Test
     public void subHttpIpPort() {
