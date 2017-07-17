@@ -1,6 +1,7 @@
 package com.qa.fit;
 
 
+import com.qa.utils.ExceptionUtil;
 import fit.Parse;
 
 /**
@@ -19,7 +20,7 @@ public class AnyFix     {
         try {
             Thread.currentThread().sleep(1);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
 
     }
@@ -29,7 +30,7 @@ public class AnyFix     {
         try {
             Thread.currentThread().sleep(1);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         return  true;
 
@@ -40,7 +41,7 @@ public class AnyFix     {
         try {
             Thread.currentThread().sleep(1);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         return  true;
     }
@@ -51,7 +52,7 @@ public class AnyFix     {
         try {
             Thread.currentThread().sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            ExceptionUtil.printlnSo(e);
         }
         return  "BB";
     }

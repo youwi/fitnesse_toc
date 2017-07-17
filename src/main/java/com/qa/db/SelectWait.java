@@ -1,5 +1,7 @@
 package com.qa.db;
 
+import com.qa.utils.ExceptionUtil;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;

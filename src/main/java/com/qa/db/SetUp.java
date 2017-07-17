@@ -1,5 +1,7 @@
 package com.qa.db;
 
+import com.qa.utils.ExceptionUtil;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,5 +1,7 @@
 package com.qa.fit;
 
+import com.qa.utils.ExceptionUtil;
+
 /**
  * Created by yu on 16/8/25.
  */

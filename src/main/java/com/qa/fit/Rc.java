@@ -1,5 +1,7 @@
 package com.qa.fit;
 
+import com.qa.utils.ExceptionUtil;
+
 import java.lang.reflect.Method;
 
 /**

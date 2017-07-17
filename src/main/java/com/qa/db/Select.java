@@ -1,6 +1,7 @@
 package com.qa.db;
 
 import com.google.gson.Gson;
+import com.qa.utils.ExceptionUtil;
 import com.qa.utils.GsonJsonUtil;
 
 import java.sql.Connection;
