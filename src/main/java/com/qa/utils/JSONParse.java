@@ -162,9 +162,11 @@ public class JSONParse {
 				} else {
 					appendKey = key;
 				}
-
+				appendKey=subPointString(appendKey);
 				//String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
-				System.out.println("json-node-debug: "+ appendKey+":\t"+value);
+				if(System.getProperty("json-node-debug")!=null){
+					System.out.println("json-node-debug: "+ appendKey+":\t"+value);
+				}
 				
 				jsonMap.put(appendKey, value);
 				if ("" != getArrayJsonKey(appendKeys)) {
@@ -181,6 +183,16 @@ public class JSONParse {
 			appendKeys.remove(appendKeys.size() - 1);
 			// getArrayJsonKey(appendKeys);
 		}
+	}
+	public  static String subPointString(String src){
+		if(src!=null&& src.startsWith(".")){
+			if(src.length()>1)
+				return src.substring(1,src.length());
+			else{
+				return src;
+			}
+		}
+		return src;
 	}
 
 	public static String jsonArraySep="[";

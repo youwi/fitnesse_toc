@@ -1,6 +1,6 @@
 package com.qa;
 
-public class Test {
+public class CommonTest {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 	//	SSOLogin legal = new SSOLogin("/login","test","post");

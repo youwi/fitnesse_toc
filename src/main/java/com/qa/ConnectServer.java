@@ -22,6 +22,9 @@ import java.rmi.server.ExportException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.qa.Set.getEnv;
+
 /**
  * Created by yus on 2016/11/26.
  */
@@ -47,6 +50,13 @@ public class ConnectServer {
         if(i==null) i=0;
         i++;
         _url_count_.put(url,i);
+    }
+    static{
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                System.out.println("请求所有的 URL 个数为:"+ConnectServer._url_count_.size());
+            }
+        });
     }
 
 
@@ -401,7 +411,7 @@ public class ConnectServer {
      */
     public void AUTO_GET_BASE_URL() {
         Class clazz = null;
-        this.env=SetEnv.getEnv();
+        this.env=getEnv();
 
         try {
             if (env == null || env.equals("dev") || env.equals(""))
@@ -437,7 +447,7 @@ public class ConnectServer {
     public void autoSetBaseUrl(){
         String httpIpPort=subHttpIpPort(this.URL);
         if(StringUtils.isNotEmpty( httpIpPort)) {
-            this.BASE_URL = Set.getValueSibling(httpIpPort, SetEnv.getEnv());
+            this.BASE_URL = Set.getValueSibling(httpIpPort, Set.getEnv());
             this.URL=this.URL.replace(httpIpPort,"");
         }
     }

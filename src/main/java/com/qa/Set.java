@@ -11,15 +11,30 @@ import java.util.Map;
  * 直接写在测试用例中
  */
 public class Set {
+    static String envKey="test.runtime.env";
     public Set(String key,String value) {
-        Map localVar= envMap.get(env);
+        Map localVar= envMap.get(getEnv());
         if(localVar==null){
             localVar=new HashMap();
-            envMap.put(env,localVar);
+            envMap.put(getEnv(),localVar);
+            System.setProperty(key,value);
         }else{
             localVar.put(key,value);
         }
     }
+
+
+    public static String getEnv() {
+        String s=System.getProperty(envKey);
+        if(s==null)
+            return "";
+        return s;
+    }
+
+    public static void setEnv(String envValue) {
+        System.setProperty(envKey,envValue);
+    }
+
 
     /**
      * 常量如果需要分类,使用第3个参数
@@ -41,7 +56,7 @@ public class Set {
     public long date(){
         return System.currentTimeMillis();
     }
-    static String env=SetEnv.env;
+
     static Map<String,Map<String,String>> envMap=new HashMap();
 
     /**
@@ -51,7 +66,7 @@ public class Set {
      * @return
      */
     public static String getConstants(String env,String key){
-        if(env==null || env.equals("")) env=Set.env;
+        if(env==null || env.equals("")) env=getEnv();
         if(key!=null){
             Map<String,String> localVar=envMap.get(env);
             if(localVar!=null) return localVar.get(key);
@@ -84,4 +99,8 @@ public class Set {
         }
         return value;
     }
+    static public Object get(String key){
+        return envMap;
+    }
+
 }

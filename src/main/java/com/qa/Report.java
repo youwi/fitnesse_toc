@@ -12,11 +12,5 @@ public class Report {
      */
     public Report(){
     }
-    static{
-         Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                System.out.println("请求所有的 URL 个数为:"+ConnectServer._url_count_.size());
-            }
-        });
-    }
+
 }

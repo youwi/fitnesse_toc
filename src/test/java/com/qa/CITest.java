@@ -1,13 +1,13 @@
 package com.qa;
 
-import org.testng.annotations.Test;
 
 /**
  * IAT @wkzf
  * Created by yu on 2017/7/13.
  */
 public class CITest {
-    @Test
+   // @Ignore
+   // @Test
     public void st() throws Exception {
        new SetGlobalHeader("authorization","e7701df281864c28a58319fa6afce73f");
         ConnectServer cs= new ConnectServer	("http://cw.lieluobo.testing/api/bd/list/developing");

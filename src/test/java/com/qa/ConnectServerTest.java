@@ -1,8 +1,6 @@
 package com.qa;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.testng.annotations.Test;
 
 /**
  * IAT @wkzf
@@ -110,7 +108,7 @@ public class ConnectServerTest {
         new Set("HAO_LIE_HR", "http://www.dev.haolie.test", "test");
         new Set("HAO_LIE_CW", "http://CW.dev.haolie.test", "test");
 
-        SetEnv.setEnv("test");
+        Set.setEnv("test");
         ConnectServer cs = new ConnectServer("http://www.dev.haolie.cn/abc/abc.rest");
         //  cs.autoSetBaseUrl();
         assert "http://www.dev.haolie.test".equals(cs.BASE_URL);

@@ -1,11 +1,11 @@
 package com.qa.utils;
 
-import org.junit.Test;
+
+import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
 
 /**
  * IAT @wkzf
@@ -38,5 +38,13 @@ public class JSONParseTest {
         assert "1088".equals(  JSONParse.jsonOnArrayFindR(buildMap(),".body[*].updatedBy"));
 
     }
+    @Test
+    public void subPointStringTest(){
+        assert "abc".equals( JSONParse.subPointString(".abc") );
+        assert "abc".equals( JSONParse.subPointString("abc") );
+        assert "abc".equals( JSONParse.subPointString("abc") );
+        assert "a".equals( JSONParse.subPointString(".a") );
+        assert "a".equals( JSONParse.subPointString("a") );
 
+    }
 }

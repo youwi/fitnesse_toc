@@ -1,10 +1,10 @@
-package com.qa;
+package com.qa.fit;
 
 /**
  * IAT
  * Created by yu on 2017/5/20.
  */
-public class MyJavaTest {
+public class MyJavaBean {
     int number;
     String name;
     public boolean setNumber(int num){
