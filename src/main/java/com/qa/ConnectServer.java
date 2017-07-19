@@ -19,10 +19,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.rmi.server.ExportException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -37,8 +34,21 @@ public class ConnectServer {
     String env = null;
     String responseBody = null;
     String type = null;
-  static  HttpClientUtil httpClientUtil= new HttpClientUtil();
+    static  HttpClientUtil httpClientUtil= new HttpClientUtil();
     boolean responseBodyIsJson;
+    //统计 URL 访问次数
+     public static Map<String,Integer> _url_count_=new HashMap();
+
+    /**
+     * 添加统计数据,增加一个值
+     */
+    static public void  addOneUrlCount( String url){
+        Integer i=_url_count_.get(url);
+        if(i==null) i=0;
+        i++;
+        _url_count_.put(url,i);
+    }
+
 
 
 
@@ -50,6 +60,7 @@ public class ConnectServer {
         this.jp = new JSONParse();
         this.URL = delHTMLTag(URL);
         this.autoSetBaseUrl();
+        addOneUrlCount(URL);
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
@@ -63,6 +74,7 @@ public class ConnectServer {
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.autoSetBaseUrl();
+        addOneUrlCount(URL);
 
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
@@ -77,6 +89,7 @@ public class ConnectServer {
         this.env = env;
         this.type = type;
         this.autoSetBaseUrl();
+        addOneUrlCount(URL);
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
