@@ -43,17 +43,24 @@ public class CITest {
     @Test
     public void ssls() {
 
-        for(int i=0;i<100;i++){
-            long stime=System.currentTimeMillis();
+//        for(int i=0;i<100;i++){
+//            long stime=System.currentTimeMillis();
+//
+//            Get get = Http.get("https://baidu.com");
+//            get.text();
+//            long etime=System.currentTimeMillis();
+//
+//            System.out.println(etime-stime);
+//        }
+        ConnectServer cs= new ConnectServer	("http://cw.lieluobo.testing/api/bd/list/developing");
+        cs.setParam("id","1");
+        cs.setParam("id2","3");
+        cs.get();
 
-            Get get = Http.get("https://baidu.com");
-            get.text();
-            long etime=System.currentTimeMillis();
-
-            System.out.println(etime-stime);
-        }
 
     }
+
+
 
 
 

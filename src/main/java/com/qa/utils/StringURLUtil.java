@@ -80,8 +80,10 @@ public class StringURLUtil {
     public static String buildFromByMap(Map<String, String> map) {
         String out = "";
         for (String key : map.keySet()) {
-            out += key + "=" + map.get(key);
+            out += key + "=" + map.get(key)+"&";
         }
+        if(out.endsWith("&"))
+            out=out.substring(0,out.length()-1);
         return out;
     }
 

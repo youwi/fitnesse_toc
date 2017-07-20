@@ -8,6 +8,7 @@ import com.qa.exceptions.HttpStatusException;
 import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.util.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,10 +27,11 @@ public class ConnectServer {
     String env = null;
     String responseBody = null;
     String requestBody=null;
-    Map requestMap=new HashMap();
-    Map requestHeaderMap=new HashMap();
-    Map responseHeaderMap=new HashMap();
+    Map<String,String> requestMap=new HashMap();
+    Map<String,String> requestHeaderMap=new HashMap();
+    Map<String,List<String>> responseHeaderMap=new HashMap();
     String type = null;
+    HttpLog logger=HttpLog.getLogger();
 
     public ConnectServer(String URL) {
         this.URL = delHTMLTag(URL);
@@ -149,23 +151,30 @@ public class ConnectServer {
             type = "POST";
         }
         fullUrl=urlParamMatcher(fullUrl, buildFromByMap(requestMap));
+        logger.info("---------------------------------------------------");
+        logger.info("Address:  "+this.type+"  "+fullUrl);
+
         if("GET".equals(type)){
             Get get=Http.get(fullUrl);
             fillRequestHeader(get,requestHeaderMap);
             responseBody= get.text();
             responseHeaderMap=get.headers();
+            logger.info("Response:  "+responseBody);
         }
         if("POST".equals(type)){
             Post post = Http.post(fullUrl, requestBody);
             fillRequestHeader(post,requestHeaderMap);
             responseBody= post.text();
             responseHeaderMap=post.headers();
+            logger.info("Response:  "+responseBody);
         }
         if("DELETE".equals(type)){
             Delete delete=Http.delete(fullUrl);
             fillRequestHeader(delete,requestHeaderMap);
             responseBody= delete.text();
             responseHeaderMap=delete.headers();
+            logger.info("Response:  "+responseBody);
+
         }
         return responseBody;
     }
@@ -175,12 +184,17 @@ public class ConnectServer {
     public void fillRequestHeader(Request request,Map<String,String> headerMap){
         for(String key:SetGlobalHeader.headersMap.keySet()){
             request.header(key,SetGlobalHeader.headersMap.get(key));
+            logger.info("Header:   "+key+":"+SetGlobalHeader.headersMap.get(key));
+
         }
         if(headerMap==null) return;
 
         for(String key:headerMap.keySet()){
             request.header(key,headerMap.get(key));
+            logger.info("Header:   "+key+":"+headerMap.get(key));
+
         }
+
 
     }
 
@@ -409,8 +423,6 @@ public class ConnectServer {
         if(i==null) i=0;
         i++;
         _url_count_.put(url,i);
-        Get get = Http.get("http://baidu.com");
-        System.out.println(get.text());
     }
     static{
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -418,6 +430,20 @@ public class ConnectServer {
                 System.out.println("请求所有的 URL 个数为:"+ConnectServer._url_count_.size());
             }
         });
+    }
+
+    void preLogHttp(String url){
+        String targetUrl="";
+        if(URL.equals(url)){
+            targetUrl=URL;
+        }else{
+            targetUrl=url;
+        }
+        logger.info("Address:  "+this.type+"  "+targetUrl);
+        for(String key:requestHeaderMap.keySet()){
+            logger.info("Header:  "+key+requestHeaderMap.get(key));
+        }
+
     }
 
 

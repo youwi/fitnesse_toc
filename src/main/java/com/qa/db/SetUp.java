@@ -17,27 +17,36 @@ public class SetUp {
     static Map<String, Connection> mapConnection = new HashMap();
 
 
-    public  SetUp(String jdbcDriverClass, String connectURI, String username, String password) {
+    public  SetUp(final String jdbcDriverClass, final String connectURI, final String username, final String password) {
         try {
-            String key = jdbcDriverClass + connectURI + username + password;
+            final String key = jdbcDriverClass + connectURI + username + password;
             if (mapConnection.get(key) != null) {
-                Connection conn = mapConnection.get(key);
-                if (!conn.isClosed()) {
-                    return ;//mapConnection.get(key);
+                final Connection conn = mapConnection.get(key);
+                if(conn==null) {
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                Class.forName(jdbcDriverClass);
+                                Connection conn = DriverManager.getConnection(connectURI, username, password);
+                            } catch (ClassNotFoundException e) {
+                                System.err.println("找不到驱动类！" + e.getMessage());
+                            } catch (SQLException e) {
+                                System.err.println("SQL连接异常！" + e.getMessage());
+                            }
+                            mapConnection.put(key, conn);
+                            mapConnection.put(DEFAULT_CONNECTION_POOL_NAME, conn);
+                        }
+                    }.start();
+                }else if (!conn.isClosed()) {
+                    return;//mapConnection.get(key);
                 }
             }
-            Class.forName(jdbcDriverClass);
 
-            Connection conn = DriverManager.getConnection(connectURI, username, password);
-            mapConnection.put(key, conn);
-            mapConnection.put(DEFAULT_CONNECTION_POOL_NAME, conn);
-            return ;
-        } catch (ClassNotFoundException e) {
-            System.err.println("找不到驱动类！" + e.getMessage());
+            return;
         } catch (SQLException e) {
             System.err.println("SQL连接异常！" + e.getMessage());
         }
-        return ;
     }
 
     public static Connection getConnection(){

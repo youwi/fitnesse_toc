@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.qa.http.HttpLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -46,7 +47,7 @@ public class JsonUtil {
 
 	public String getResult(String Key) {
 		if(jsonMap.containsKey(Key)){
-			System.out.println("json-node-value： "+Key+" : "+jsonMap.get(Key).toString());
+			HttpLog.info("json-node-value： "+Key+" : "+jsonMap.get(Key).toString());
 			return this.jsonMap.get(Key).toString();
 		}else {
 			String m = jsonOnArrayFind(jsonMap, Key);
@@ -155,7 +156,7 @@ public class JsonUtil {
 				appendKey=subPointString(appendKey);
 				//String value1 = new String (value.getBytes("ISO-8859-1"),"utf-8");
 				if(System.getProperty("json-node-debug")!=null){
-					System.out.println("json-node-debug: "+ appendKey+":\t"+value);
+					HttpLog.info("json-node-debug: "+ appendKey+":\t"+value);
 				}
 				
 				jsonMap.put(appendKey, value);
