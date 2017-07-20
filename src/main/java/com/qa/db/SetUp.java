@@ -1,5 +1,6 @@
 package com.qa.db;
 
+import com.qa.ConnectServer;
 import com.qa.utils.ExceptionUtil;
 
 import java.sql.*;
@@ -20,27 +21,28 @@ public class SetUp {
     public  SetUp(final String jdbcDriverClass, final String connectURI, final String username, final String password) {
         try {
             final String key = jdbcDriverClass + connectURI + username + password;
-            if (mapConnection.get(key) != null) {
-                final Connection conn = mapConnection.get(key);
-                if(conn==null) {
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            try {
-                                Class.forName(jdbcDriverClass);
-                                Connection conn = DriverManager.getConnection(connectURI, username, password);
-                            } catch (ClassNotFoundException e) {
-                                System.err.println("找不到驱动类！" + e.getMessage());
-                            } catch (SQLException e) {
-                                System.err.println("SQL连接异常！" + e.getMessage());
-                            }
-                            mapConnection.put(key, conn);
-                            mapConnection.put(DEFAULT_CONNECTION_POOL_NAME, conn);
+            Connection conn = mapConnection.get(key);
+            if(conn==null) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        Connection connIn=null;
+                        try {
+                            Class.forName(jdbcDriverClass);
+                            connIn = DriverManager.getConnection(connectURI, username, password);
+                        } catch (ClassNotFoundException e) {
+                            System.err.println("找不到驱动类！" + e.getMessage());
+                        } catch (SQLException e) {
+                            System.err.println("SQL连接异常！" + e.getMessage());
                         }
-                    }.start();
-                }else if (!conn.isClosed()) {
-                    return;//mapConnection.get(key);
-                }
+                        mapConnection.put(key, connIn);
+                        mapConnection.put(DEFAULT_CONNECTION_POOL_NAME, connIn);
+                    }
+                }.start();
+            }else if (!conn.isClosed()) {
+                return;//mapConnection.get(key);
+            }else if(conn.isClosed()){
+                //
             }
 
             return;
@@ -49,8 +51,19 @@ public class SetUp {
         }
     }
 
-    public static Connection getConnection(){
-        return   mapConnection.get(DEFAULT_CONNECTION_POOL_NAME);
+    public static Connection getConnection()  {
+        Connection out=mapConnection.get(DEFAULT_CONNECTION_POOL_NAME);
+        for(int i=0;i<10;i++){
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
+            }
+            out=mapConnection.get(DEFAULT_CONNECTION_POOL_NAME);
+            if(out!=null)
+                return out;
+        }
+        return out;
     }
 
     public static int runStandSql(String sql){
