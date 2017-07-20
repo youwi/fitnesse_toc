@@ -23,6 +23,13 @@ public class Set {
         }
     }
 
+    /**
+     * 一个参数时是设置环境变量
+     * @param env
+     */
+    public Set(String env) {
+        setEnv(env);
+    }
 
     public static String getEnv() {
         String s=System.getProperty(envKey);

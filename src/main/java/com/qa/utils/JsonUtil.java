@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class JSONParse {
+public class JsonUtil {
 	private HashMap<String, String> jsonMap = new HashMap<String, String>();
 	private ArrayList<String> appendKeys = new ArrayList<String>();
 	private JSONObject obj = null;
@@ -57,16 +57,6 @@ public class JSONParse {
 				return null;
 			}
 		}
-
-			
-	
-//		try {
-//			System.out.println("检查的响应体Json Value： "+jsonMap.get(Key).toString());
-//			return this.jsonMap.get(Key).toString();
-//		} catch (Exception e) {
-//			ExceptionUtil.printlnSo(e);
-//			return null;
-//		}
 	}
 
 	/**

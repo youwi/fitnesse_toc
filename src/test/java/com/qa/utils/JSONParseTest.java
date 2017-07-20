@@ -16,7 +16,7 @@ public class JSONParseTest {
     public void jsonOnArrayFind() throws Exception {
 
 
-       assert "1088".equals(  JSONParse.jsonOnArrayFind(buildMap(),".body\\[.*\\].updatedBy"));
+       assert "1088".equals(  JsonUtil.jsonOnArrayFind(buildMap(),".body\\[.*\\].updatedBy"));
 
     }
     public Map buildMap(){
@@ -35,16 +35,16 @@ public class JSONParseTest {
     public void jsonOnArrayFindR() throws Exception {
 
 
-        assert "1088".equals(  JSONParse.jsonOnArrayFindR(buildMap(),".body[*].updatedBy"));
+        assert "1088".equals(  JsonUtil.jsonOnArrayFindR(buildMap(),".body[*].updatedBy"));
 
     }
     @Test
     public void subPointStringTest(){
-        assert "abc".equals( JSONParse.subPointString(".abc") );
-        assert "abc".equals( JSONParse.subPointString("abc") );
-        assert "abc".equals( JSONParse.subPointString("abc") );
-        assert "a".equals( JSONParse.subPointString(".a") );
-        assert "a".equals( JSONParse.subPointString("a") );
+        assert "abc".equals( JsonUtil.subPointString(".abc") );
+        assert "abc".equals( JsonUtil.subPointString("abc") );
+        assert "abc".equals( JsonUtil.subPointString("abc") );
+        assert "a".equals( JsonUtil.subPointString(".a") );
+        assert "a".equals( JsonUtil.subPointString("a") );
 
     }
 }

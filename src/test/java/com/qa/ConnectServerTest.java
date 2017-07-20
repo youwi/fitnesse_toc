@@ -24,10 +24,10 @@ public class ConnectServerTest {
                 "page: 1,\n" +
                 "size: 10\n" +
                 "}", "json");
-        assert "{\"staffId\":1,\"teamId\":1,\"page\":1,\"size\":10}".equals(cs.paramData.getJsonParam());
+        assert "{\"staffId\":1,\"teamId\":1,\"page\":1,\"size\":10}".equals(cs.requestBody);
 
         cs.setBody("[1,2,3]");
-        assert "[1,2,3]".equals(cs.paramData.getJsonParam());
+        assert "[1,2,3]".equals(cs.requestBody);
 
     }
     @Test
@@ -39,10 +39,10 @@ public class ConnectServerTest {
                 "page: 1,\n" +
                 "size: 10\n" +
                 "}");
-        assert "{\"staffId\":1,\"teamId\":1,\"page\":1,\"size\":10}".equals(cs.paramData.getJsonParam());
+        assert "{\"staffId\":1,\"teamId\":1,\"page\":1,\"size\":10}".equals(cs.requestBody);
 
         cs.setBody("[1,2,3]");
-        assert "[1,2,3]".equals(cs.paramData.getJsonParam());
+        assert "[1,2,3]".equals(cs.requestBody);
 
     }
 
@@ -66,6 +66,8 @@ public class ConnectServerTest {
         ConnectServer cs = new ConnectServer("empty");
         cs.responseBody="{\"code\":1,\"msg\":\"OK\",\"body\":[{\"id\":101716,\"name\":\"客户公司-变动状态-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":20,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[1,44],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0},{\"id\":101705,\"name\":\"客户公司-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":10,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[5,8,2],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0}],\"meta\":{\"pagination\":{\"page\":1,\"size\":10,\"total\":2,\"totalPages\":1}}}\n";
         assert cs.jsonContain("{name:\t\"客户公司-自动化测试预埋数据\",orgBdName:\t\"员工4-HRBD-自动化测试预埋数据\"}");
+
+
 
     }
 

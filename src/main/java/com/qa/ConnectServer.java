@@ -1,29 +1,19 @@
 package com.qa;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+import com.qa.http.*;
 import com.qa.utils.*;
 import com.qa.constants.ConfigConstantsTest;
 import com.qa.exceptions.HttpStatusException;
-/*
-import groovy.json.JsonSlurper;
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-import groovy.util.Eval;
-*/
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.Header;
-import org.json.JSONObject;
 
-import java.io.IOException;
+import org.json.JSONObject;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.rmi.server.ExportException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.qa.Set.getEnv;
+import static com.qa.utils.StringURLUtil.buildFromByMap;
+import static com.qa.utils.StringURLUtil.urlParamMatcher;
 
 /**
  * Created by yus on 2016/11/26.
@@ -31,43 +21,17 @@ import static com.qa.Set.getEnv;
 public class ConnectServer {
 
     String BASE_URL = "";
-    ParamData paramData;
-    JSONParse jp;
+    JsonUtil jsonUtil=new JsonUtil();
     String URL;
     String env = null;
     String responseBody = null;
+    String requestBody=null;
+    Map requestMap=new HashMap();
+    Map requestHeaderMap=new HashMap();
+    Map responseHeaderMap=new HashMap();
     String type = null;
-    static  HttpClientUtil httpClientUtil= new HttpClientUtil();
-    boolean responseBodyIsJson;
-    //统计 URL 访问次数
-     public static Map<String,Integer> _url_count_=new HashMap();
-
-    /**
-     * 添加统计数据,增加一个值
-     */
-    static public void  addOneUrlCount( String url){
-        Integer i=_url_count_.get(url);
-        if(i==null) i=0;
-        i++;
-        _url_count_.put(url,i);
-    }
-    static{
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                System.out.println("请求所有的 URL 个数为:"+ConnectServer._url_count_.size());
-            }
-        });
-    }
-
-
-
 
     public ConnectServer(String URL) {
-        if (httpClientUtil == null)
-            httpClientUtil = new HttpClientUtil();
-        this.paramData = new ParamData();
-        this.paramData.getHeaderParameters().putAll(SetGlobalHeader.headersMap);
-        this.jp = new JSONParse();
         this.URL = delHTMLTag(URL);
         this.autoSetBaseUrl();
         addOneUrlCount(URL);
@@ -75,12 +39,7 @@ public class ConnectServer {
     }
 
     public ConnectServer(String URL, String env) {
-        if (httpClientUtil == null)
-            httpClientUtil = new HttpClientUtil();
-        this.paramData = new ParamData();
-        this.paramData.getHeaderParameters().putAll(SetGlobalHeader.headersMap);
 
-        this.jp = new JSONParse();
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.autoSetBaseUrl();
@@ -90,11 +49,7 @@ public class ConnectServer {
     }
 
     public ConnectServer(String URL, String env, String type) {
-        if (httpClientUtil == null)
-            httpClientUtil = new HttpClientUtil();
-        this.paramData = new ParamData();
-        this.paramData.getHeaderParameters().putAll(SetGlobalHeader.headersMap);
-        this.jp = new JSONParse();
+
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.type = type;
@@ -104,24 +59,18 @@ public class ConnectServer {
     }
 
     public boolean post() {
-        jp.parseJson( requestForJSON(BASE_URL + URL, paramData));
+        jsonUtil.parseJson( requestForJSON(BASE_URL + URL));
         return true;
        // return "message:<<OK>>";
     }
     public boolean delete(){
         this.type="DELETE";
-        jp.parseJson(requestForJSON(BASE_URL+URL,paramData));
+        jsonUtil.parseJson(requestForJSON(BASE_URL+URL));
         return true;
     }
     public boolean get(){
         this.type="GET";
-        jp.parseJson(requestForJSON(BASE_URL+URL,paramData));
-        return true;
-    }
-
-
-    public boolean setJsonParam(String json) {
-        paramData.setJsonParam(json);
+        jsonUtil.parseJson(requestForJSON(BASE_URL+URL));
         return true;
     }
 
@@ -130,10 +79,10 @@ public class ConnectServer {
      */
     public boolean setBody(String bodyString) {
         bodyString=delHtmlPre(bodyString);
-        if(canGsonParse(bodyString)){
-            paramData.setJsonParam(GsonJsonUtil.gson.toJson(gsonParse(bodyString)));
+        if(isGson(bodyString)){
+            this.requestBody=GsonJsonUtil.gson.toJson(gsonParse(bodyString));
         }else{
-            paramData.setJsonParam(bodyString);
+            this.requestBody=bodyString;
         }
         return true;
     }
@@ -142,7 +91,7 @@ public class ConnectServer {
      * 判断是不是一个普通json,并可以用Gson 来解析
      * @return
      */
-    boolean canGsonParse(String maybeJson){
+    boolean isGson(String maybeJson){
         Object ob=gsonParse(maybeJson);
         if(ob==null)return false;
         return true;
@@ -160,10 +109,7 @@ public class ConnectServer {
                 return null;
             }
         }
-
     }
-
-
 
     /**
      * 支持书写 js 转换
@@ -173,80 +119,69 @@ public class ConnectServer {
      */
     public boolean setBody(String bodyString,String type){
         if("raw".equals(type)){
-            paramData.setJsonParam(bodyString);
+            this.requestBody=bodyString;
         }else {
-            paramData.setJsonParam(ScriptUtil.buildScript(delHtmlPre(bodyString), type));
+            this.requestBody=ScriptUtil.buildScript(delHtmlPre(bodyString), type);
         }
         return true;
     }
 
-    public void setContentType(String contentType) {
-        paramData.setHeaderParameters("Content-Type", contentType);
-    }
 
-    public boolean setParam(String name, String value) throws Exception {
-        paramData.setParameters(name, value);
+    /**
+     * 设置http请求参数和 URL 参数
+     * @param name
+     * @param value
+     * @return
+     * @throws Exception
+     */
+    public boolean setParam(String name, String value){
+        requestMap.put(name, value);
+        return true;
+    }
+    public boolean setHeader(String name, String value) {
+        requestHeaderMap.put(name, value);
         return true;
     }
 
-    //set header parameter
-    public boolean setHeader(String name, String value) throws Exception {
-        paramData.setHeaderParameters(name, value);
-        return true;
-    }
 
-    public String getParam(String key) {
-        return jp.getResult(key);
-    }
-
-    public String requestForString(String fullurl, final ParamData indata) {
+    public String requestForString(String fullUrl) {
         if (type == null) {
             type = "POST";
         }
-        String responseBodyString = "{}";
-        try {
-            responseBodyString = httpClientUtil.httpRequest(fullurl,
-                    new HttpRequestCallback() {
-                        @Override
-                        public String getJsonParam() {
-                            if (indata.getJsonParam() != null)
-                                return indata.getJsonParam();
-                            else
-                                return indata.getParamAsJsonString();
-                        }
-
-                        @Override
-                        public String getParam() {
-                            return indata.getParamAsFormString();
-                        }
-
-                        @Override
-                        public Iterator<Map.Entry<String, String>> getHeaderParameters() {
-                            return indata.getAddHeaderParam();
-                        }
-
-                        @Override
-                        public void saveResponseHeaders(Header[] responseHeaders) {
-
-                        }
-
-                        @Override
-                        public boolean getIsRedirect() {
-                            return indata.isRedirect;
-                        }
-                    }, type);
-            this.responseBody=responseBodyString;
-        } catch (RuntimeException e) {
-            if(e instanceof HttpStatusException){
-                this.responseBody=httpClientUtil.getResponseBody();
-                throw e;
-            }
-            return responseBody;
-
-        }catch (IOException e){
-            System.out.println(e.getMessage());
+        fullUrl=urlParamMatcher(fullUrl, buildFromByMap(requestMap));
+        if("GET".equals(type)){
+            Get get=Http.get(fullUrl);
+            fillRequestHeader(get,requestHeaderMap);
+            responseBody= get.text();
+            responseHeaderMap=get.headers();
         }
-        return responseBodyString;
+        if("POST".equals(type)){
+            Post post = Http.post(fullUrl, requestBody);
+            fillRequestHeader(post,requestHeaderMap);
+            responseBody= post.text();
+            responseHeaderMap=post.headers();
+        }
+        if("DELETE".equals(type)){
+            Delete delete=Http.delete(fullUrl);
+            fillRequestHeader(delete,requestHeaderMap);
+            responseBody= delete.text();
+            responseHeaderMap=delete.headers();
+        }
+        return responseBody;
+    }
+    /**
+     * 填充请求 header,包括全局 header
+    * */
+    public void fillRequestHeader(Request request,Map<String,String> headerMap){
+        for(String key:SetGlobalHeader.headersMap.keySet()){
+            request.header(key,SetGlobalHeader.headersMap.get(key));
+        }
+        if(headerMap==null) return;
+
+        for(String key:headerMap.keySet()){
+            request.header(key,headerMap.get(key));
+        }
+
     }
 
     /**
@@ -254,10 +189,13 @@ public class ConnectServer {
      * @return
      */
     public String jsonValue(String key){
-        if(responseBodyIsJson)
-            return jp.getResult(key);
-        else throw new RuntimeException("message:<< response is not json "+responseBody+">>");
+        try {
+            return jsonUtil.getResult(key);
+        }catch (Exception e){
+            throw new RuntimeException("message:<< response is not json "+responseBody+">>");
+        }
     }
+
     public boolean jsonLike(String json){
         return true;
     }
@@ -292,98 +230,42 @@ public class ConnectServer {
 
 
 
-    public JSONObject requestForJSON(String fullurl, final ParamData indata) {
+    public JSONObject requestForJSON(String fullurl) {
         if (type == null) {
             type = "POST";
         }
-        String oriContentType = indata.getHeaderParameters().get("Content-Type");
-        if (oriContentType == null && type != null) {
-            if (Objects.equals(type.toLowerCase(), "get")) {
-                if(indata.getParameters().size()>0){
-                    //indata.setHeaderParameters("Content-Type", "application/x-www-form-urlencoded");
-                }
-            } else if (Objects.equals(type.toLowerCase(), "post")) {
-                indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
-            }else if(Objects.equals(type.toLowerCase(), "delete")){
-                indata.setHeaderParameters("Content-Type", "application/json;charset=UTF-8");
-            }
-        }
-        String responseString=this.requestForString(fullurl, indata);
-        if(ScriptUtil.isJson(responseString)){
-            JSONObject objResponse = new JSONObject(responseString);
-            this.responseBodyIsJson=true;
+        //.header("Accept", "application/json")
+
+        requestHeaderMap.put("Content-Type", "application/json;charset=UTF-8");
+      //  requestHeaderMap.put("Content-Type", "application/x-www-form-urlencoded");
+        requestForString(fullurl);
+        if(isGson(responseBody)){
+            JSONObject objResponse = new JSONObject(responseBody);
             return objResponse;
-        };
+        }
         return new JSONObject("{}");
     }
 
-    public String requestForXML(String fullurl, final ParamData indata) {
+    public String requestForXML(String fullurl) {
         if (type == null) {
             type = "POST";
         }
-        return requestForString(fullurl, indata);
-    }
-
-    public String requestForExecution(String fullurl, final ParamData indata) {
-        type = "post";
-        return requestForString(fullurl, indata);
-    }
-
-    public String requestForwksso(String fullurl, final ParamData indata) {
-        type = "get";
-        return requestForString(fullurl, indata);
+        return requestForString(fullurl);
     }
 
 
-    public boolean testRun(String param) {
-        JSONObject objResponse;
-        if (null == param.trim()) {
-            System.out.println("null paramters!!");
-            return false;
-        } else {
-            objResponse = requestForJSON(BASE_URL + URL, paramData);
-        }
-        jp.parseJson(objResponse);
-        return jp.checkParam(param);
-    }
+
     public boolean jsonStructure(String str){
-        return jp.checkParam(str);
+        return jsonUtil.checkParam(str);
     }
 
-    public boolean checkContainsString(String param) {
-        return responseBody.contains(param);
-    }
-
-    public boolean checkEqualString(String param) {
-        return responseBody.equals(param);
-    }
-
-    public boolean checkResponseTime(String param) {
-        System.out.println("响应时间：  " + httpClientUtil.getResponseTime() + "ms");
-        return httpClientUtil.getResponseTime() < Long.parseLong(param) ? true : false;
-    }
-
-    public Header[] getResponseHeader(String responseHeaderKey) {
-        return httpClientUtil.getResponseHeader(responseHeaderKey);
+    public String responseHeader(String responseHeaderKey) {
+        return "";
     }
 
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public HttpClientUtil getHttpClientUtil() {
-        return new HttpClientUtil();
-    }
-
-
-    public String getBASE_URL() {
-        return BASE_URL;
-    }
-
-    public void setBASE_URL(String BASE_URL) {
-        //if(env.equals("test"))
-        this.BASE_URL = BASE_URL;
     }
 
     /**
@@ -446,11 +328,19 @@ public class ConnectServer {
      */
     public void autoSetBaseUrl(){
         String httpIpPort=subHttpIpPort(this.URL);
-        if(StringUtils.isNotEmpty( httpIpPort)) {
+        if(isNotEmpty( httpIpPort)) {
             this.BASE_URL = Set.getValueSibling(httpIpPort, Set.getEnv());
             this.URL=this.URL.replace(httpIpPort,"");
         }
     }
+    public static boolean isEmpty(String str) {
+        return str == null || str.length() == 0;
+    }
+
+    public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
+    }
+
 
     /**
      * 从 URL 中提取 IP:端口
@@ -505,6 +395,30 @@ public class ConnectServer {
         return htmlString.trim(); //返回文本字符串
     }
 
+    /**
+     *     统计 URL 访问次数
+
+     */
+    public static Map<String,Integer> _url_count_=new HashMap();
+
+    /**
+     * 添加统计数据,增加一个值
+     */
+    static public void  addOneUrlCount( String url){
+        Integer i=_url_count_.get(url);
+        if(i==null) i=0;
+        i++;
+        _url_count_.put(url,i);
+        Get get = Http.get("http://baidu.com");
+        System.out.println(get.text());
+    }
+    static{
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                System.out.println("请求所有的 URL 个数为:"+ConnectServer._url_count_.size());
+            }
+        });
+    }
 
 
 }
