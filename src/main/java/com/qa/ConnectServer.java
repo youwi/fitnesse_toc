@@ -26,27 +26,29 @@ public class ConnectServer {
     String URL;
     String env = null;
     String responseBody = null;
+    int responseCode=0;
     String requestBody=null;
     Map<String,String> requestMap=new HashMap();
     Map<String,String> requestHeaderMap=new HashMap();
     Map<String,List<String>> responseHeaderMap=new HashMap();
     String type = null;
     HttpLog logger=HttpLog.getLogger();
+    int __count_object_=0;
 
     public ConnectServer(String URL) {
         this.URL = delHTMLTag(URL);
         this.autoSetBaseUrl();
         addOneUrlCount(URL);
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
+        __count_object_++;
     }
 
     public ConnectServer(String URL, String env) {
-
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.autoSetBaseUrl();
         addOneUrlCount(URL);
-
+        __count_object_++;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
@@ -57,6 +59,7 @@ public class ConnectServer {
         this.type = type;
         this.autoSetBaseUrl();
         addOneUrlCount(URL);
+        __count_object_++;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
@@ -159,6 +162,7 @@ public class ConnectServer {
             fillRequestHeader(get,requestHeaderMap);
             responseBody= get.text();
             responseHeaderMap=get.headers();
+            responseCode=get.responseCode();
             logger.info("Response:  "+responseBody);
         }
         if("POST".equals(type)){
@@ -166,6 +170,8 @@ public class ConnectServer {
             fillRequestHeader(post,requestHeaderMap);
             responseBody= post.text();
             responseHeaderMap=post.headers();
+            responseCode=post.responseCode();
+            logger.info("Request:   "+requestBody);
             logger.info("Response:  "+responseBody);
         }
         if("DELETE".equals(type)){
@@ -173,9 +179,10 @@ public class ConnectServer {
             fillRequestHeader(delete,requestHeaderMap);
             responseBody= delete.text();
             responseHeaderMap=delete.headers();
+            responseCode=delete.responseCode();
             logger.info("Response:  "+responseBody);
-
         }
+        _url_count_.put(this.URL,responseCode);
         return responseBody;
     }
     /**
@@ -432,19 +439,19 @@ public class ConnectServer {
         });
     }
 
-    void preLogHttp(String url){
-        String targetUrl="";
-        if(URL.equals(url)){
-            targetUrl=URL;
-        }else{
-            targetUrl=url;
-        }
-        logger.info("Address:  "+this.type+"  "+targetUrl);
-        for(String key:requestHeaderMap.keySet()){
-            logger.info("Header:  "+key+requestHeaderMap.get(key));
-        }
 
+
+    /**
+     * 显示数据报告,这里只统计 URL 次数
+     *
+     * @return
+     */
+    public String report(){
+        String msg="请求所有的URL总个数为:"+_url_count_.size()+"\n";
+        msg+="HTTP请求总次数:"+__count_object_+"\n";
+        msg+="状态码次数分类:"+0+"\n";
+
+        return  msg;
     }
-
 
 }

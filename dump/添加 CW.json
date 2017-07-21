@@ -1,0 +1,718 @@
+{
+  "log": {
+    "version": "1.2",
+    "creator": {
+      "name": "WebInspector",
+      "version": "537.36"
+    },
+    "pages": [],
+    "entries": [
+      {
+        "startedDateTime": "2017-07-12T02:02:27.186Z",
+        "time": 26.415999978780746,
+        "request": {
+          "method": "POST",
+          "url": "http://cw.lieluobo.testing/api/account/repeat",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Cookie",
+              "value": "_id=c616d8c1248044a6a51c6b0fa62bec68"
+            },
+            {
+              "name": "Origin",
+              "value": "http://cw.lieluobo.testing"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "zh-CN,zh;q=0.8"
+            },
+            {
+              "name": "authorization",
+              "value": "c616d8c1248044a6a51c6b0fa62bec68"
+            },
+            {
+              "name": "X-Requested-With",
+              "value": "XMLHttpRequest"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Content-Length",
+              "value": "32"
+            },
+            {
+              "name": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "name": "Host",
+              "value": "cw.lieluobo.testing"
+            },
+            {
+              "name": "author",
+              "value": "haolie"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json;charset=UTF-8"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json, text/javascript, */*; q=0.01"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            },
+            {
+              "name": "Referer",
+              "value": "http://cw.lieluobo.testing/"
+            }
+          ],
+          "queryString": [],
+          "cookies": [
+            {
+              "name": "_id",
+              "value": "c616d8c1248044a6a51c6b0fa62bec68",
+              "expires": null,
+              "httpOnly": false,
+              "secure": false
+            }
+          ],
+          "headersSize": 672,
+          "bodySize": 32,
+          "postData": {
+            "mimeType": "application/json;charset=UTF-8",
+            "text": "{\"email\":\"autotest-cw@test.com\"}"
+          }
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Date",
+              "value": "Wed, 12 Jul 2017 02:02:27 GMT"
+            },
+            {
+              "name": "Server",
+              "value": "nginx"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Content-Length",
+              "value": "139"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookies": [],
+          "content": {
+            "size": 139,
+            "mimeType": "application/json",
+            "compression": 0
+          },
+          "redirectURL": "",
+          "headersSize": 148,
+          "bodySize": 139,
+          "_transferSize": 287
+        },
+        "cache": {},
+        "timings": {
+          "blocked": 1.64400000358,
+          "dns": -1,
+          "connect": -1,
+          "send": 0.13200001558288998,
+          "wait": 24.02899996377531,
+          "receive": 0.6109999958425476,
+          "ssl": -1
+        },
+        "serverIPAddress": "172.16.52.99",
+        "connection": "155771"
+      },
+      {
+        "startedDateTime": "2017-07-12T02:02:27.290Z",
+        "time": 60.04200002644211,
+        "request": {
+          "method": "POST",
+          "url": "http://cw.lieluobo.testing/api/account/save",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Cookie",
+              "value": "_id=c616d8c1248044a6a51c6b0fa62bec68"
+            },
+            {
+              "name": "Origin",
+              "value": "http://cw.lieluobo.testing"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "zh-CN,zh;q=0.8"
+            },
+            {
+              "name": "authorization",
+              "value": "c616d8c1248044a6a51c6b0fa62bec68"
+            },
+            {
+              "name": "X-Requested-With",
+              "value": "XMLHttpRequest"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Content-Length",
+              "value": "620"
+            },
+            {
+              "name": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "name": "Host",
+              "value": "cw.lieluobo.testing"
+            },
+            {
+              "name": "author",
+              "value": "haolie"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json;charset=UTF-8"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json, text/javascript, */*; q=0.01"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            },
+            {
+              "name": "Referer",
+              "value": "http://cw.lieluobo.testing/"
+            }
+          ],
+          "queryString": [],
+          "cookies": [
+            {
+              "name": "_id",
+              "value": "c616d8c1248044a6a51c6b0fa62bec68",
+              "expires": null,
+              "httpOnly": false,
+              "secure": false
+            }
+          ],
+          "headersSize": 671,
+          "bodySize": 592,
+          "postData": {
+            "mimeType": "application/json;charset=UTF-8",
+            "text": "{\"ceo\":{},\"chineseName\":\"员工-3-CW-自动化测试预埋数据\",\"englishName\":\"cw-autotest\",\"email\":\"autotest-cw@test.com\",\"mobile\":\"19900000003\",\"company\":{\"type\":1,\"aliases\":[],\"industryCodes\":[],\"locationDetails\":[],\"bdInCharge\":{},\"createdByAccount\":{},\"majorClientManager\":{},\"updatedByAccount\":{}},\"team\":{\"companyId\":1,\"id\":1,\"industryCodes\":[1,18],\"level\":0,\"locationIds\":[0,0,0,310000],\"name\":\"好猎网\",\"updatedBy\":21194},\"gender\":1,\"industryCodes\":[],\"positions\":[],\"locationIds\":[],\"isFreeze\":0,\"annualSalary\":[],\"createdByAccount\":{},\"createdBy\":null,\"roles\":[{\"id\":266,\"roleCode\":\"cw\",\"roleName\":\"CW\"}]}"
+          }
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Date",
+              "value": "Wed, 12 Jul 2017 02:02:27 GMT"
+            },
+            {
+              "name": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "name": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "name": "Server",
+              "value": "nginx"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookies": [],
+          "content": {
+            "size": 2425,
+            "mimeType": "application/json",
+            "compression": 1320
+          },
+          "redirectURL": "",
+          "headersSize": 202,
+          "bodySize": 1105,
+          "_transferSize": 1307
+        },
+        "cache": {},
+        "timings": {
+          "blocked": 1.55099999392405,
+          "dns": -1,
+          "connect": -1,
+          "send": 0.1880000345408901,
+          "wait": 57.82200000248846,
+          "receive": 0.480999995488709,
+          "ssl": -1
+        },
+        "serverIPAddress": "172.16.52.99",
+        "connection": "155771"
+      },
+      {
+        "startedDateTime": "2017-07-12T02:02:27.414Z",
+        "time": 48.56000002473593,
+        "request": {
+          "method": "GET",
+          "url": "http://cw.lieluobo.testing/api/account/get?id=204629",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate"
+            },
+            {
+              "name": "X-Requested-With",
+              "value": "XMLHttpRequest"
+            },
+            {
+              "name": "Host",
+              "value": "cw.lieluobo.testing"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "zh-CN,zh;q=0.8"
+            },
+            {
+              "name": "author",
+              "value": "haolie"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json, text/javascript, */*; q=0.01"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            },
+            {
+              "name": "authorization",
+              "value": "c616d8c1248044a6a51c6b0fa62bec68"
+            },
+            {
+              "name": "Cookie",
+              "value": "_id=c616d8c1248044a6a51c6b0fa62bec68"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Referer",
+              "value": "http://cw.lieluobo.testing/"
+            }
+          ],
+          "queryString": [
+            {
+              "name": "id",
+              "value": "204629"
+            }
+          ],
+          "cookies": [
+            {
+              "name": "_id",
+              "value": "c616d8c1248044a6a51c6b0fa62bec68",
+              "expires": null,
+              "httpOnly": false,
+              "secure": false
+            }
+          ],
+          "headersSize": 576,
+          "bodySize": 0
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Date",
+              "value": "Wed, 12 Jul 2017 02:02:27 GMT"
+            },
+            {
+              "name": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "name": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "name": "Server",
+              "value": "nginx"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookies": [],
+          "content": {
+            "size": 2425,
+            "mimeType": "application/json",
+            "compression": 1320
+          },
+          "redirectURL": "",
+          "headersSize": 202,
+          "bodySize": 1105,
+          "_transferSize": 1307
+        },
+        "cache": {},
+        "timings": {
+          "blocked": 2.27200001245365,
+          "dns": -1,
+          "connect": -1,
+          "send": 0.09099999442695994,
+          "wait": 44.94599997997289,
+          "receive": 1.2510000378824273,
+          "ssl": -1
+        },
+        "serverIPAddress": "172.16.52.99",
+        "connection": "155771"
+      },
+      {
+        "startedDateTime": "2017-07-12T02:02:27.423Z",
+        "time": 8.068999974057078,
+        "request": {
+          "method": "GET",
+          "url": "http://cw.lieluobo.testing/images/avatar.png",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate"
+            },
+            {
+              "name": "Host",
+              "value": "cw.lieluobo.testing"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "zh-CN,zh;q=0.8"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+            },
+            {
+              "name": "Accept",
+              "value": "image/webp,image/apng,image/*,*/*;q=0.8"
+            },
+            {
+              "name": "Referer",
+              "value": "http://cw.lieluobo.testing/"
+            },
+            {
+              "name": "Cookie",
+              "value": "_id=c616d8c1248044a6a51c6b0fa62bec68"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            }
+          ],
+          "queryString": [],
+          "cookies": [
+            {
+              "name": "_id",
+              "value": "c616d8c1248044a6a51c6b0fa62bec68",
+              "expires": null,
+              "httpOnly": false,
+              "secure": false
+            }
+          ],
+          "headersSize": 462,
+          "bodySize": 0
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Date",
+              "value": "Wed, 12 Jul 2017 02:02:27 GMT"
+            },
+            {
+              "name": "Last-Modified",
+              "value": "Tue, 11 Jul 2017 11:31:08 GMT"
+            },
+            {
+              "name": "Server",
+              "value": "nginx"
+            },
+            {
+              "name": "ETag",
+              "value": "\"5964b6fc-84e\""
+            },
+            {
+              "name": "Content-Type",
+              "value": "image/png"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Accept-Ranges",
+              "value": "bytes"
+            },
+            {
+              "name": "Content-Length",
+              "value": "2126"
+            }
+          ],
+          "cookies": [],
+          "content": {
+            "size": 2126,
+            "mimeType": "image/png",
+            "compression": 0
+          },
+          "redirectURL": "",
+          "headersSize": 232,
+          "bodySize": 2126,
+          "_transferSize": 2358
+        },
+        "cache": {},
+        "timings": {
+          "blocked": 2.15499999467284,
+          "dns": -1,
+          "connect": -1,
+          "send": 0.19799999427049997,
+          "wait": 5.07899996591732,
+          "receive": 0.6370000191964182,
+          "ssl": -1
+        },
+        "serverIPAddress": "172.16.52.99",
+        "connection": "155550"
+      },
+      {
+        "startedDateTime": "2017-07-12T02:02:27.474Z",
+        "time": 120.90199999511242,
+        "request": {
+          "method": "GET",
+          "url": "http://7xth3o.com1.z0.glb.clouddn.com/o_1bgq7p42q5oq1k7l163asngsvo7.png?imageView2/1/w/85/h/85",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate"
+            },
+            {
+              "name": "Host",
+              "value": "7xth3o.com1.z0.glb.clouddn.com"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "zh-CN,zh;q=0.8"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+            },
+            {
+              "name": "Accept",
+              "value": "image/webp,image/apng,image/*,*/*;q=0.8"
+            },
+            {
+              "name": "Referer",
+              "value": "http://cw.lieluobo.testing/"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            }
+          ],
+          "queryString": [
+            {
+              "name": "imageView2/1/w/85/h/85",
+              "value": ""
+            }
+          ],
+          "cookies": [],
+          "headersSize": 466,
+          "bodySize": 0
+        },
+        "response": {
+          "status": 200,
+          "statusText": "OK",
+          "httpVersion": "HTTP/1.1",
+          "headers": [
+            {
+              "name": "X-Log",
+              "value": "mc.g;FOPDC;io.op:1;IO:2"
+            },
+            {
+              "name": "Date",
+              "value": "Wed, 12 Jul 2017 02:02:27 GMT"
+            },
+            {
+              "name": "X-Reqid",
+              "value": "vj0AAOyMx8W7OcgU"
+            },
+            {
+              "name": "X-Cache",
+              "value": "HIT from BC19_dx-zhejiang-wenzhou-2-cache-2(baishan)"
+            },
+            {
+              "name": "Content-Transfer-Encoding",
+              "value": "binary"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Content-Length",
+              "value": "1938"
+            },
+            {
+              "name": "Last-Modified",
+              "value": "Tue, 23 May 2017 08:46:37 GMT"
+            },
+            {
+              "name": "Server",
+              "value": "nginx"
+            },
+            {
+              "name": "ETag",
+              "value": "\"AJfUVYM9sAien_JQxkpNDokjQpQW\""
+            },
+            {
+              "name": "Access-Control-Max-Age",
+              "value": "2592000"
+            },
+            {
+              "name": "Content-Type",
+              "value": "image/png"
+            },
+            {
+              "name": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "name": "Access-Control-Expose-Headers",
+              "value": "X-Log, X-Reqid"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "public, max-age=5"
+            },
+            {
+              "name": "Accept-Ranges",
+              "value": "bytes"
+            },
+            {
+              "name": "X-Qiniu-Zone",
+              "value": "0"
+            },
+            {
+              "name": "X-Ser",
+              "value": "BC19_dx-zhejiang-wenzhou-2-cache-2"
+            }
+          ],
+          "cookies": [],
+          "content": {
+            "size": 1938,
+            "mimeType": "image/png",
+            "compression": 0
+          },
+          "redirectURL": "",
+          "headersSize": 611,
+          "bodySize": 1938,
+          "_transferSize": 2549
+        },
+        "cache": {},
+        "timings": {
+          "blocked": 2.01100000413135,
+          "dns": 73.53699998930095,
+          "connect": 15.913999988697498,
+          "send": 0.1800000318326056,
+          "wait": 28.6789999809116,
+          "receive": 0.5810000002384186,
+          "ssl": -1
+        },
+        "serverIPAddress": "122.228.9.19",
+        "connection": "155831"
+      }
+    ]
+  }
+}
