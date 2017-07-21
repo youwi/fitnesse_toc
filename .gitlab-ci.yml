@@ -1,13 +1,13 @@
 stages:
-  - deploy
   - build
+  - deploy
 deploy:
   stage: build
   script: "mvn package"
 
 scpTo172.16.52.181:
   stage: deploy
-  script: "scp target/IAT-0.0.1-SNAPSHOT yuzc@172.16.52.181:"
+  script: "scp target/IAT-0.0.1-SNAPSHOT.jar yuzc@172.16.52.181:"
   artifacts:
     paths:
       - target/*.jar
