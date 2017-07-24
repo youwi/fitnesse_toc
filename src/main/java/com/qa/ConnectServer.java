@@ -7,6 +7,8 @@ import com.qa.exceptions.HttpStatusException;
 
 import org.json.JSONObject;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import java.util.regex.Matcher;
@@ -33,12 +35,11 @@ public class ConnectServer {
     Map<String,List<String>> responseHeaderMap=new HashMap();
     String type = null;
     HttpLog logger=HttpLog.getLogger();
-    int __count_object_=0;
+    static int __count_object_=0;
 
     public ConnectServer(String URL) {
         this.URL = delHTMLTag(URL);
         this.autoSetBaseUrl();
-        addOneUrlCount(URL);
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
         __count_object_++;
     }
@@ -47,8 +48,7 @@ public class ConnectServer {
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.autoSetBaseUrl();
-        addOneUrlCount(URL);
-        __count_object_++;
+         __count_object_++;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
 
@@ -58,7 +58,7 @@ public class ConnectServer {
         this.env = env;
         this.type = type;
         this.autoSetBaseUrl();
-        addOneUrlCount(URL);
+
         __count_object_++;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
@@ -117,6 +117,29 @@ public class ConnectServer {
     }
 
     /**
+     * 生成一个随机数
+     * @return
+     */
+    public String uuid(){
+         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 生成一个时间线 ID 毫秒为结果
+     * 如: 2017-01-01 12:12:00=>2017.01.01.12.12.00.000
+     * 带点
+     * @return
+     */
+    public String tid(){
+        SimpleDateFormat sf=new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss.sss");
+        return   sf.format(new Date() );
+    }
+    public String tid(String mat){
+        SimpleDateFormat sf=new SimpleDateFormat(mat);
+        return   sf.format(new Date() );
+    }
+
+    /**
      * 支持书写 js 转换
      * @param bodyString 脚本
      * @param type 实现有 js,json,groovy
@@ -153,6 +176,8 @@ public class ConnectServer {
         if (type == null) {
             type = "POST";
         }
+        //唯一 key,用于接口统计.
+        String keyUrl=type+":"+fullUrl;
         fullUrl=urlParamMatcher(fullUrl, buildFromByMap(requestMap));
         logger.info("---------------------------------------------------");
         logger.info("Address:  "+this.type+"  "+fullUrl);
@@ -182,7 +207,8 @@ public class ConnectServer {
             responseCode=delete.responseCode();
             logger.info("Response:  "+responseBody);
         }
-        _url_count_.put(this.URL,responseCode);
+        //_url_count_.put(this.URL,responseCode);
+        addOneUrlCount(keyUrl);
         return responseBody;
     }
     /**
@@ -450,7 +476,35 @@ public class ConnectServer {
         msg+="HTTP请求总次数:"+__count_object_+"\n";
         msg+="状态码次数分类:"+0+"\n";
 
+        //临时方案
+        int countCw=0;
+        int countHr=0;
+        int countC=0;
+        int countOther=0;
+        for(String key:_url_count_.keySet()){
+            if(key.contains("http://cw"))
+                countCw++;
+            if(key.contains("http://www"))
+                countC++;
+            if(key.contains("http://hr"))
+                countHr++;
+            countOther++;
+            System.out.println(key);
+        }
+        msg+="CW:"+countCw+"\n";
+        msg+="C:"+countC+"\n";
+        msg+="HR:"+countHr+"\n";
+        msg+="other:"+countOther+"\n";
+
         return  msg;
+    }
+
+    /**
+     * URL统计不能带参数,但是要带方法
+     * @param oraURL
+     */
+    public String buildURLKey(String oraURL){
+        return "";
     }
 
 }

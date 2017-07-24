@@ -2,6 +2,8 @@ package com.qa;
 
 import org.testng.annotations.Test;
 
+import java.util.UUID;
+
 /**
  * IAT @wkzf
  * Created by yu on 2017/7/11.
@@ -117,5 +119,10 @@ public class ConnectServerTest {
         assert "http://www.dev.haolie.test/abc/abc.rest".equals(cs.BASE_URL + cs.URL);
     }
 
+    @Test
+    public void uuidTest(){
+        System.out.println(UUID.randomUUID().toString() );;
+
+    }
 
 }

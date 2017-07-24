@@ -23,6 +23,9 @@ public class Set {
         }
     }
 
+    public Set() {
+    }
+
     /**
      * 一个参数时是设置环境变量
      * @param env
@@ -110,4 +113,11 @@ public class Set {
         return envMap;
     }
 
+    static public void waitOneSecend(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
