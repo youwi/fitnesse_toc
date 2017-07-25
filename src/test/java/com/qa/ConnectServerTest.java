@@ -2,6 +2,8 @@ package com.qa;
 
 import org.testng.annotations.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -121,7 +123,12 @@ public class ConnectServerTest {
 
     @Test
     public void uuidTest(){
-        System.out.println(UUID.randomUUID().toString() );;
+        System.out.println(UUID.randomUUID().toString() );
+        System.out.println( new   SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").format(new Date()));;
+        System.out.println( new   SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").format(new Date(1000000000)));;
+
+
+
 
     }
 
