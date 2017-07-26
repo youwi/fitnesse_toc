@@ -1,6 +1,7 @@
 package com.qa.db;
 
 import com.qa.ConnectServer;
+import com.qa.http.HttpLog;
 import com.qa.utils.ExceptionUtil;
 
 import java.sql.*;
@@ -12,6 +13,9 @@ import java.util.Map;
  * Created by yu on 2017/7/17.
  */
 public class SetUp {
+    static{
+        HttpLog.info("db init...");
+    }
 
     public static String DEFAULT_CONNECTION_POOL_NAME = "default";
     public static int DEFAULT_WAIT_TIMEOUT = 5000;
