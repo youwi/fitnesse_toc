@@ -281,10 +281,10 @@ public class ConnectServer {
         if (type == null) {
             type = "POST";
         }
-        //.header("Accept", "application/json")
 
-        requestHeaderMap.put("Content-Type", "application/json;charset=UTF-8");
-      //  requestHeaderMap.put("Content-Type", "application/x-www-form-urlencoded");
+        if(requestHeaderMap.get("Content-Type")==null){
+            requestHeaderMap.put("Content-Type", "application/json;charset=UTF-8");
+        }
         requestForString(fullurl);
         if(isGson(responseBody)){
             JSONObject objResponse = new JSONObject(responseBody);
@@ -497,6 +497,16 @@ public class ConnectServer {
         msg+="other:"+countOther+"\n";
 
         return  msg;
+    }
+    public int httpCode(){
+        return responseCode;
+    }
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
     /**

@@ -12,6 +12,34 @@ import static org.testng.Assert.*;
  */
 public class DataMakerTest {
     @Test
+    public void testUuid1() throws Exception {
+    }
+
+    @Test
+    public void testTid2() throws Exception {
+    }
+
+    @Test
+    public void testTid3() throws Exception {
+    }
+
+    @Test
+    public void testIntArray1() throws Exception {
+    }
+
+    @Test
+    public void testIntArray2() throws Exception {
+    }
+
+    @Test
+    public void testPend() throws Exception {
+    }
+
+    @Test
+    public void testPendArray() throws Exception {
+    }
+
+    @Test
     public void testUuid() throws Exception {
     }
 
@@ -21,6 +49,7 @@ public class DataMakerTest {
 
     @Test
     public void testTid1() throws Exception {
+        DataMaker.telephone();
     }
 
     @Test

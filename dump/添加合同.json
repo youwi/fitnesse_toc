@@ -12,8 +12,8 @@
         "time": 17.318000027444214,
         "request": {
           "method": "GET",
-          "url": "http://cw.lieluobo.testing/12.3a59e0402ed9ff1dd084.js",
-          "httpVersion": "HTTP/1.1",
+          "url": "http:cw.lieluobo.testing12.3a59e0402ed9ff1dd084.js",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Pragma",
@@ -33,15 +33,15 @@
             },
             {
               "name": "User-Agent",
-              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+              "value": "Mozilla5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit537.36 (KHTML, like Gecko) Chrome59.0.3071.115 Safari537.36"
             },
             {
               "name": "Accept",
-              "value": "*/*"
+              "value": "**"
             },
             {
               "name": "Referer",
-              "value": "http://cw.lieluobo.testing/"
+              "value": "http:cw.lieluobo.testing"
             },
             {
               "name": "Cookie",
@@ -72,7 +72,7 @@
         "response": {
           "status": 200,
           "statusText": "OK",
-          "httpVersion": "HTTP/1.1",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Date",
@@ -92,15 +92,15 @@
             },
             {
               "name": "ETag",
-              "value": "W/\"596734f0-356d\""
+              "value": "W\"596734f0-356d\""
             },
             {
-              "name": "Vary",
+              "name": "y",
               "value": "Accept-Encoding"
             },
             {
               "name": "Content-Type",
-              "value": "application/javascript; charset=utf-8"
+              "value": "applicationjavascript; charset=utf-8"
             },
             {
               "name": "Transfer-Encoding",
@@ -114,7 +114,7 @@
           "cookies": [],
           "content": {
             "size": 13677,
-            "mimeType": "application/javascript",
+            "mimeType": "applicationjavascript",
             "compression": 10332
           },
           "redirectURL": "",
@@ -140,8 +140,8 @@
         "time": 19.566000031773,
         "request": {
           "method": "GET",
-          "url": "http://cw.lieluobo.testing/api/common/qiniu/token",
-          "httpVersion": "HTTP/1.1",
+          "url": "http:cw.lieluobo.testingapicommonqiniutoken",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Pragma",
@@ -169,11 +169,11 @@
             },
             {
               "name": "User-Agent",
-              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+              "value": "Mozilla5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit537.36 (KHTML, like Gecko) Chrome59.0.3071.115 Safari537.36"
             },
             {
               "name": "Accept",
-              "value": "application/json, text/javascript, */*; q=0.01"
+              "value": "applicationjson, textjavascript, **; q=0.01"
             },
             {
               "name": "Cache-Control",
@@ -193,7 +193,7 @@
             },
             {
               "name": "Referer",
-              "value": "http://cw.lieluobo.testing/"
+              "value": "http:cw.lieluobo.testing"
             }
           ],
           "queryString": [],
@@ -212,7 +212,7 @@
         "response": {
           "status": 200,
           "statusText": "OK",
-          "httpVersion": "HTTP/1.1",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Date",
@@ -232,13 +232,13 @@
             },
             {
               "name": "Content-Type",
-              "value": "application/json"
+              "value": "applicationjson"
             }
           ],
           "cookies": [],
           "content": {
             "size": 269,
-            "mimeType": "application/json",
+            "mimeType": "applicationjson",
             "compression": 0
           },
           "redirectURL": "",
@@ -264,8 +264,8 @@
         "time": 286.13900003256276,
         "request": {
           "method": "POST",
-          "url": "http://cw.lieluobo.testing/api/bd/org/searchOrg",
-          "httpVersion": "HTTP/1.1",
+          "url": "http:cw.lieluobo.testingapibdorgsearchOrg",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Cookie",
@@ -273,7 +273,7 @@
             },
             {
               "name": "Origin",
-              "value": "http://cw.lieluobo.testing"
+              "value": "http:cw.lieluobo.testing"
             },
             {
               "name": "Accept-Encoding",
@@ -313,15 +313,15 @@
             },
             {
               "name": "User-Agent",
-              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+              "value": "Mozilla5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit537.36 (KHTML, like Gecko) Chrome59.0.3071.115 Safari537.36"
             },
             {
               "name": "Content-Type",
-              "value": "application/json;charset=UTF-8"
+              "value": "applicationjson;charset=UTF-8"
             },
             {
               "name": "Accept",
-              "value": "application/json, text/javascript, */*; q=0.01"
+              "value": "applicationjson, textjavascript, **; q=0.01"
             },
             {
               "name": "Cache-Control",
@@ -329,7 +329,7 @@
             },
             {
               "name": "Referer",
-              "value": "http://cw.lieluobo.testing/"
+              "value": "http:cw.lieluobo.testing"
             }
           ],
           "queryString": [],
@@ -345,14 +345,14 @@
           "headersSize": 674,
           "bodySize": 34,
           "postData": {
-            "mimeType": "application/json;charset=UTF-8",
+            "mimeType": "applicationjson;charset=UTF-8",
             "text": "{\"keywords\":\"\",\"page\":1,\"size\":10}"
           }
         },
         "response": {
           "status": 200,
           "statusText": "OK",
-          "httpVersion": "HTTP/1.1",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Date",
@@ -375,18 +375,18 @@
               "value": "keep-alive"
             },
             {
-              "name": "Vary",
+              "name": "y",
               "value": "Accept-Encoding"
             },
             {
               "name": "Content-Type",
-              "value": "application/json"
+              "value": "applicationjson"
             }
           ],
           "cookies": [],
           "content": {
             "size": 2527,
-            "mimeType": "application/json",
+            "mimeType": "applicationjson",
             "compression": 1938
           },
           "redirectURL": "",
@@ -412,8 +412,8 @@
         "time": 102.5289999670349,
         "request": {
           "method": "POST",
-          "url": "http://cw.lieluobo.testing/api/bd/org/searchOrg",
-          "httpVersion": "HTTP/1.1",
+          "url": "http:cw.lieluobo.testingapibdorgsearchOrg",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Cookie",
@@ -421,7 +421,7 @@
             },
             {
               "name": "Origin",
-              "value": "http://cw.lieluobo.testing"
+              "value": "http:cw.lieluobo.testing"
             },
             {
               "name": "Accept-Encoding",
@@ -461,15 +461,15 @@
             },
             {
               "name": "User-Agent",
-              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+              "value": "Mozilla5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit537.36 (KHTML, like Gecko) Chrome59.0.3071.115 Safari537.36"
             },
             {
               "name": "Content-Type",
-              "value": "application/json;charset=UTF-8"
+              "value": "applicationjson;charset=UTF-8"
             },
             {
               "name": "Accept",
-              "value": "application/json, text/javascript, */*; q=0.01"
+              "value": "applicationjson, textjavascript, **; q=0.01"
             },
             {
               "name": "Cache-Control",
@@ -477,7 +477,7 @@
             },
             {
               "name": "Referer",
-              "value": "http://cw.lieluobo.testing/"
+              "value": "http:cw.lieluobo.testing"
             }
           ],
           "queryString": [],
@@ -493,14 +493,14 @@
           "headersSize": 674,
           "bodySize": 53,
           "postData": {
-            "mimeType": "application/json;charset=UTF-8",
+            "mimeType": "applicationjson;charset=UTF-8",
             "text": "{\"keywords\":\"客户公司-变动状态-自动化测试预埋数据\",\"page\":1,\"size\":10}"
           }
         },
         "response": {
           "status": 200,
           "statusText": "OK",
-          "httpVersion": "HTTP/1.1",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Date",
@@ -520,13 +520,13 @@
             },
             {
               "name": "Content-Type",
-              "value": "application/json"
+              "value": "applicationjson"
             }
           ],
           "cookies": [],
           "content": {
             "size": 410,
-            "mimeType": "application/json",
+            "mimeType": "applicationjson",
             "compression": 0
           },
           "redirectURL": "",
@@ -552,8 +552,8 @@
         "time": 282.15099999215454,
         "request": {
           "method": "POST",
-          "url": "http://cw.lieluobo.testing/api/workflow/create",
-          "httpVersion": "HTTP/1.1",
+          "url": "http:cw.lieluobo.testingapiworkflowcreate",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Cookie",
@@ -561,7 +561,7 @@
             },
             {
               "name": "Origin",
-              "value": "http://cw.lieluobo.testing"
+              "value": "http:cw.lieluobo.testing"
             },
             {
               "name": "Accept-Encoding",
@@ -601,15 +601,15 @@
             },
             {
               "name": "User-Agent",
-              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+              "value": "Mozilla5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit537.36 (KHTML, like Gecko) Chrome59.0.3071.115 Safari537.36"
             },
             {
               "name": "Content-Type",
-              "value": "application/json;charset=UTF-8"
+              "value": "applicationjson;charset=UTF-8"
             },
             {
               "name": "Accept",
-              "value": "application/json, text/javascript, */*; q=0.01"
+              "value": "applicationjson, textjavascript, **; q=0.01"
             },
             {
               "name": "Cache-Control",
@@ -617,7 +617,7 @@
             },
             {
               "name": "Referer",
-              "value": "http://cw.lieluobo.testing/"
+              "value": "http:cw.lieluobo.testing"
             }
           ],
           "queryString": [],
@@ -633,14 +633,14 @@
           "headersSize": 675,
           "bodySize": 1253,
           "postData": {
-            "mimeType": "application/json;charset=UTF-8",
+            "mimeType": "applicationjson;charset=UTF-8",
             "text": "{\"name\":\"自动化测试流程-数据预埋\",\"type\":1,\"contract\":{\"taxpayerId\":\"自动化测试预埋数据\",\"bankName\":\"自动化测试预埋数据\",\"bankAccount\":\"自动化测试预埋数据\",\"contactName\":\"自动化测试预埋数据\",\"contactMobile\":\"19900000001\",\"attachment\":{},\"invoiceTitle\":\"自动化测试预埋数据\",\"payInvoiceAfterdays\":10,\"recommendFreeMonths\":10,\"recommendFreeCount\":10,\"recommendFreeCountInfi\":0,\"taxIncluded\":1,\"hasMinFee\":0,\"isSigned\":0,\"payFix\":{\"when\":1,\"dayType\":2},\"isoverProjectover\":0,\"isEndedUnlimit\":0,\"isFeeFloatRate\":0,\"payAdvanceChargeNeed\":0,\"payAdvanceCharge\":{\"dayType\":2,\"payUnit\":2},\"isneedRefund\":0,\"refundType\":1,\"refundRateF\":{\"list\":[]},\"isliepinLimit\":0,\"updatedByAccount\":{\"ceo\":{},\"roles\":[],\"company\":{\"type\":1,\"aliases\":[],\"industryCodes\":[],\"locationDetails\":[],\"bdInCharge\":{},\"createdByAccount\":{},\"majorClientManager\":{},\"updatedByAccount\":{}},\"team\":{\"leader\":{},\"locationIds\":[],\"industryCodes\":[]},\"gender\":1,\"industryCodes\":[],\"positions\":[],\"locationIds\":[],\"isFreeze\":0,\"annualSalary\":[],\"createdByAccount\":{}},\"contractName\":\"客户公司-变动状态-自动化测试预埋数据-人才推荐服务协议-2017年07月13日\",\"orgId\":101716,\"orgName\":\"客户公司-变动状态-自动化测试预埋数据\",\"feeComposition\":{\"feeList\":[{\"type\":2,\"fix\":0,\"ratio\":25,\"desc\":\"\"}]},\"payStage\":{\"stages\":[{\"when\":1,\"days\":10,\"ratio\":10}]},\"ensureMonthsF\":{\"list\":[{\"month\":10,\"desc\":\"\"}]}}}"
           }
         },
         "response": {
           "status": 200,
           "statusText": "OK",
-          "httpVersion": "HTTP/1.1",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Date",
@@ -660,13 +660,13 @@
             },
             {
               "name": "Content-Type",
-              "value": "application/json"
+              "value": "applicationjson"
             }
           ],
           "cookies": [],
           "content": {
             "size": 33,
-            "mimeType": "application/json",
+            "mimeType": "applicationjson",
             "compression": 0
           },
           "redirectURL": "",
@@ -692,8 +692,8 @@
         "time": 205.93100000405684,
         "request": {
           "method": "POST",
-          "url": "http://cw.lieluobo.testing/api/workflow/query",
-          "httpVersion": "HTTP/1.1",
+          "url": "http:cw.lieluobo.testingapiworkflowquery",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Cookie",
@@ -701,7 +701,7 @@
             },
             {
               "name": "Origin",
-              "value": "http://cw.lieluobo.testing"
+              "value": "http:cw.lieluobo.testing"
             },
             {
               "name": "Accept-Encoding",
@@ -741,15 +741,15 @@
             },
             {
               "name": "User-Agent",
-              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+              "value": "Mozilla5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit537.36 (KHTML, like Gecko) Chrome59.0.3071.115 Safari537.36"
             },
             {
               "name": "Content-Type",
-              "value": "application/json;charset=UTF-8"
+              "value": "applicationjson;charset=UTF-8"
             },
             {
               "name": "Accept",
-              "value": "application/json, text/javascript, */*; q=0.01"
+              "value": "applicationjson, textjavascript, **; q=0.01"
             },
             {
               "name": "Cache-Control",
@@ -757,7 +757,7 @@
             },
             {
               "name": "Referer",
-              "value": "http://cw.lieluobo.testing/"
+              "value": "http:cw.lieluobo.testing"
             }
           ],
           "queryString": [],
@@ -773,14 +773,14 @@
           "headersSize": 672,
           "bodySize": 55,
           "postData": {
-            "mimeType": "application/json;charset=UTF-8",
+            "mimeType": "applicationjson;charset=UTF-8",
             "text": "{\"page\":1,\"size\":10,\"sort\":\"createdAt:desc\",\"status\":1}"
           }
         },
         "response": {
           "status": 200,
           "statusText": "OK",
-          "httpVersion": "HTTP/1.1",
+          "httpVersion": "HTTP1.1",
           "headers": [
             {
               "name": "Date",
@@ -800,13 +800,13 @@
             },
             {
               "name": "Content-Type",
-              "value": "application/json"
+              "value": "applicationjson"
             }
           ],
           "cookies": [],
           "content": {
             "size": 99,
-            "mimeType": "application/json",
+            "mimeType": "applicationjson",
             "compression": 0
           },
           "redirectURL": "",
