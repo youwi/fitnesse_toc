@@ -81,7 +81,7 @@ String.prototype.contain=function(str){
 function inObject(objBig,objTarget) {
     var match=true
     for(var key in objTarget){
-        match=match&&objTarget[key]==objBig[key]
+        match=match&&(objTarget[key]==objBig[key]|| JSON.stringify(objTarget[key])==JSON.stringify(objBig[key]))
     }
     return match
 }
