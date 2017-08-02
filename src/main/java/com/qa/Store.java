@@ -121,6 +121,8 @@ public class Store {
      * 获取当前环境下Key值对应的Value
     * */
     static public Object get(String key){
+        if(envMap.get(getEnv())==null)
+            return null;
       return   envMap.get(getEnv()).get(key);
     }
 

@@ -60,7 +60,7 @@ public class CITest {
         cs.get();
     }
 
-    @Test
+   // @Test
     public void baiduTest() {
         new Store("headers","{auther:\"abc\"}");
         ConnectServer cs = new ConnectServer("http://baidu.com");
