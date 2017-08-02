@@ -1,5 +1,7 @@
 package com.qa;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -71,6 +73,51 @@ public class DataMaker {
         //TODO
         return src;
     }
+
+    /**
+     * md5,默认转小写
+     * @param src
+     * @return
+     */
+    public static String md5(String src){
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // 2 将消息变成byte数组
+        byte[] input = src.getBytes();
+        // 3 计算后获得字节数组,这就是那128位了
+        byte[] buff = md.digest(input);
+
+        // 4 把数组每一字节（一个字节占八位）换成16进制连成md5字符串
+        return bytesToHex(buff).toLowerCase();
+    }
+    /**
+     * 二进制转十六进制
+     *
+     * @param bytes
+     * @return
+     */
+    public static String bytesToHex(byte[] bytes) {
+        StringBuffer md5str = new StringBuffer();
+        // 把数组每一字节换成16进制连成md5字符串
+        int digital;
+        for (int i = 0; i < bytes.length; i++) {
+            digital = bytes[i];
+
+            if (digital < 0) {
+                digital += 256;
+            }
+            if (digital < 16) {
+                md5str.append("0");
+            }
+            md5str.append(Integer.toHexString(digital));
+        }
+        return md5str.toString().toUpperCase();
+    }
+
 
 
     /**

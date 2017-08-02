@@ -33,6 +33,7 @@ public class DataMakerTest {
 
     @Test
     public void testPend() throws Exception {
+        assert "e10adc3949ba59abbe56e057f20f883e".equals( DataMaker.md5("123456"));
     }
 
     @Test
