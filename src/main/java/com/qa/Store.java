@@ -10,39 +10,44 @@ import java.util.Map;
  * 以后常量类信息不用放在代码中,
  * 直接写在测试用例中
  */
-public class Set {
-    static String envKey="test.runtime.env";
-    public Set(String key,String value) {
+public class Store {
+    static String ENV_KEY ="test.runtime.env";
+    static String GLOBAL_HEADERS_KEY="headers";
+    public Store(String key, String value) {
+        put(key,value);
+    }
+    public static void put(String key,String value){
         Map localVar= envMap.get(getEnv());
         if(localVar==null){
             localVar=new HashMap();
             envMap.put(getEnv(),localVar);
+            localVar.put(key,value);
             System.setProperty(key,value);
         }else{
             localVar.put(key,value);
         }
     }
 
-    public Set() {
+    public Store() {
     }
 
     /**
      * 一个参数时是设置环境变量
      * @param env
      */
-    public Set(String env) {
+    public Store(String env) {
         setEnv(env);
     }
 
     public static String getEnv() {
-        String s=System.getProperty(envKey);
+        String s=System.getProperty(ENV_KEY);
         if(s==null)
-            return "";
+            return "dev";
         return s;
     }
 
     public static void setEnv(String envValue) {
-        System.setProperty(envKey,envValue);
+        System.setProperty(ENV_KEY,envValue);
     }
 
 
@@ -52,7 +57,10 @@ public class Set {
      * @param value
      * @param env
      */
-    public Set(String key,String value,String env){
+    public Store(String key, String value, String env){
+        put(key,value,env);
+    }
+    public static void put(String key,String value,String env){
         Map localVar=envMap.get(env);
         if(localVar==null){
             localVar=new HashMap();
@@ -109,8 +117,11 @@ public class Set {
         }
         return value;
     }
+    /**
+     * 获取当前环境下Key值对应的Value
+    * */
     static public Object get(String key){
-        return envMap;
+      return   envMap.get(getEnv()).get(key);
     }
 
     static public void waitOneSecend(){

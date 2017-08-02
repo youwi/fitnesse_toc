@@ -3,18 +3,17 @@ package com.qa;
 import com.qa.http.*;
 import com.qa.utils.*;
 import com.qa.constants.ConfigConstantsTest;
-import com.qa.exceptions.HttpStatusException;
 
 import org.json.JSONObject;
 import java.lang.reflect.Field;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.qa.Set.getEnv;
+import static com.qa.Store.GLOBAL_HEADERS_KEY;
+import static com.qa.Store.getEnv;
 import static com.qa.utils.StringURLUtil.buildFromByMap;
 import static com.qa.utils.StringURLUtil.urlParamMatcher;
 
@@ -215,9 +214,14 @@ public class ConnectServer {
      * 填充请求 header,包括全局 header
     * */
     public void fillRequestHeader(Request request,Map<String,String> headerMap){
-        for(String key:SetGlobalHeader.headersMap.keySet()){
-            request.header(key,SetGlobalHeader.headersMap.get(key));
-            logger.info("Header:   "+key+":"+SetGlobalHeader.headersMap.get(key));
+        if(Store.get(GLOBAL_HEADERS_KEY)==null){
+           return;
+        }
+        Map<String,String> headersMap= GsonJsonUtil.gson.fromJson((String)Store.get("headers"),Map.class);
+
+        for(String key:headersMap.keySet()){
+            request.header(key,headersMap.get(key));
+            logger.info("Header:   "+key+":"+headersMap.get(key));
 
         }
         if(headerMap==null) return;
@@ -376,7 +380,7 @@ public class ConnectServer {
     public void autoSetBaseUrl(){
         String httpIpPort=subHttpIpPort(this.URL);
         if(isNotEmpty( httpIpPort)) {
-            this.BASE_URL = Set.getValueSibling(httpIpPort, Set.getEnv());
+            this.BASE_URL = Store.getValueSibling(httpIpPort, Store.getEnv());
             this.URL=this.URL.replace(httpIpPort,"");
         }
     }
@@ -388,6 +392,16 @@ public class ConnectServer {
         return !isEmpty(str);
     }
 
+    /**
+     * 保存数据结构
+     * 用法在于约定.例如: header:{author:haolie}
+     * @param key
+     * @param data
+     * @return
+     */
+    public static boolean store(String key,String data){
+        return true;
+    }
 
     /**
      * 从 URL 中提取 IP:端口

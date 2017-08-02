@@ -37,7 +37,7 @@ public class CommonTest {
 
 	public void ss(){
 		//import com.qa.db.*;
-		Object obj= new SetGlobalHeader("author","haolie");
+		Object obj= new Store("headers","{author:\"haolie\"");
 		ConnectServer obj1=new	ConnectServer("http://www.lieluobo.testing/api/account/team/byLeader");
 		obj1.setBody("{\"leaderId\":null}");
 		obj1.post();
@@ -53,7 +53,7 @@ public class CommonTest {
 	@org.testng.annotations.Test
 	public void ch(){
 		long stime=System.currentTimeMillis();
-		Object obj= new SetGlobalHeader("author","haolie");
+		Object obj= new Store("headers","{author:\"haolie\"");
 		ConnectServer obj1=new	ConnectServer("http://www.lieluobo.testing/api/account/team/byLeader");
 		System.out.println(System.currentTimeMillis()-stime);
 

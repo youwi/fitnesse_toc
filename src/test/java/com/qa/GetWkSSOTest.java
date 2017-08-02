@@ -28,7 +28,7 @@ public class GetWkSSOTest {
 //            public Iterator<Map.Entry<String, String>> getHeaderParameters() {
 //                Map m=new HashMap();
 //                m.put("Cookie",ssso);
-//                Set<Map.Entry<String, String>> allSet = null;
+//                Store<Map.Entry<String, String>> allSet = null;
 //                allSet =m. entrySet();
 //                Iterator<Map.Entry<String, String>> iter = allSet.iterator();
 //                return iter;
