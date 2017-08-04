@@ -117,13 +117,16 @@ public class Store {
         }
         return value;
     }
+
     /**
      * 获取当前环境下Key值对应的Value
-    * */
-    static public Object get(String key){
-        if(envMap.get(getEnv())==null)
+     */
+    static public Object get(String key) {
+
+
+        if (envMap.get(getEnv()) == null)
             return null;
-      return   envMap.get(getEnv()).get(key);
+        return envMap.get(getEnv()).get(key);
     }
 
     static public void waitOneSecend(){

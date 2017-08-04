@@ -1,14 +1,14 @@
-//package com.qa.utils;
-//
-//import java.io.File;
-//import java.util.HashMap;
-//
+package com.qa.utils;
+
+import java.io.File;
+import java.util.HashMap;
+
 //import com.youku.uploader.FileUtil;
 //import com.youku.uploader.YoukuUploader;
-//
+
 //import constants.YoukuConstants;
-//
-//public class UploaderYouku {
+
+public class UploaderYouku {
 //    private static final String TAG = "TestLogin";
 //    private YoukuUploader uploader;
 //    private HashMap<String, String> params;
@@ -149,4 +149,4 @@
 //        this.result = result;
 //    }
 //
-//}
+}

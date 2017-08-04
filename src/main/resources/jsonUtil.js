@@ -3,7 +3,33 @@
  */
 
 
+/**
+ * 判断对象包含相似性,只判断一级结构
+ * @param resp
+ * @param obj
+ * @constructor
+ */
+function SIMILAR(resp,obj){
+    //把json打散成行,按行相似性做对比
+    if(resp==null) return false
+    if(JSON.stringify(resp).indexOf(JSON.stringify(obj))>-1)
+        return true
+    if(JSON.stringify(resp).indexOf(trimSp(JSON.stringify(obj)))>-1){
+        return true
+    }
+    if(resp.constructor===String){
+        return JSON.stringify(resp).indexOf(obj)>-1
+    }
+    var isHasKeyAll=true;
+    for(var key in obj){
+        var child=resp[key]
+        if(child!=null && child.constructor==Object){
 
+        }
+        isHasKeyAll=isHasKeyAll && (child!=null)
+    }
+
+}
 function find() {
 
 }

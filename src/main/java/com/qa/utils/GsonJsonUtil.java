@@ -36,4 +36,17 @@ public class GsonJsonUtil {
             return new JsonPrimitive(src);
         }
     }).setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+
+    /**
+     * pretty print
+     */
+    public static Gson gsonPretty= new GsonBuilder().
+        registerTypeAdapter(Double.class, new JsonSerializer<Double>() {
+        @Override
+        public JsonElement serialize(Double src, Type typeOfSrc, JsonSerializationContext context) {
+            if (src == src.longValue())
+                return new JsonPrimitive(src.longValue());
+            return new JsonPrimitive(src);
+        }
+     }).setPrettyPrinting().create();
 }

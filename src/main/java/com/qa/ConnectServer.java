@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import static com.qa.Store.GLOBAL_HEADERS_KEY;
 import static com.qa.Store.getEnv;
+import static com.qa.utils.GsonJsonUtil.gsonPretty;
 import static com.qa.utils.StringURLUtil.buildFromByMap;
 import static com.qa.utils.StringURLUtil.urlParamMatcher;
 
@@ -26,7 +27,7 @@ public class ConnectServer {
     JsonUtil jsonUtil=new JsonUtil();
     String URL;
     String env = null;
-    String responseBody = null;
+    String responseBody = "";
     int responseCode=0;
     String requestBody=null;
     Map<String,String> requestMap=new HashMap();
@@ -257,7 +258,61 @@ public class ConnectServer {
         ScriptUtil.runJavaScript("response="+responseBody);
         //ScriptUtil.binding(responseBody,"response"); //绑定为直接的字符串
         //ScriptUtil.runJavaScript("response=JSON.parse(response)");
-        return (Boolean) ScriptUtil.runJavaScript("CONTAIN(response,"+json+")");
+        Boolean out=  (Boolean) ScriptUtil.runJavaScript("CONTAIN(response,"+json+")");
+        if(out==false){
+            System.err.println(jsonCompare(responseBody,json));
+        }
+        return out;
+    }
+    /**
+     给出对比分析结果
+     */
+    public Object jsonCompare(String json){
+        json=delHtmlPre(json);
+        String target=gsonPretty.toJson(  gsonPretty.fromJson(json,Map.class));
+        String big=gsonPretty.toJson(  gsonPretty.fromJson(responseBody,Map.class));
+        return jsonCompare(big,target);
+    }
+
+    /**
+     * 生成字符串的对比结果,
+     * 只对比多行文本,以行为比较结果
+     * @param big
+     * @param target
+     * @return
+     */
+    public static String jsonCompare(String big, String target){
+        String[] lines=target.split("\n");
+        String[] lineNotEqual=new String[lines.length];
+        String[] linesBig=big.split("\n");
+
+        String outMessage="";
+        for(String line :lines){
+            String msg="";
+            if(line.contains("\":")){
+               if(big.contains(line.trim())){
+                   //ok
+               }else{
+                   double similarity=0;
+                   for(String oriLines:linesBig){
+                       String key= line.split(":")[0];
+                       if(oriLines.contains("\":") && oriLines.contains(key)){
+                           double csi= StringSimilarity.SimilarDegree(oriLines.trim(),line.trim());//想以度
+                           if(csi>similarity){
+                               msg=line.trim()+" <--> "+oriLines.trim()+"\n";
+                               similarity=csi;
+                           }
+
+                       }
+                   }
+               }
+            }
+            outMessage+=msg;
+        }
+        return outMessage;
+    }
+    public boolean textContain(String target){
+        return  responseBody.toLowerCase().contains(target.toLowerCase());
     }
     public Object javaScript(String js){
         js=delHtmlPre(js);
@@ -265,7 +320,19 @@ public class ConnectServer {
         ScriptUtil.runJavaScript("response=null");
         ScriptUtil.runJavaScript("response="+responseBody);
         return ScriptUtil.runJavaScript(js);
+    }
 
+    /**
+     * 判断JSON结构内含相似性
+     * 如 {a:1,b:2} +s> {a:0,b:0}
+     * @return
+     */
+    public boolean jsonSimilar(String json){
+        json=delHtmlPre(json);
+        ScriptUtil.preLoadCompileJs();
+        ScriptUtil.runJavaScript("response=null");
+        ScriptUtil.runJavaScript("response="+responseBody);
+        return (Boolean) ScriptUtil.runJavaScript("SIMILAR(response,"+json+")");
     }
   /*  public Object groovyScript(String groovyString) {
         groovyString=delHtmlPre(groovyString);

@@ -108,6 +108,9 @@ public class ScriptUtil {
             if(object==null){
                 return false;
             }
+            if(object instanceof Number||object instanceof Integer ||object instanceof Double || object instanceof Long){
+                return  object;
+            }
             if(object instanceof String){
                 return !object.equals("undefined");
             }
