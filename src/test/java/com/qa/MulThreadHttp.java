@@ -2,6 +2,7 @@ package com.qa;
 
 import com.qa.http.Get;
 import com.qa.http.Http;
+import com.qa.utils.JavaShellUtil;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -63,6 +64,18 @@ public class MulThreadHttp {
                 break;
             }
         }
+
+    }
+
+    @Test
+   void shellTest(){
+        System.out.println(JavaShellUtil.execCommand("curl http://www.baidu.com").toString());
+            System.out.println(JavaShellUtil.execCommand("dir").toString());
+            System.out.println(JavaShellUtil.execCommand("ls -l").toString());
+            //System.out.println(JavaShellUtil.execCommand("ping www.baidu.com").toString());
+            System.out.println(JavaShellUtil.execCommand("aapt v").toString());
+            System.out.println(JavaShellUtil.execCommand("aapt.exe").toString());
+
 
     }
 }

@@ -23,7 +23,7 @@ import static com.qa.utils.StringURLUtil.urlParamMatcher;
  */
 public class ConnectServer {
 
-    String BASE_URL = "";
+    public static String BASE_URL = "";
     JsonUtil jsonUtil=new JsonUtil();
     String URL;
     String env = null;
@@ -37,7 +37,11 @@ public class ConnectServer {
     HttpLog logger=HttpLog.getLogger();
     static int __count_object_=0;
 
+    public ConnectServer() {
+
+    }
     public ConnectServer(String URL) {
+        addShutdownHook();
         this.URL = delHTMLTag(URL);
         this.autoSetBaseUrl();
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
@@ -45,6 +49,7 @@ public class ConnectServer {
     }
 
     public ConnectServer(String URL, String env) {
+        addShutdownHook();
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.autoSetBaseUrl();
@@ -53,15 +58,15 @@ public class ConnectServer {
     }
 
     public ConnectServer(String URL, String env, String type) {
-
+        addShutdownHook();
         this.URL = delHTMLTag(URL);
         this.env = env;
         this.type = type;
         this.autoSetBaseUrl();
-
         __count_object_++;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
     }
+    public boolean post(String url){return  true;}
 
     public boolean post() {
         jsonUtil.parseJson( requestForJSON(BASE_URL + URL));
@@ -157,8 +162,8 @@ public class ConnectServer {
 
     /**
      * 设置http请求参数和 URL 参数
-     * @param name
-     * @param value
+     * @param name 名称
+     * @param value 值
      * @return
      * @throws Exception
      */
@@ -166,9 +171,36 @@ public class ConnectServer {
         requestMap.put(name, value);
         return true;
     }
+    public boolean setParam(String nameValue){
+        if(nameValue!=null ) {
+            if(  nameValue.contains("=")){
+                requestHeaderMap.put(nameValue.split("=")[0], nameValue.split("=")[1]);
+            }else if( nameValue.contains(":")){
+                requestHeaderMap.put(nameValue.split(":")[0], nameValue.split(":")[1]);
+            }
+        }
+        return false;
+    }
     public boolean setHeader(String name, String value) {
         requestHeaderMap.put(name, value);
         return true;
+    }
+
+    /**
+     * 允许使用 a=b和a:b形式的字符串.
+     * @param nameValue
+     * @return
+     */
+    public boolean setHeader(String nameValue) {
+        if(nameValue!=null ){
+            if(  nameValue.contains("=")){
+                requestHeaderMap.put(nameValue.split("=")[0], nameValue.split("=")[1]);
+            }else if( nameValue.contains(":")){
+                requestHeaderMap.put(nameValue.split(":")[0], nameValue.split(":")[1]);
+            }
+            return true;
+        }
+        return false;
     }
 
 
@@ -259,8 +291,8 @@ public class ConnectServer {
         //ScriptUtil.binding(responseBody,"response"); //绑定为直接的字符串
         //ScriptUtil.runJavaScript("response=JSON.parse(response)");
         Boolean out=  (Boolean) ScriptUtil.runJavaScript("CONTAIN(response,"+json+")");
-        if(out==false){
-            System.err.println(jsonCompare(responseBody,json));
+        if(out!=true){
+            HttpLog.info(jsonCompare(responseBody,json));
         }
         return out;
     }
@@ -269,9 +301,7 @@ public class ConnectServer {
      */
     public Object jsonCompare(String json){
         json=delHtmlPre(json);
-        String target=gsonPretty.toJson(  gsonPretty.fromJson(json,Map.class));
-        String big=gsonPretty.toJson(  gsonPretty.fromJson(responseBody,Map.class));
-        return jsonCompare(big,target);
+        return jsonCompare(responseBody,json);
     }
 
     /**
@@ -282,6 +312,9 @@ public class ConnectServer {
      * @return
      */
     public static String jsonCompare(String big, String target){
+
+        big=gsonPretty.toJson(  gsonPretty.fromJson(big,Map.class));
+        target=gsonPretty.toJson(  gsonPretty.fromJson(target,Map.class));
         String[] lines=target.split("\n");
         String[] lineNotEqual=new String[lines.length];
         String[] linesBig=big.split("\n");
@@ -538,12 +571,23 @@ public class ConnectServer {
         i++;
         _url_count_.put(url,i);
     }
+
+    /**
+     * 添加静态代码,处理退出钩子
+     */
     static{
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                System.out.println("请求所有的 URL 个数为:"+ConnectServer._url_count_.size());
-            }
-        });
+        addShutdownHook();
+    }
+    static  boolean ADD_SHUTDOWN_HOOK_DOWN=false;
+    synchronized static void addShutdownHook(){
+        if(ADD_SHUTDOWN_HOOK_DOWN==false){
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                    HttpLog.info( report());
+                }
+            });
+            ADD_SHUTDOWN_HOOK_DOWN=true;
+        }
     }
 
 
@@ -552,7 +596,7 @@ public class ConnectServer {
      *
      * @return
      */
-    public String report(){
+    public static  String report(){
         String msg="请求所有的URL总个数为:"+_url_count_.size()+"\n";
         msg+="HTTP请求总次数:"+__count_object_+"\n";
         msg+="状态码次数分类:"+0+"\n";
@@ -576,8 +620,11 @@ public class ConnectServer {
         msg+="C:"+countC+"\n";
         msg+="HR:"+countHr+"\n";
         msg+="other:"+countOther+"\n";
-
         return  msg;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
     public int httpCode(){
         return responseCode;
@@ -585,6 +632,10 @@ public class ConnectServer {
     public int getResponseCode() {
         return responseCode;
     }
+    public String getResponseBody() {
+        return responseBody;
+    }
+
 
     public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
