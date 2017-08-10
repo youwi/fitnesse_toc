@@ -11,6 +11,14 @@ import static org.junit.Assert.*;
  */
 public class ScriptUtilTest {
     @Test
+    public void beanShell() throws Exception {
+        long sTime=System.currentTimeMillis();
+        ScriptUtil.beanShell("System.out.println(\"a,b\")");
+        long eTime=System.currentTimeMillis();
+        System.out.println(eTime-sTime);
+    }
+
+    @Test
     public void preLoadCompileJs() throws Exception {
         ScriptUtil.preLoadCompileJs();
         assert (Boolean) ScriptUtil.runJavaScript("CONTAIN({\"page\":1,\"size\":10},{\"page\":1,\"size\":10})");

@@ -1,5 +1,6 @@
 package com.qa.utils;
 
+import bsh.EvalError;
 import com.google.gson.Gson;
 
 
@@ -9,19 +10,43 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.Date;
+
+import bsh.Interpreter;
 
 
 /**
  * Created by yu on 16/8/23.
  */
 public class ScriptUtil {
-
-
     static ScriptEngineManager manager = new ScriptEngineManager();
-    public static ScriptEngine engine =null;// manager.getEngineByName("javascript");
+    public static ScriptEngine engine = manager.getEngineByName("javascript");
+    /**
+     * 更好的js引擎,可以直接调用java代码
+    * */
+    public static ScriptEngine engineNode = new ScriptEngineManager().getEngineByName("nashorn");
+
+
+//    static ScriptEngineManager manager = new ScriptEngineManager();
+//    public static ScriptEngine engine =null;// manager.getEngineByName("javascript");
     static Gson gson=GsonJsonUtil.gson;
 
 
+    /**
+     * 动态调用java方法.
+     * @return
+     */
+    public static Object beanShell(String script){
+
+        Interpreter i = new Interpreter();  // Construct an interpreter
+
+        try {
+            return  i.eval(script);
+        } catch (EvalError evalError) {
+            System.err.println(evalError.getMessage()+":"+evalError.getCause().getMessage());
+        }
+        return null;
+    }
     static void  newEngine(){
         if(engine==null){
             engine = manager.getEngineByName("javascript");
@@ -37,7 +62,7 @@ public class ScriptUtil {
         try {
 
             script = script.trim();
-            JSUtil.engine.eval("var out=" + script);
+            engine.eval("var out=" + script);
              return  true;
         } catch (ScriptException e) {
             return false;
@@ -47,7 +72,7 @@ public class ScriptUtil {
         if(json==null) return  false;
         try {
             json = json.trim();
-            JSUtil.engine.eval(json);
+            engine.eval(json);
             return  true;
         } catch (ScriptException e) {
             return false;
@@ -57,7 +82,7 @@ public class ScriptUtil {
         try{
             newEngine();
             String jsScript=  inputStream2String( ScriptUtil.class.getResourceAsStream("/jsonUtil.js"));// Charset.forName("utf-8"));
-            JSUtil.engine.eval(jsScript);
+            engine.eval(jsScript);
 
         }catch (IOException e ){
             System.out.println(e.getMessage());
@@ -101,7 +126,7 @@ public class ScriptUtil {
         if(script==null) return false;
         try {
             script = script.trim();
-            Object object=JSUtil.engine.eval(script);
+            Object object=engine.eval(script);
             if(object instanceof Boolean){
                 return object;
             }
@@ -131,8 +156,8 @@ public class ScriptUtil {
 
                 try {
                     script = script.trim();
-                    JSUtil.engine.eval("var out=" + script+";out=JSON.stringify(out);");
-                    Object obj=JSUtil.engine.get("out");
+                    engine.eval("var out=" + script+";out=JSON.stringify(out);");
+                    Object obj=engine.get("out");
                     if(obj instanceof String)
                         return obj.toString();
                     return  gson.toJson(obj);
@@ -143,8 +168,8 @@ public class ScriptUtil {
             } else if (type.equals("js")) {
                 try {
                     script = script.trim();
-                    JSUtil.engine.eval(script+";typeof(out)!=\"undefined\"?out=JSON.stringify(out):true;");
-                    Object obj=JSUtil.engine.get("out");
+                    engine.eval(script+";typeof(out)!=\"undefined\"?out=JSON.stringify(out):true;");
+                    Object obj=engine.get("out");
 
                     if(obj instanceof String)
                         return obj.toString();
