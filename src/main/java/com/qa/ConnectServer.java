@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -239,7 +240,7 @@ public class ConnectServer {
             responseCode=delete.responseCode();
             logger.info("Response:  "+responseBody);
         }
-        //_url_count_.put(this.URL,responseCode);
+        //_URL_COUNT_.put(this.URL,responseCode);
         addOneUrlCount(keyUrl);
         return responseBody;
     }
@@ -560,23 +561,24 @@ public class ConnectServer {
      *     统计 URL 访问次数
 
      */
-    public static Map<String,Integer> _url_count_=new HashMap();
+    public static Map<String,Integer> _URL_COUNT_ =new HashMap();
 
     /**
      * 添加统计数据,增加一个值
      */
     static public void  addOneUrlCount( String url){
-        Integer i=_url_count_.get(url);
+        url=url.split("\\?")[0];
+        Integer i= _URL_COUNT_.get(url);
         if(i==null) i=0;
-        i++;
-        _url_count_.put(url,i);
+        //分离 GET:http://cw.lieluobo.testing/api/project/subscriber/cw/list?a=b 不允许带get参数做统计.
+        _URL_COUNT_.put(url ,i+1);
     }
 
     /**
      * 添加静态代码,处理退出钩子
      */
     static{
-        addShutdownHook();
+      //  addShutdownHook();
     }
     static  boolean ADD_SHUTDOWN_HOOK_DOWN=false;
     synchronized static void addShutdownHook(){
@@ -597,30 +599,68 @@ public class ConnectServer {
      * @return
      */
     public static  String report(){
-        String msg="请求所有的URL总个数为:"+_url_count_.size()+"\n";
+        urlMapMerge(_URL_COUNT_);
+        String msg="请求所有的URL总个数为:"+ _URL_COUNT_.size()+"\n";
         msg+="HTTP请求总次数:"+__count_object_+"\n";
         msg+="状态码次数分类:"+0+"\n";
+        String msgb="";
+        Map<String,Integer> zoneMap=new HashMap();//  http://cw.
+        Pattern pattern = Pattern.compile("(http://\\w+\\.)");
 
-        //临时方案
-        int countCw=0;
-        int countHr=0;
-        int countC=0;
-        int countOther=0;
-        for(String key:_url_count_.keySet()){
-            if(key.contains("http://cw"))
-                countCw++;
-            if(key.contains("http://www"))
-                countC++;
-            if(key.contains("http://hr"))
-                countHr++;
-            countOther++;
-            System.out.println(key);
+
+        int countTotal=0;
+        for(String key: _URL_COUNT_.keySet()){
+            Matcher m= pattern.matcher(key);
+            if(m.find()){
+              String zoneKey= m.group(0);
+              Integer n=zoneMap.get(zoneKey);
+              if(n==null) n=0;
+              zoneMap.put(zoneKey,n+_URL_COUNT_.get(key));
+            }
+            countTotal++;
+            msgb+=key+" "+ _URL_COUNT_.get(key)+"\n";
         }
-        msg+="CW:"+countCw+"\n";
-        msg+="C:"+countC+"\n";
-        msg+="HR:"+countHr+"\n";
-        msg+="other:"+countOther+"\n";
-        return  msg;
+        for(String key:zoneMap.keySet()){
+            msg+=key+":"+zoneMap.get(key)+"\n";
+        }
+        msg+="total:"+countTotal+"\n";
+        return  msgb+msg;
+    }
+
+    /**
+     *合并url的统计数据
+     * 如:
+     DELETE:http://www.lieluobo.testing/api/resume/groups/3725
+     GET:http://cw.lieluobo.testing/api/project/subscriber/cw/list?a=b
+     GET:http://cw.lieluobo.testing/api/project/subscriber/cw/list?c=d
+     DELETE:http://www.lieluobo.testing/api/resume/groups/3726
+     合并为2条
+     再只针对数字.
+     * @param map
+     */
+    public static void urlMapMerge(Map<String,Integer> map){
+        String regEx = "/\\d+";
+        List<String> removeList=new ArrayList();
+        Map<String,Integer> newMap=new HashMap();
+        Pattern pattern = Pattern.compile(regEx);// Pattern pat = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
+        for(String key:map.keySet()){
+            Matcher matcher = pattern.matcher(key);
+            if(matcher.find()){
+                String newKey=key.replaceAll(regEx,"/{id}");
+                Integer i=map.get(newKey);
+                if(i==null) i=0;
+                newMap.put( newKey,i+1);//
+                removeList.add(key);
+            }else{
+
+            }
+
+        }
+        map.putAll(newMap);
+        for(String removeKey:removeList){
+            map.remove(removeKey);
+        }
+
     }
 
     public void setURL(String URL) {

@@ -19,6 +19,11 @@ public class ScriptUtilTest {
     }
 
     @Test
+    public void beanShellAc(){
+        ScriptUtil.beanShell("com.qa.Command('ls');");
+    }
+
+    @Test
     public void preLoadCompileJs() throws Exception {
         ScriptUtil.preLoadCompileJs();
         assert (Boolean) ScriptUtil.runJavaScript("CONTAIN({\"page\":1,\"size\":10},{\"page\":1,\"size\":10})");

@@ -43,7 +43,7 @@ public class ScriptUtil {
         try {
             return  i.eval(script);
         } catch (EvalError evalError) {
-            System.err.println(evalError.getMessage()+":"+evalError.getCause().getMessage());
+            System.err.println(evalError.getMessage()+":");
         }
         return null;
     }
