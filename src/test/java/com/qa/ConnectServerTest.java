@@ -80,8 +80,16 @@ public class ConnectServerTest {
         ConnectServer cs = new ConnectServer("empty");
 
         cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3725");
+        cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3725");
+        cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3725");
+        cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3725");
+        cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3725");
+        cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3725");
+        cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3725");
+        cs.addOneUrlCount("GET:http://cw.lieluobo.testing/api/project/subscriber/cw/list?a=k");
         cs.addOneUrlCount("GET:http://cw.lieluobo.testing/api/project/subscriber/cw/list?a=b");
         cs.addOneUrlCount("GET:http://cw.lieluobo.testing/api/project/subscriber/cw/list?c=d");
+        cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3726");
         cs.addOneUrlCount("DELETE:http://www.lieluobo.testing/api/resume/groups/3726");
         cs.addOneUrlCount("POST:http://cw.lieluobo.testing/api/account/list");
         cs.addOneUrlCount("POST:http://cw.lieluobo.testing/api/financial/update");
@@ -483,6 +491,7 @@ public class ConnectServerTest {
         cs.addOneUrlCount("POST:http://www.lieluobo.testing/api/resume/groups");
         cs.addOneUrlCount("GET:http://cw.lieluobo.testing/api/project/subscriber/cw/headhunters");
         cs.addOneUrlCount("GET:http://hr.lieluobo.testing/api/hr/order/522");
+        cs.addOneUrlCount("GET:http://hr.lieluobo.testing/api/hr/order/522");
         cs.addOneUrlCount("GET:http://cw.lieluobo.testing/api/bi/detail/loginHeadhunters");
         cs.addOneUrlCount("GET:http://cw.lieluobo.testing/api/mail/accountInfo");
         cs.addOneUrlCount("POST:http://cw.lieluobo.testing/api//bd/crm/detail/interviewCustomerCompany");
@@ -490,7 +499,6 @@ public class ConnectServerTest {
         cs.addOneUrlCount("GET:http://www.lieluobo.testing/api/account/me");
         cs.addOneUrlCount("GET:http://cw.lieluobo.testing/api/bi/detail/haveRecommendHeadhunters");
         // cs.report();
-
     }
 
     /*

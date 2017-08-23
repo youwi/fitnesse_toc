@@ -600,13 +600,15 @@ public class ConnectServer {
      */
     public static  String report(){
         urlMapMerge(_URL_COUNT_);
+        _URL_COUNT_=sortMap(_URL_COUNT_);
         String msg="请求所有的URL总个数为:"+ _URL_COUNT_.size()+"\n";
         msg+="HTTP请求总次数:"+__count_object_+"\n";
         msg+="状态码次数分类:"+0+"\n";
         String msgb="";
-        Map<String,Integer> zoneMap=new HashMap();//  http://cw.
-        Pattern pattern = Pattern.compile("(http://\\w+\\.)");
+        Map<String,Integer> zoneMap=new HashMap();//  http://cw.请求合计
+        Map<String,Integer> zoneCount=new HashMap();//  http://cw. url合计
 
+        Pattern pattern = Pattern.compile("(http://\\w+\\.)");
 
         int countTotal=0;
         for(String key: _URL_COUNT_.keySet()){
@@ -616,15 +618,39 @@ public class ConnectServer {
               Integer n=zoneMap.get(zoneKey);
               if(n==null) n=0;
               zoneMap.put(zoneKey,n+_URL_COUNT_.get(key));
+              Integer c=zoneCount.get(zoneKey);
+              if(c==null) c=0;
+              zoneCount.put(zoneKey,c+1);
             }
             countTotal++;
             msgb+=key+" "+ _URL_COUNT_.get(key)+"\n";
         }
         for(String key:zoneMap.keySet()){
-            msg+=key+":"+zoneMap.get(key)+"\n";
+            msg+=key+" :"+zoneCount.get(key)+"/"+zoneMap.get(key)+"(个数/次数)\n";
         }
         msg+="total:"+countTotal+"\n";
         return  msgb+msg;
+    }
+
+    /**
+     * 按key排序
+     * @param myMapTmp
+     * @return
+     */
+    public static Map sortMap(Map myMapTmp){
+        Map<String,Object> myMap = new LinkedHashMap();
+        List<String> keyList = new ArrayList();
+        Iterator<String> it =myMapTmp.keySet().iterator();
+        while(it.hasNext()){
+            keyList.add(it.next());
+        }
+        Collections.sort(keyList);
+        Iterator<String> it2 = keyList.iterator();
+        while(it2.hasNext()){
+            String key = it2.next();
+            myMap.put(key, myMapTmp.get(key));
+        }
+        return myMap;
     }
 
     /**
@@ -647,9 +673,11 @@ public class ConnectServer {
             Matcher matcher = pattern.matcher(key);
             if(matcher.find()){
                 String newKey=key.replaceAll(regEx,"/{id}");
-                Integer i=map.get(newKey);
+                Integer i=map.get(key);
+                Integer j=newMap.get(newKey);
                 if(i==null) i=0;
-                newMap.put( newKey,i+1);//
+                if(j==null) j=0;
+                newMap.put( newKey,i+j+1);//
                 removeList.add(key);
             }else{
 
