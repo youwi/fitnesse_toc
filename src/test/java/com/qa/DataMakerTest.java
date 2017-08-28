@@ -48,7 +48,15 @@ public class DataMakerTest {
     public void testTid() throws Exception {
         System.out.println(DataMaker. string(100).length());
         System.out.println(DataMaker. string(5000).length());
+        for(int i=0;i<100;i++){
+            assert DataMaker. string(i).length()==i;
+        }
+
+        for(int i=0;i<100;i++){
+            System.out.println(  DataMaker. stringChina(i));
+        }
     }
+
 
     @Test
     public void testTid1() throws Exception {

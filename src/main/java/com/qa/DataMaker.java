@@ -225,15 +225,19 @@ public class DataMaker {
     }
 
     /**
-     * 按长度做出字符串
+     * 按长度做出字符串,
+     * 不考虑运行效率..
      */
     public static String string(int length){
       return   getRandomString(length);
     }
+    public static String stringChina(int length){
+        return   getRandomString(length).replaceAll("\\d","一").replaceAll("\\w","天");
+    }
     public static char getRandomChar(){
     String str="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM一二三四五二十丁厂七卜人入八九几儿了力乃刀又丰王井开夫天无元专云扎艺木五支厅不太犬区历尤友匹车巨牙屯比互切瓦止少日中冈贝内水见午牛手毛气升长仁什片仆化仇币仍仅斤爪反介父从今凶分乏公仓月氏勿欠风丹匀乌凤勾文六方火为斗忆订计户认心尺引丑巴孔队办以允予劝双书幻";
-        Random r = new Random(System.currentTimeMillis());
-        char ch = str.charAt(r.nextInt(62));
+        Random r = new Random(System.nanoTime());
+        char ch = str.charAt(r.nextInt(str.length()));
         return ch;
     }
     public static String getRandomString(int length){
