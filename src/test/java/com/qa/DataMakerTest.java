@@ -46,6 +46,8 @@ public class DataMakerTest {
 
     @Test
     public void testTid() throws Exception {
+        System.out.println(DataMaker. string(100).length());
+        System.out.println(DataMaker. string(5000).length());
     }
 
     @Test

@@ -3,7 +3,10 @@ package com.qa;
 
 import com.qa.http.Get;
 import com.qa.http.Http;
+import fitnesse.fixtures.SystemExitTableConfiguration;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 import static com.qa.Store.GLOBAL_HEADERS_KEY;
 
@@ -60,15 +63,32 @@ public class CITest {
         cs.get();
     }
 
-   // @Test
+    @Test
     public void baiduTest() {
         new Store("headers","{auther:\"abc\"}");
         ConnectServer cs = new ConnectServer("http://baidu.com");
         cs.setParam("id", "1");
         cs.setParam("id2", "3");
         cs.get();
-
+    }
+    //@Test
+    public void sk22(){
+        ConnectServer cs = new ConnectServer("http://cw.lieluobo.testing/api/bd/org/101707/visit");
+        cs.setHeader("author", "haolie");
+        cs.setHeader("authorization", "d0d700fbb71849f3bbd4a2106a8479a0");
+        cs.setHeader("channel","crmhr");
+        cs.get();
     }
 
+    //@Test
+    public void ss(){
+
+        try {
+            fitnesse.slim.SlimService.main(new String[]{"1"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new SystemExitTableConfiguration();
+    }
 
 }

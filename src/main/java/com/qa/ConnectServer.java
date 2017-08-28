@@ -248,25 +248,23 @@ public class ConnectServer {
      * 填充请求 header,包括全局 header
     * */
     public void fillRequestHeader(Request request,Map<String,String> headerMap){
-        if(Store.get(GLOBAL_HEADERS_KEY)==null){
-           return;
-        }
-        Map<String,String> headersMap= GsonJsonUtil.gson.fromJson((String)Store.get("headers"),Map.class);
+        if(Store.get(GLOBAL_HEADERS_KEY)!=null){
+            Map<String,String> headersMap= GsonJsonUtil.gson.fromJson((String)Store.get("headers"),Map.class);
 
-        for(String key:headersMap.keySet()){
-            request.header(key,headersMap.get(key));
-            logger.info("Header:   "+key+":"+headersMap.get(key));
+            for(String key:headersMap.keySet()){
+                request.header(key,headersMap.get(key));
+                logger.info("Header:   "+key+":"+headersMap.get(key));
 
-        }
-        if(headerMap==null) return;
-
-        for(String key:headerMap.keySet()){
-            request.header(key,headerMap.get(key));
-            logger.info("Header:   "+key+":"+headerMap.get(key));
-
+            }
         }
 
+        if(headerMap!=null){
+            for(String key:headerMap.keySet()){
+                request.header(key,headerMap.get(key));
+                logger.info("Header:   "+key+":"+headerMap.get(key));
 
+            }
+        }
     }
 
     /**
@@ -353,6 +351,8 @@ public class ConnectServer {
         ScriptUtil.preLoadCompileJs();
         ScriptUtil.runJavaScript("response=null");
         ScriptUtil.runJavaScript("response="+responseBody);
+        ScriptUtil.runJavaScript("request=null");
+        ScriptUtil.runJavaScript("request="+requestBody);
         return ScriptUtil.runJavaScript(js);
     }
 
