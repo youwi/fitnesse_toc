@@ -90,7 +90,7 @@ public class SetUp {
 
             conn.setAutoCommit(true);
             stmt = conn.createStatement();
-            System.out.println("debug sql: "+sql);
+            HttpLog.info(sql);
             _count = stmt.executeUpdate(sql);
         } catch (SQLException e) {
             ExceptionUtil.printlnSo(e);

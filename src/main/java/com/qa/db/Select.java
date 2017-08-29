@@ -1,6 +1,7 @@
 package com.qa.db;
 
 import com.google.gson.Gson;
+import com.qa.http.HttpLog;
 import com.qa.utils.ExceptionUtil;
 import com.qa.utils.GsonJsonUtil;
 
@@ -96,6 +97,7 @@ public class Select extends SQL{
 
             stmt = conn.createStatement();
             rset = stmt.executeQuery(sql);
+            HttpLog.info(sql);
 
             ArrayList<String> columnNames = new ArrayList<String>();
 
