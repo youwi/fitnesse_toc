@@ -2,6 +2,7 @@ package com.qa;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -231,9 +232,10 @@ public class DataMaker {
     public static String string(int length){
       return   getRandomString(length);
     }
-    public static String stringChina(int length){
+    public static String chineseString(int length){
         return   getRandomString(length).replaceAll("\\d","一").replaceAll("\\w","天");
     }
+
     public static char getRandomChar(){
     String str="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM一二三四五二十丁厂七卜人入八九几儿了力乃刀又丰王井开夫天无元专云扎艺木五支厅不太犬区历尤友匹车巨牙屯比互切瓦止少日中冈贝内水见午牛手毛气升长仁什片仆化仇币仍仅斤爪反介父从今凶分乏公仓月氏勿欠风丹匀乌凤勾文六方火为斗忆订计户认心尺引丑巴孔队办以允予劝双书幻";
         Random r = new Random(System.nanoTime());
@@ -248,6 +250,99 @@ public class DataMaker {
             length--;
         }
         return str.toString();
+    }
+    public  static void mondayToSunday() {
+        Date now = new Date();
+        Date time = new Date(now.getYear(), now.getMonth(), now.getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 设置时间格式
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        System.out.println("要计算日期为:" + sdf.format(cal.getTime())); // 输出要计算日期
+        // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        // 获得当前日期是一个星期的第几天
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        String imptimeBegin = sdf.format(cal.getTime());
+        Date mondayDate = cal.getTime();
+        System.out.println("所在周星期一的日期：" + imptimeBegin);
+
+        cal.add(Calendar.DATE, 6);
+        cal.set(Calendar.HOUR, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        String imptimeEnd = sdf.format(cal.getTime());
+        Date sundayDate = cal.getTime();
+        System.out.println("所在周星期日的日期：" + imptimeEnd);
+
+        DateFormat datetimeDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("星期一的开始："+datetimeDf.format(mondayDate));
+        System.out.println("星期天的结束："+datetimeDf.format(sundayDate));
+    }
+
+    /**
+     * 计算本周时间字
+     * 星期一：2017-08-28 00:00:00
+     * 星期天：2017-09-03 23:59:59
+     * 从星期一开始
+     * @return
+     */
+
+    public static String  weekdayTime(int dayCount){
+        Date now = new Date();
+        Date time = new Date(now.getYear(), now.getMonth(), now.getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 设置时间格式
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+         int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+
+        cal.add(Calendar.DATE, dayCount-1);
+      //  cal.set(Calendar.HOUR, 23);
+      //  cal.set(Calendar.MINUTE, 59);
+      //  cal.set(Calendar.SECOND, 59);
+        Date sundayDate = cal.getTime();
+
+        DateFormat datetimeDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return  datetimeDf.format(sundayDate);
+    }
+    public static String weekday(int day){
+        return  weekdayTime(day);
+    }
+
+    /**
+     * 获取今天的日期(0分0时)
+     * @return
+     */
+    public static String today(){
+        return  today(0);
+    }
+    public static String today(int off){
+        Date now=new Date();
+        Date time = new Date(now.getYear(), now.getMonth(), now.getDate());
+        Date date=new Date(time.getTime()+off*24*60*60*1000);
+        DateFormat datetimeDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return  datetimeDf.format(date);
     }
 
 

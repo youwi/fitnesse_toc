@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.util.Date;
 
 import bsh.Interpreter;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 
 /**
@@ -139,11 +140,15 @@ public class ScriptUtil {
             if(object instanceof String){
                 return !object.equals("undefined");
             }
+            if(object instanceof ScriptObjectMirror){
+               if(((ScriptObjectMirror) object).isFunction())
+                    return "function";
+            }
         } catch (ScriptException e) {
             ExceptionUtil.printlnSo(e);
             return false;
         }
-        return false;
+        return true;
     }
     public static String buildScript(String script, String type) {
         newEngine();

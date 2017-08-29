@@ -38,10 +38,16 @@ public class DataMakerTest {
 
     @Test
     public void testPendArray() throws Exception {
+        System.out.println(DataMaker.today(0));
+
+        System.out.println(DataMaker.today(1));
     }
 
     @Test
     public void testUuid() throws Exception {
+        System.out.println(DataMaker. weekdayTime(1));
+        System.out.println(DataMaker. weekdayTime(7));
+      //  DataMaker.        mondayToSunday();
     }
 
     @Test
@@ -53,7 +59,7 @@ public class DataMakerTest {
         }
 
         for(int i=0;i<100;i++){
-            System.out.println(  DataMaker. stringChina(i));
+            System.out.println(  DataMaker. chineseString(i));
         }
     }
 
