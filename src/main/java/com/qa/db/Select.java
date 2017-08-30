@@ -31,8 +31,8 @@ public class Select extends SQL{
 
 
     public Select(String sql) {
-        List<List<List<String>>> dataTable = getDataTable(sql);
-        new ArrayList<Object>(dataTable);
+      //  List<List<List<String>>> dataTable = getDataTable(sql);
+      //  new ArrayList<Object>(dataTable);
         getDataTable(sql);
     }
 

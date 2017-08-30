@@ -230,10 +230,10 @@ public class DataMaker {
      * 不考虑运行效率..
      */
     public static String string(int length){
-      return   getRandomString(length);
+      return   randomString(length);
     }
     public static String chineseString(int length){
-        return   getRandomString(length).replaceAll("\\d","一").replaceAll("\\w","天");
+        return   randomString(length).replaceAll("\\d","一").replaceAll("\\w","天");
     }
 
     public static char getRandomChar(){
@@ -242,7 +242,13 @@ public class DataMaker {
         char ch = str.charAt(r.nextInt(str.length()));
         return ch;
     }
-    public static String getRandomString(int length){
+
+    /**
+     * 按长度生成随机字符串
+     * @param length
+     * @return
+     */
+    public static String randomString(int length){
         StringBuffer str = new StringBuffer();
         while(length > 0){
             char ch = getRandomChar();
