@@ -138,7 +138,10 @@ public class ScriptUtil {
                 return  object;
             }
             if(object instanceof String){
-                return !object.equals("undefined");
+                if(object.equals("undefined")){
+                    return false;
+                };
+                return  object;
             }
             if(object instanceof ScriptObjectMirror){
                if(((ScriptObjectMirror) object).isFunction())

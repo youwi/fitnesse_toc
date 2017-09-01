@@ -346,7 +346,7 @@ public class ConnectServer {
     public boolean textContain(String target){
         return  responseBody.toLowerCase().contains(target.toLowerCase());
     }
-    public Object javaScript(String js){
+    public  Object javaScript(String js){
         js=delHtmlPre(js);
         ScriptUtil.preLoadCompileJs();
         ScriptUtil.runJavaScript("response=null");
@@ -529,7 +529,7 @@ public class ConnectServer {
          //TODO
     }
     public static String delHtmlPre(String htmlStr){
-        return htmlStr.trim().replace("<pre>","").replace("</pre>","").trim();
+        return unescapeHtml(htmlStr.trim().replace("<pre>","").replace("</pre>","").trim());
     }
 
     /**
@@ -690,7 +690,15 @@ public class ConnectServer {
         }
 
     }
-
+    public static String unescapeHtml(String fString){
+        fString = fString.replace("&gt;", ">");
+        fString = fString.replace( "&lt;", "<");
+        fString = fString.replace("&nbsp;",String.valueOf(32));
+        fString = fString.replace("&quot;",String.valueOf(34));
+        fString = fString.replace("&#39;",String.valueOf(39));
+        fString = fString.replace( "<BR>", String.valueOf(10));
+        return  fString;
+    }
     public void setURL(String URL) {
         this.URL = URL;
     }

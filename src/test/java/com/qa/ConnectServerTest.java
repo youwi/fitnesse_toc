@@ -84,6 +84,31 @@ public class ConnectServerTest {
     }
 
     @Test
+    public void htmlTest(){
+        System.out.println(ConnectServer.unescapeHtml("for(var i=0;i&lt;response.body.length;i++)&lt;&lt;&lt;"));
+    }
+    @Test
+    public void rujsExit(){
+        ConnectServer cs = new ConnectServer("empty");
+        cs.responseBody="{body:[]}";
+
+      //  cs.javaScript("exit");
+        cs.javaScript("var out=\"OK\"\n" +
+                "for(var i=0;i<response.body.length;i++){\n" +
+                "  var curr=response.body[i]\n" +
+                "  for(var j=i+1;j<response.body.length;j++){\n" +
+                "  var next=response.body[j]\n" +
+                "   if(curr.orderId==next.orderId){\n" +
+                "     out=\"fuck\"\n" +
+                "     break \n" +
+                "   }\n" +
+                "  }\n" +
+                "}\n" +
+                "out");
+    }
+
+
+    @Test
     public void urlMapMergeTest() {
         Integer it = null;
         // int a=it; //不能转化
