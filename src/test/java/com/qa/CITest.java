@@ -7,6 +7,8 @@ import fitnesse.fixtures.SystemExitTableConfiguration;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.qa.Store.GLOBAL_HEADERS_KEY;
 
@@ -89,6 +91,14 @@ public class CITest {
             e.printStackTrace();
         }
         new SystemExitTableConfiguration();
+    }
+    @Test
+    public void memoutTest(){
+        //内存溢出测试
+        Map map=new HashMap();
+        for(int i=0;i<1000000000;i++){
+            map.put(i,i);
+        }
     }
 
 }
