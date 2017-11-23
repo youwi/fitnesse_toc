@@ -21,6 +21,8 @@ public class DataMakerTest {
 
     @Test
     public void testTid3() throws Exception {
+        for(int i=0;i<100;i++)
+            System.out.println(DataMaker.chineseName()) ;
     }
 
     @Test
@@ -29,6 +31,17 @@ public class DataMakerTest {
 
     @Test
     public void testIntArray2() throws Exception {
+        for(int i=0;i<100;i++){
+            //System.out.println(Math.random()*10);
+          //  System.out.println(Math.round(Math.random()*10));
+            System.out.println(DataMaker.randomIsoDate()) ;
+        }
+    }
+
+    @Test
+    public void isoDate(){
+        for(int i=0;i<100;i++)
+            System.out.println(DataMaker.isoDate()) ;
     }
 
     @Test

@@ -297,6 +297,26 @@ public class DataMaker {
     }
 
     /**
+     * 生成ISO标签的时间
+     * @return
+     */
+    public static String isoDate(){
+        DateFormat datetimeDf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ssZ");
+        return  datetimeDf.format(new Date());
+    }
+
+    /**
+     * 随机生成3-5年的时间
+     * @return
+     */
+    public static String randomIsoDate(){
+        DateFormat datetimeDf = new SimpleDateFormat("YYYY-MM-dd'T'hh:mm:ssZ");
+        long time=System.currentTimeMillis();
+        time=time-Math.round(Math.random()*10)*(365-Math.round(Math.random()*180))*24*60*60*1000;
+        return  datetimeDf.format(new Date(time));
+    }
+
+    /**
      * 计算本周时间字
      * 星期一：2017-08-28 00:00:00
      * 星期天：2017-09-03 23:59:59
