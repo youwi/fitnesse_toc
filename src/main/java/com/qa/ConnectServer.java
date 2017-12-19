@@ -269,7 +269,7 @@ public class ConnectServer {
 
     /**
      * 获取返回结果中的json结果
-     * @return
+     * @return string Value
      */
     public String jsonValue(String key){
         try {
@@ -506,22 +506,28 @@ public class ConnectServer {
 
     /**
      * 从 URL 中提取 IP:端口
+     * TODO
      * @param url
      * @return
      */
     public static String subHttpIpPort(String url){
+
         if(url!=null){
-           String[] tmp1= url.split("http://");
-           String  tmpString=tmp1.length>1?tmp1[1]:tmp1[0];
-           String[] tmp2= tmpString.split("/");
-           return "http://"+tmp2[0];
+            if(url.startsWith("http")){
+                return url;
+            }else{
+                String[] tmp1= url.split("http://");
+                String  tmpString=tmp1.length>1?tmp1[1]:tmp1[0];
+                String[] tmp2= tmpString.split("/");
+                return "http://"+tmp2[0];
+            }
         }
         return "";
     }
 
     /**
      * 只删除少量的 Html,如前缀和后缀,只去除最外层一个标签标签
-     * @param maybeHtml
+     * @param maybeHtml 可能为html的文本
      * @return
      */
     public static String delSimpleHtmlTag(String maybeHtml){
@@ -535,7 +541,7 @@ public class ConnectServer {
     /**
      * 去除 html 中所有的标签和脚本,只保留文本
      * @param htmlString 源文本
-     * @return
+     * @return 文本
      */
     public static String delHTMLTag(String htmlString) {
         String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
