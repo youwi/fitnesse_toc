@@ -29,7 +29,7 @@ public class Att {
 
         new Store("headers","{author:\"haolie\",authorization:\""+cs.jsonValue("body")+"\",channel:\"hr\"}");
     }
-    @Test
+    //@Test
     public void Test01At188(){
 
         //签到
@@ -46,7 +46,7 @@ public class Att {
     public void cleanData(){
         new Delete("delete from activity_attendance where account_id=204705");//
     }
-    @Test
+   // @Test
     public void jj(){
         fackDataBy(2);
     }
