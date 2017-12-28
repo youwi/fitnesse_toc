@@ -384,6 +384,16 @@ public class DataMaker {
         return  datetimeDf.format(now);
     }
 
+    /**
+     * 生成对偶数据
+     * {name:[1,2,3],age:[1,2,3],_target:{}}==> {name:1,age:1} .....
+     * @return
+     */
+    public static String pair(){
+        //TODO
+        return "";
+    }
+
 
 
     public static String base = "abcdefghijklmnopqrstuvwxyz0123456789";
