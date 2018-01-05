@@ -295,6 +295,15 @@ public class ConnectServer {
         }
         return out;
     }
+    public boolean jsonMatch(String key,String matchString){
+        String ori= jsonUtil.getResult(key);
+        Pattern pattern = Pattern.compile(matchString);
+        // 忽略大小写的写法
+         Matcher matcher = pattern.matcher(ori);
+        // 查找字符串中是否有匹配正则表达式的字符/字符串
+         return  matcher.find();
+
+    }
     /**
      给出对比分析结果
      */

@@ -119,6 +119,11 @@ public class JsonUtil {
 	}
 
 
+	public void parseJson(String  string) {
+		JSONObject jsonObject=new JSONObject(string);
+		this.setObj(jsonObject);
+		parseJson(jsonObject, "");
+	}
 	public void parseJson(JSONObject jsonObject) {
 		this.setObj(jsonObject);
 		parseJson(jsonObject, "");

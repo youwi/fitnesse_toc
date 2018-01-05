@@ -1,6 +1,7 @@
 package com.qa;
 
 import com.qa.utils.GsonJsonUtil;
+import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +15,203 @@ import java.util.regex.Pattern;
  * Created by yu on 2017/7/11.
  */
 public class ConnectServerTest {
+    @Test
+    public void testPost() throws Exception {
+    }
+
+    @Test
+    public void testPost1() throws Exception {
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+    }
+
+    @Test
+    public void testGet() throws Exception {
+    }
+
+    @Test
+    public void testIsGson() throws Exception {
+    }
+
+    @Test
+    public void testGsonParse() throws Exception {
+    }
+
+    @Test
+    public void testUuid() throws Exception {
+    }
+
+    @Test
+    public void testTid() throws Exception {
+    }
+
+    @Test
+    public void testTid1() throws Exception {
+    }
+
+    @Test
+    public void testSetParam() throws Exception {
+    }
+
+    @Test
+    public void testSetParam1() throws Exception {
+    }
+
+    @Test
+    public void testSetHeader() throws Exception {
+    }
+
+    @Test
+    public void testSetHeader1() throws Exception {
+    }
+
+    @Test
+    public void testRequestForString() throws Exception {
+    }
+
+    @Test
+    public void testFillRequestHeader() throws Exception {
+    }
+
+    @Test
+    public void testJsonValue() throws Exception {
+    }
+
+    @Test
+    public void testJsonLike() throws Exception {
+    }
+
+    @Test
+    public void testJsonMatch() throws Exception {
+        ConnectServer cs = new ConnectServer("empty");
+        cs.responseBody = "{\"code\":1,\"msg\":\"OK\",\"body\":[{\"id\":101716,\"name\":\"客户公司-变动状态-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":20,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[1,44],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0},{\"id\":101705,\"name\":\"客户公司-自动化测试预埋数据\",\"orgBdId\":204632,\"orgBdName\":\"员工4-HRBD-自动化测试预埋数据\",\"bdPriority\":10,\"hunterOrderProgress\":0,\"signStatus\":4,\"industryCodes\":[5,8,2],\"natureCode\":1,\"locationId\":310000,\"type\":1,\"projectProgress\":0}],\"meta\":{\"pagination\":{\"page\":1,\"size\":10,\"total\":2,\"totalPages\":1}}}\n";
+        assert cs.jsonContain("{name:\t\"客户公司-自动化测试预埋数据\",orgBdName:\t\"员工4-HRBD-自动化测试预埋数据\"}");
+        cs.jsonUtil.parseJson(new JSONObject(cs.responseBody));
+        assert cs.jsonMatch("body[0].name","客户公司.*");
+        assert !cs.jsonMatch("body[0].name","客户公司A.*");
+    }
+
+    @Test
+    public void testJsonCompare() throws Exception {
+    }
+
+    @Test
+    public void testJsonCompare1() throws Exception {
+    }
+
+    @Test
+    public void testTextContain() throws Exception {
+    }
+
+    @Test
+    public void testJsonSimilar() throws Exception {
+    }
+
+    @Test
+    public void testRequestForJSON() throws Exception {
+    }
+
+    @Test
+    public void testRequestForXML() throws Exception {
+    }
+
+    @Test
+    public void testJsonStructure() throws Exception {
+    }
+
+    @Test
+    public void testResponseHeader() throws Exception {
+    }
+
+    @Test
+    public void testSetType() throws Exception {
+    }
+
+    @Test
+    public void testUpStr() throws Exception {
+    }
+
+    @Test
+    public void testAutoGetEnvirementIPUrl() throws Exception {
+    }
+
+    @Test
+    public void testAUTO_GET_BASE_URL() throws Exception {
+    }
+
+    @Test
+    public void testAutoSetBaseUrl() throws Exception {
+    }
+
+    @Test
+    public void testIsEmpty() throws Exception {
+    }
+
+    @Test
+    public void testIsNotEmpty() throws Exception {
+    }
+
+    @Test
+    public void testStore() throws Exception {
+    }
+
+    @Test
+    public void testDelSimpleHtmlTag() throws Exception {
+    }
+
+    @Test
+    public void testDelHTMLTag() throws Exception {
+    }
+
+    @Test
+    public void testAddOneUrlCount() throws Exception {
+    }
+
+    @Test
+    public void testAddShutdownHook() throws Exception {
+    }
+
+    @Test
+    public void testReport() throws Exception {
+    }
+
+    @Test
+    public void testSortMap() throws Exception {
+    }
+
+    @Test
+    public void testUrlMapMerge() throws Exception {
+    }
+
+    @Test
+    public void testUnescapeHtml() throws Exception {
+    }
+
+    @Test
+    public void testSetURL() throws Exception {
+    }
+
+    @Test
+    public void testHttpCode() throws Exception {
+    }
+
+    @Test
+    public void testGetResponseCode() throws Exception {
+    }
+
+    @Test
+    public void testGetResponseBody() throws Exception {
+    }
+
+    @Test
+    public void testSetResponseCode() throws Exception {
+    }
+
+    @Test
+    public void testBuildURLKey() throws Exception {
+    }
 
     @Test
     public void delHtmlPre() throws Exception {
@@ -585,6 +783,7 @@ public class ConnectServerTest {
         ;
         System.out.println(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").format(new Date(1000000000)));
     }
+
 
     @Test
     public void stringCompareTest() {
