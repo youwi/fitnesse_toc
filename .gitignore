@@ -1,6 +1,7 @@
 /bin
 /target/
 dump
+author.sh
 /.idea
 /*.iml
 ### Java template
