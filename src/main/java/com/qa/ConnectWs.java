@@ -1,5 +1,6 @@
 package com.qa;
 
+import com.qa.http.Http;
 import com.qa.http.HttpLog;
 import com.qa.utils.JsonUtil;
 import org.java_websocket.client.WebSocketClient;
@@ -52,7 +53,8 @@ public class ConnectWs {
 
                 @Override
                 public void onMessage(ByteBuffer byteBuffer) {
-                    HttpLog.info("Binary:---");
+                    HttpLog.info("--Binary:---");
+                    //这里使用了,haolie的格式.
                     responseBody=Utf8ArrayToStr(byteBuffer);
                     HttpLog.info(responseBody);
                 }
@@ -71,6 +73,16 @@ public class ConnectWs {
     }
 
     public boolean send(String string) {
+
+        for(int i=0;i<5;i++){
+            if(!client.isOpen()){
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    HttpLog.info(e.getMessage());
+                }
+            }
+        }
         HttpLog.info("Send:"+string);
         client.getConnection().send(string);
         return true;

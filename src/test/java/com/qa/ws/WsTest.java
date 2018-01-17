@@ -1,5 +1,7 @@
 package com.qa.ws;
 
+import com.qa.ConnectWs;
+import com.qa.http.HttpLog;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.testng.annotations.Test;
@@ -33,7 +35,7 @@ public class WsTest{
             }
             @Override
             public void onMessage(ByteBuffer byteBuffer){
-                System.out.println("二进制数据");
+                //HttpLog.info("--binary--"+client.getURI()+"--");
                 System.out.println(Utf8ArrayToStr(byteBuffer));
             }
 
@@ -51,5 +53,56 @@ public class WsTest{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void publiTest() throws URISyntaxException {
+
+        WebSocketClient client = new WebSocketClient(new URI( "ws://121.40.165.18:8088")) {
+            @Override
+            public void onOpen( ServerHandshake handshakedata ) {
+                System.out.println("已经连接");
+                getConnection().send("AAAA");
+            }
+
+            @Override
+            public void onMessage( String message ) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onClose( int code, String reason, boolean remote ) {
+                System.out.println("退出"+reason+code);
+            }
+            @Override
+            public void onMessage(ByteBuffer byteBuffer){
+                //HttpLog.info("--binary--"+client.getURI()+"--");
+                System.out.println(Utf8ArrayToStr(byteBuffer));
+            }
+
+            @Override
+            public void onError( Exception ex ) {
+                System.out.println("出错.");
+            }
+        };
+        client.connect();
+        //client.onMessage();
+        // 存在子线程.
+
+//        try {
+//        //    Thread.sleep(500000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    @Test
+    public void voTest(){
+        ConnectWs cs=new ConnectWs("ws://121.40.165.18:8088");
+        System.out.println(cs.value());
+        cs.send("ABC");
+        System.out.println(cs.value());
+
+
     }
 }

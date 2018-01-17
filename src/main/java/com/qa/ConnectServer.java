@@ -4,8 +4,14 @@ import com.qa.http.*;
 import com.qa.utils.*;
 import com.qa.constants.ConfigConstantsTest;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONObject;
 import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
+import java.nio.channels.NotYetConnectedException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -16,6 +22,7 @@ import java.util.regex.Pattern;
 import static com.qa.Store.GLOBAL_HEADERS_KEY;
 import static com.qa.Store.getEnv;
 import static com.qa.utils.GsonJsonUtil.gsonPretty;
+import static com.qa.utils.HaoLieUtil.Utf8ArrayToStr;
 import static com.qa.utils.StringURLUtil.buildFromByMap;
 import static com.qa.utils.StringURLUtil.urlParamMatcher;
 
@@ -37,25 +44,19 @@ public class ConnectServer {
     String type = null;
     HttpLog logger=HttpLog.getLogger();
     static int __count_object_=0;
+    WebSocketClient wsclient = null;
+
+    String WS_URL="";
 
     public ConnectServer() {
 
     }
     public ConnectServer(String URL) {
-        addShutdownHook();
-        this.URL = delHTMLTag(URL);
-        this.autoSetBaseUrl();
-        AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
-        __count_object_++;
+        new ConnectServer(URL,null,null);
     }
 
     public ConnectServer(String URL, String env) {
-        addShutdownHook();
-        this.URL = delHTMLTag(URL);
-        this.env = env;
-        this.autoSetBaseUrl();
-         __count_object_++;
-        AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
+       new ConnectServer(URL,env,null);
     }
 
     public ConnectServer(String URL, String env, String type) {
@@ -66,6 +67,77 @@ public class ConnectServer {
         this.autoSetBaseUrl();
         __count_object_++;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
+        if(URL.startsWith("ws://")) buildConnectWs(this.URL);
+
+    }
+    public void buildConnectWs(String url) {
+
+        try {
+            wsclient = new WebSocketClient(new URI(url)) {
+                @Override
+                public void onOpen(ServerHandshake handshakeData) {
+                    HttpLog.info("ConnectSuccess:" + url);
+                    WS_URL=url;
+                }
+
+                @Override
+                public void onMessage(String message) {
+                    HttpLog.info("Message:"+message);
+                    responseBody=message;
+
+                }
+
+                @Override
+                public void onClose(int code, String reason, boolean remote) {
+                    HttpLog.info("ConnectClose:"+WS_URL);
+                }
+
+                @Override
+                public void onMessage(ByteBuffer byteBuffer) {
+                    HttpLog.info("--Binary:---");
+                    //这里使用了,haolie的格式.
+                    responseBody=Utf8ArrayToStr(byteBuffer);
+                    HttpLog.info(responseBody);
+                }
+
+                @Override
+                public void onError(Exception ex) {
+                    HttpLog.info("WS_ERROR:"+ex.getMessage());
+                }
+            };
+        } catch (URISyntaxException e) {
+            HttpLog.info(e.getMessage());
+        } catch (NotYetConnectedException e) {
+            HttpLog.info(e.getMessage());
+        }
+        wsclient.connect();
+    }
+
+    /**
+     * only for ws://localhost
+     * @param string
+     * @return
+     */
+    public boolean send(String string) {
+
+        for(int i=0;i<5;i++){
+            if(!wsclient.isOpen()){
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    HttpLog.info(e.getMessage());
+                }
+            }
+        }
+        HttpLog.info("Send:"+string);
+        wsclient.getConnection().send(string);
+        return true;
+    }
+
+
+
+    public String value() {
+        return responseBody;
     }
     public boolean post(String url){return  true;}
 
