@@ -1,6 +1,8 @@
 package com.qa.ws;
 
+import com.qa.ConnectServer;
 import com.qa.ConnectWs;
+import com.qa.Store;
 import com.qa.http.HttpLog;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -10,6 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 
+import static com.qa.Store.SOCKET_TIMEOUT;
 import static com.qa.utils.HaoLieUtil.Utf8ArrayToStr;
 
 public class WsTest{
@@ -103,6 +106,17 @@ public class WsTest{
         cs.send("ABC");
         System.out.println(cs.value());
 
+
+
+
+    }
+    @Test
+    public void v2oTest(){
+        Store store = new Store(Store.SOCKET_TIMEOUT,"500");
+        ConnectServer cs=new ConnectServer("ws://121.40.165.18:8088");
+        System.out.println(cs.value());
+        cs.send("ABC");
+        System.out.println(cs.value());
 
     }
 }

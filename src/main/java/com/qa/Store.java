@@ -11,8 +11,10 @@ import java.util.Map;
  * 直接写在测试用例中
  */
 public class Store {
-    static String ENV_KEY ="test.runtime.env";
-    static String GLOBAL_HEADERS_KEY="headers";
+    public static String ENV_KEY ="test.runtime.env";
+    public static String GLOBAL_HEADERS_KEY="headers";
+    public static String SOCKET_TIMEOUT="SocketTimeout";
+
     public Store(String key, String value) {
         put(key,value);
     }

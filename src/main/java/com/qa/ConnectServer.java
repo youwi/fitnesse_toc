@@ -20,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.qa.Store.GLOBAL_HEADERS_KEY;
+import static com.qa.Store.SOCKET_TIMEOUT;
 import static com.qa.Store.getEnv;
 import static com.qa.utils.GsonJsonUtil.gsonPretty;
 import static com.qa.utils.HaoLieUtil.Utf8ArrayToStr;
@@ -52,11 +53,11 @@ public class ConnectServer {
 
     }
     public ConnectServer(String URL) {
-        new ConnectServer(URL,null,null);
+        this(URL,null,null);
     }
 
     public ConnectServer(String URL, String env) {
-       new ConnectServer(URL,env,null);
+         this(URL,env,null);
     }
 
     public ConnectServer(String URL, String env, String type) {
@@ -67,13 +68,15 @@ public class ConnectServer {
         this.autoSetBaseUrl();
         __count_object_++;
         AUTO_GET_BASE_URL();//根据配置文件自动获取IP/URL
-        if(URL.startsWith("ws://")) buildConnectWs(this.URL);
+        if(URL.startsWith("ws://")){
+            buildConnectWs(this.URL);
+        }
 
     }
     public void buildConnectWs(String url) {
 
         try {
-            wsclient = new WebSocketClient(new URI(url)) {
+            this.wsclient = new WebSocketClient(new URI(url)) {
                 @Override
                 public void onOpen(ServerHandshake handshakeData) {
                     HttpLog.info("ConnectSuccess:" + url);
@@ -84,7 +87,6 @@ public class ConnectServer {
                 public void onMessage(String message) {
                     HttpLog.info("Message:"+message);
                     responseBody=message;
-
                 }
 
                 @Override
@@ -113,24 +115,53 @@ public class ConnectServer {
         wsclient.connect();
     }
 
+    public void sleep(int mis){
+        try {
+            Thread.sleep(mis);
+        } catch (InterruptedException e) {
+            HttpLog.info(e.getMessage());
+        }
+    }
+    public void sleep(String mis){
+        sleep(Integer.parseInt(mis));
+    }
+    public void sleep(){
+        sleep(50);
+    }
+
     /**
-     * only for ws://localhost
+     * only for ws://localhost,默认等待250ms
      * @param string
      * @return
      */
     public boolean send(String string) {
-
+        //headers	{author:"haolie"}
+        int timeoutms=250;
+        if(Store.get(SOCKET_TIMEOUT)!=null){
+            timeoutms=Integer.parseInt(Store.get(SOCKET_TIMEOUT)+"");
+        }
         for(int i=0;i<5;i++){
-            if(!wsclient.isOpen()){
+            if(wsclient!=null&&!wsclient.isOpen()){
                 try {
-                    Thread.sleep(50);
+                    Thread.sleep(timeoutms/5);
                 } catch (InterruptedException e) {
                     HttpLog.info(e.getMessage());
                 }
             }
         }
         HttpLog.info("Send:"+string);
+        responseBody=null;
+        if(wsclient==null) throw new RuntimeException("Connect Server fail");
         wsclient.getConnection().send(string);
+        for(int i=0;i<5;i++){
+            if(responseBody==null){
+                try {
+                    Thread.sleep(timeoutms/5);
+                } catch (InterruptedException e) {
+                    HttpLog.info(e.getMessage());
+                }
+            }
+        }
         return true;
     }
 
