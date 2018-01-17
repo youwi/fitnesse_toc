@@ -152,6 +152,10 @@ public class ConnectServer {
         HttpLog.info("Send:"+string);
         responseBody=null;
         if(wsclient==null) throw new RuntimeException("Connect Server fail");
+
+//        if(!wsclient.isOpen()){
+//            throw new RuntimeException("!Connect Closed!");
+//        }
         wsclient.getConnection().send(string);
         for(int i=0;i<5;i++){
             if(responseBody==null){
