@@ -2,6 +2,7 @@
 /target/
 dump
 author.sh
+*.yml
 /.idea
 /*.iml
 ### Java template
