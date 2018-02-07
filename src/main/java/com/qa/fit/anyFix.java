@@ -7,9 +7,9 @@ import fit.Parse;
 /**
  * Created by yu on 16/8/25.
  */
-public class AnyFix     {
+public class anyFix {
 
-    public AnyFix(){
+    public anyFix(){
         System.out.println("AnyFix.....");
 
     }
