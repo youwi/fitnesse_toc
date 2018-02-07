@@ -14,4 +14,4 @@ public class ConfigConstantsDev {
     public final static String JDBC_CONNECT_URL = "jdbc:mysql://10.0.18.188:3306/milestone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false";
     public final static String JDBC_USERNAME = "guwen";
     public final static String JDBC_PASSWORD = "guwen@lifang.com";
- }
+}

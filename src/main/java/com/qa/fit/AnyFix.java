@@ -7,9 +7,9 @@ import fit.Parse;
 /**
  * Created by yu on 16/8/25.
  */
-public class AnyFix     {
+public class AnyFix {
 
-    public AnyFix(){
+    public AnyFix() {
         System.out.println("AnyFix.....");
 
     }
@@ -25,35 +25,35 @@ public class AnyFix     {
 
     }
 
-    public boolean doTable(){
+    public boolean doTable() {
         System.out.println("AnyFix. dotable  ..");
         try {
             Thread.currentThread().sleep(1);
         } catch (InterruptedException e) {
             ExceptionUtil.printlnSo(e);
         }
-        return  true;
+        return true;
 
     }
 
-    public boolean sk(){
+    public boolean sk() {
         System.out.println("sk........");
         try {
             Thread.currentThread().sleep(1);
         } catch (InterruptedException e) {
             ExceptionUtil.printlnSo(e);
         }
-        return  true;
+        return true;
     }
 
 
-    public String bb(){
+    public String bb() {
         System.out.println("bb....");
         try {
             Thread.currentThread().sleep(1000);
         } catch (InterruptedException e) {
             ExceptionUtil.printlnSo(e);
         }
-        return  "BB";
+        return "BB";
     }
 }
