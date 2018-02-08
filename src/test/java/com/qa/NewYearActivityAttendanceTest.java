@@ -25,7 +25,7 @@ public class NewYearActivityAttendanceTest {
     public String jdbcPassword = "haolie123";*/
 
 
-    @Before
+//    @Before
     public void loginHR() {
         userId = 204705 + "";
         new SetUp("com.mysql.jdbc.Driver", jdbcUrl, jdbcUser, jdbcPassword);
