@@ -47,6 +47,19 @@ public class Att {
 
         new Store("headers","{author:\"haolie\",authorization:\""+cs.jsonValue("body")+"\",channel:\"c\"}");
     }
+    @Test
+    public void loginLoginC(){
+        userId=204641+"";
+        new SetUp("com.mysql.jdbc.Driver",	"jdbc:mysql://172.16.52.81:3306/testing?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false","testing",	"haolie123");
+
+        new Store("headers","{author:\"llbc\"}");
+
+        ConnectServer cs = new ConnectServer("http://www.lieluobo.developing/api/biz/account/llbc");
+        cs.setBody("{\"mobile\":\"19900030001\",\"password\":\"123456\",\"channel\":\"c\"}");
+        cs.post();
+
+        new Store("headers","{author:\"haolie\",authorization:\""+cs.jsonValue("body")+"\",channel:\"c\"}");
+    }
     //@Test
     public void Test01At188(){
 

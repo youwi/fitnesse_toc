@@ -713,6 +713,9 @@ public class ConnectServer {
             ADD_SHUTDOWN_HOOK_DOWN=true;
         }
     }
+    protected void finalize( ){
+        HttpLog.info(report());
+    }
 
 
     /**
@@ -753,6 +756,7 @@ public class ConnectServer {
         msg+="total:"+countTotal+"\n";
         return  msgb+msg;
     }
+
 
     /**
      * 按key排序

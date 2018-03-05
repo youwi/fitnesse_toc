@@ -134,6 +134,15 @@ public class DataMaker {
     }
 
     /**
+     * 这个方法纯只返回原样数据
+     * @param src
+     * @return
+     */
+    public static String echo(String src){
+        return src;
+    }
+
+    /**
      * 返回Email
      *
      * @param lMin 最小长度
