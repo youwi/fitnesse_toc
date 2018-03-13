@@ -713,10 +713,14 @@ public class ConnectServer {
             ADD_SHUTDOWN_HOOK_DOWN=true;
         }
     }
-    protected void finalize( ){
-        HttpLog.info(report());
-    }
 
+//    static  boolean IS_TOTAL_COMPLATE=false;
+//
+//    protected void finalize( ){
+//        // 每个测试用例都会调用这个方法,不能使用.
+//        if(IS_TOTAL_COMPLATE)
+//            HttpLog.info(report());
+//    }
 
     /**
      * 显示数据报告,这里只统计 URL 次数
